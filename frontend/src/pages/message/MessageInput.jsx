@@ -35,7 +35,7 @@ const MessageInput = () => {
             <label for="file-upload" class="custom-file-upload"><i className="bx bx-paperclip" /></label>
             <input type="file" name="file" id="file-upload" onChange={onInputChange}/>
             <button type="submit" className="convo-submit"><i className="bx bx-send" /></button>
-            <button className="convo-emoji"><EmojiPicker/></button>
+            <button className="convo-emoji"><i className="bx bx-paperclip" /></button>
         </form>
     </div>
   )

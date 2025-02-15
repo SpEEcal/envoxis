@@ -16,7 +16,7 @@ export const SocketContextProvider = ({children}) => {
 
     useEffect(() => {
         if(authUser){
-            const socket = io("https://envoxis.g1-eu-west.galaxycloud.app", {
+            const socket = io("https://envoxis.onrender.com", {
                 query:{
                     userId: authUser._id,
                 }

@@ -1,0 +1,184 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body{
+    background-color: #7DAA92;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 0 20px;
+}
+
+.settings-container{
+    display: flex;
+    width: 1800px;
+    height: 800px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 30px;
+    backdrop-filter: blur(20px);
+    overflow: hidden;
+}
+
+.menu-filter{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 15%;
+    background: #1a171b;
+    opacity: 0.6;
+    backdrop-filter: blur(30px);
+    border-radius: 20px;
+}
+
+.option-listing{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 60%;
+    background: #342e37;
+    opacity: 0.6;
+    backdrop-filter: blur(30px);
+    border-radius: 20px;
+}
+
+/* To change the profile stuff */
+.profile-view{
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    background: rgba(101, 89, 107, 0.6);
+    backdrop-filter: blur(30px);
+    border-radius: 20px;
+}
+
+.titleUP{
+    align-self: center;
+    font-size: 35px;
+    font-weight: 1000;
+    text-decoration: underline;
+    margin-top: 5%;
+}
+
+.ChangePFP{
+    margin-top: 25%;
+    align-self: center;
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+}
+
+.ChangeUsername{
+    margin-top: 10%;
+    color: #ffffff;
+    text-align: center;
+    border-radius: 10%;
+    width: 70%;
+    background-color: rgba(79, 73, 82, 0.6);
+    outline: none;
+    position: absolute;
+    left: 13%;
+}
+
+.CUTitle{
+    margin-top: 5px;
+    text-decoration:underline;
+    display: flex;
+    position: absolute;
+    left: 34%;
+    font-weight: 500;
+    color: white;
+}
+
+.Update1 i{
+    color: #fff;
+    position: absolute;
+    right: 19%;
+    margin-top: 11%;
+}
+
+.ChangeEmail{
+    margin-top: 30%;
+    color: #ffffff;
+    text-align: center;
+    border-radius: 10%;
+    width: 70%;
+    background-color: rgba(79, 73, 82, 0.6);
+    outline: none;
+    position: absolute;
+    left: 3%;
+}
+
+.CETitle{
+    margin-top: 70px;
+    text-decoration:underline;
+    display: flex;
+    position: absolute;
+    left: 30%;
+    font-weight: 500;
+    color: white;
+}
+
+.Update2 i{
+    color: #fff;
+    position: absolute;
+    right: 19%;
+    margin-top: 31%;
+}
+
+.ChangeEmail, .ChangePassword{
+    margin-left: 10%;
+}
+
+.DeleteUser{
+    background-color: rgb(202, 42, 42);
+    align-self: center;
+    position: absolute;
+    bottom: 5%;
+    border-radius: 10px;
+    border-width: 8px;
+    border-color: rgb(202, 42, 42);
+    color: white;
+    font-weight: 900;
+}
+
+.ChangePassword{
+    background-color: rgb(69, 82, 90);
+    align-self: center;
+    position: absolute;
+    bottom: 25%;
+    left: 13%;
+    border-radius: 10px;
+    border-width: 8px;
+    border-color: rgb(69, 82, 90);
+    color: white;
+    font-weight: 900;
+}
+
+/* To support mobile devices */
+@media (max-width:892px){
+    .settings-container{
+        width: 400px;
+    }
+    .sidebar-container{
+        width: 20%;
+    }
+    .menu-filter{
+        display: none;
+    }
+    .option-listing{
+        display: none;
+    }
+    .profile-view{
+        width: 80%;
+    }
+}

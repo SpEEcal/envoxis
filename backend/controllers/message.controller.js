@@ -70,7 +70,7 @@ export const uploadFile = async (req,res) => {
         const { id: receiverId } = req.params
         const senderId = req.user._id
         let filetype = ""
-        const message = `./dist/fileuploads/${req.file.filename}`
+        const message = `../fileuploads/${req.file.filename}`
         const filename = req.file.originalname
         console.log(req.file)
         let conversation = await Conversation.findOne({

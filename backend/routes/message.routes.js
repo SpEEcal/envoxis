@@ -5,6 +5,7 @@ import protectRoute from "../middleware/protectRoute.js"
 import multer from "multer";
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
+      cb(null, 'frontend/public/fileuploads')
       cb(null, 'frontend/dist/fileuploads')
     },
     filename: function (req, file, cb) {

@@ -13,7 +13,7 @@ export const sendMessage = async (req, res) => {
         // private key
         const key = "anastasiascatwascalledmaxbutdead"
         // random 16 bit initialization vector
-        const iv = crypto.randomBytes(16)
+        let iv = crypto.randomBytes(16)
 
         let conversation = await Conversation.findOne({
             participants: { $all: [senderId, receiverId] },

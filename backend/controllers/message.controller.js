@@ -9,7 +9,7 @@ export const sendMessage = async (req, res) => {
         const { id: receiverId } = req.params;
         const senderId = req.user._id;
         // set encryption alogrithm
-        const alogrithm = 'aes-256-cbc'
+        const algorithm = 'aes-256-cbc'
         // private key
         const key = "anastasiascatwascalledmaxbutdead"
         // random 16 bit initialization vector
@@ -30,6 +30,7 @@ export const sendMessage = async (req, res) => {
         let encrytedData = cipher.update(message, "utf-8", "hex")
         encrytedData += cipher.final("hex")
         message = encrytedData
+        console.log(message)
 
         // convert the initialisation vector to base64 string
         const base64data = Buffer.from(iv, "binary").toString("base64")

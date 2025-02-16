@@ -86,7 +86,9 @@ export const getMessages = async (req, res) => {
 
         if(!conversation) return res.status(200).json([])
 
-        const encryptedmessages = conversation.messages
+        const encryptedmessages = await Message.findById({
+            id: { $all: [conversation.messages]}
+        }).populate()
 
         //new array for messages 
         const messages = encryptedmessages.map((message) => {

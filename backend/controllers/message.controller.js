@@ -25,6 +25,12 @@ export const sendMessage = async (req, res) => {
             })
         }
 
+        const messagetobesent = Message({
+            message,
+            senderId,
+            receiverId,
+        })
+
         //encrypt message using AES, Private key and initialisation vector
         const cipher = crypto.createCipheriv(algorithm, key, iv)
         let encrytedData = cipher.update(message, "utf-8", "hex")
@@ -57,7 +63,7 @@ export const sendMessage = async (req, res) => {
         //will run in parallel
         await Promise.all([conversation.save(), newMessage.save()]);
 
-        res.status(201).json(newMessage);
+        res.status(201).json(messagetobesent);
 
     } catch (error) {
         console.log("Error in sendMessage controller: ", error.message)

@@ -2,7 +2,6 @@ import Conversation from "../models/conversation.model.js";
 import Message from "../models/message.model.js";
 import { getReceiverSocketId, io } from "../socket/socket.js";
 import crypto from "crypto";
-import { useState } from "react"
 
 export const sendMessage = async (req, res) => {
     try {
@@ -71,7 +70,7 @@ export const getMessages = async (req, res) => {
         const {id:userToChatId} = req.params;
         const senderId = req.user._id;
         //new array for messages 
-        let [messages] = useState([]);
+        let messages = []
         // set encryption alogrithm
         const algorithm = 'aes-256-cbc'
         // private key

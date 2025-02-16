@@ -75,8 +75,6 @@ export const getMessages = async (req, res) => {
     try {
         const {id:userToChatId} = req.params;
         const senderId = req.user._id;
-        //new array for messages 
-        let messages = []
         // set encryption alogrithm
         const algorithm = 'aes-256-cbc'
         // private key
@@ -90,7 +88,8 @@ export const getMessages = async (req, res) => {
 
         const encryptedmessages = conversation.messages
 
-        messages = encryptedmessages.map((message) => {
+        //new array for messages 
+        const messages = encryptedmessages.map((message) => {
             //convert initialise vector from base64 to buffer
             const originaldata = Buffer.from(message.iv, 'base64')
 

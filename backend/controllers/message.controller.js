@@ -75,10 +75,6 @@ export const getMessages = async (req, res) => {
     try {
         const {id:userToChatId} = req.params;
         const senderId = req.user._id;
-        // set encryption alogrithm
-        const algorithm = 'aes-256-cbc'
-        // private key
-        const key = "anastasiascatwascalledmaxbutdead"
 
         const conversation = await Conversation.findOne({
             participants: { $all: [senderId, userToChatId] },
@@ -86,20 +82,7 @@ export const getMessages = async (req, res) => {
 
         if(!conversation) return res.status(200).json([])
 
-        const encryptedmessages = await Message.findById({
-            id: { $all: [conversation.messages]}
-        }).populate()
-
-        //new array for messages 
-        const messages = encryptedmessages.map((message) => {
-            //convert initialise vector from base64 to buffer
-            const originaldata = Buffer.from(message.iv, 'base64')
-
-            //decrypt message using aes and private key
-            const decipher = crypto.createCipheriv(algorithm, key, originaldata)
-            let decrypteddata = decipher.update(message.message, "hex", "utf-8")
-            decrypteddata += decipher.final("utf8")
-        })
+        const messages = conversation.messages
 
         res.status(200).json(messages)
     } catch (error) {

@@ -1,12 +1,19 @@
 import Conversation from "../models/conversation.model.js";
 import Message from "../models/message.model.js";
 import { getReceiverSocketId, io } from "../socket/socket.js";
+import crypto from "crypto";
 
 export const sendMessage = async (req, res) => {
     try {
         const { message } = req.body;
         const { id: receiverId } = req.params;
         const senderId = req.user._id;
+        // set encryption alogrithm
+        const alogrithm = 'aes-256-cbc'
+        // private key
+        const key = "anastasiascatwascalledmaxbutdead"
+        // random 16 bit initialization vector
+        const iv = crypto.randomBytes(16)
 
         let conversation = await Conversation.findOne({
             participants: { $all: [senderId, receiverId] },
@@ -18,7 +25,18 @@ export const sendMessage = async (req, res) => {
             })
         }
 
+        //encrypt message using AES, Private key and initialisation vector
+        const cipher = crypto.createCipheriv(algorithm, key, iv)
+        let encrytedData = cipher.update(message, "utf-8", "hex")
+        encrytedData += cipher.final("hex")
+        message = encrytedData
+
+        // convert the initialisation vector to base64 string
+        const base64data = Buffer.from(iv, "binary").toString("base64")
+        iv = base64data
+
         const newMessage = new Message({
+            iv,
             message,
             senderId,
             receiverId,

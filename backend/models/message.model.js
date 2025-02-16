@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { type } from "os";
 
 const messageSchema = new mongoose.Schema({
     senderId:{
@@ -10,6 +11,9 @@ const messageSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true
+    },
+    iv:{
+        type: String
     },
     message:{
         type: String,

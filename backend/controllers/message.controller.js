@@ -69,6 +69,10 @@ export const getMessages = async (req, res) => {
     try {
         const {id:userToChatId} = req.params;
         const senderId = req.user._id;
+        // set encryption alogrithm
+        const algorithm = 'aes-256-cbc'
+        // private key
+        const key = "anastasiascatwascalledmaxbutdead"
 
         const conversation = await Conversation.findOne({
             participants: { $all: [senderId, userToChatId] },
@@ -77,6 +81,14 @@ export const getMessages = async (req, res) => {
         if(!conversation) return res.status(200).json([])
 
         const messages = conversation.messages 
+        //convert initialise vector from base64 to buffer
+        const originaldata = Buffer.from(messages.iv, 'base64')
+
+        //decrypt message using aes and private key
+        const decipher = crypto.createCipheriv(algorithm, key, originaldata)
+        let decrypteddata = decipher.update(messages.message, "hex", "utf-8")
+        decrypteddata += decipher.final("utf8")
+
         res.status(200).json(messages)
     } catch (error) {
         console.log("Error in getMessage controller: ", error.message)

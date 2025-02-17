@@ -85,6 +85,7 @@ export const getMessages = async (req, res) => {
         const messages = conversation.messages
         console.log(`messages: ${messages}`)
         const decryptedmessages = messages.map((message) => {
+            console.log(message)
             // encryption alogrithm
             const algorithm = 'aes-256-cbc'
             // private key

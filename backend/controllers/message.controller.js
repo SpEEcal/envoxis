@@ -94,9 +94,7 @@ export const getMessages = async (req, res) => {
 export const decryptdata = async (req, res) => {
     try{
         const { data } = req.body
-        console.log(data)
         const decryptedmessages = data.map((message) => {
-            console.log(message.message)
             // encryption alogrithm
             const algorithm = 'aes-256-cbc'
             // private key
@@ -110,6 +108,7 @@ export const decryptdata = async (req, res) => {
             let decrypted = decipher.update(message.message, "hex", "utf-8")
             decrypted += decipher.final("utf8")
             message.message = decrypted
+            console.log(decrypted)
         })
     
         res.status(200).json(decryptedmessages)

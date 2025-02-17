@@ -20,7 +20,7 @@ const useGetMessages = () => {
                         "Content-Type": "application/json",
                         'Accept':'application/json'
                     },
-                    body: JSON.stringify({data})
+                    body: data
                 })
                 setMessages(decrypteddata)
             } catch (error) {

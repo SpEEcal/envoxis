@@ -13,8 +13,11 @@ const useGetMessages = () => {
                 const res = await fetch(`/api/messages/M/${selectedConversation._id}`)
                 const data = await res.json()
                 if(data.error) throw new Error(data.error)
-                console.log(data[0].message)
-                setMessages(data)
+            // map through every message in data array and then decrypt each message into a seperate array and then set that in "setMessages"
+            const decrypteddata = data((message) => {
+                console.log(message.message)
+            })
+                setMessages(decrypteddata)
             } catch (error) {
                 toast.error(error.message)
             } finally{

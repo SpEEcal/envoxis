@@ -83,29 +83,40 @@ export const getMessages = async (req, res) => {
         if(!conversation) return res.status(200).json([])
 
         const messages = conversation.messages
-        console.log(`messages: ${messages}`)
-        const decryptedmessages = messages.map((message) => {
-            console.log(message)
-            // encryption alogrithm
-            const algorithm = 'aes-256-cbc'
-            // private key
-            const key = "anastasiascatwascalledmaxbutdead"
 
-            //convert initialise vector from base64 to buffer
-            const originaldata = Buffer.from(message.iv, 'base64')
-
-            // decrypt string using aes and private key
-            const decipher = crypto.createDecipheriv(algorithm, key, originaldata)
-            let decrypted = decipher.update(message.message, "hex", "utf-8")
-            decrypted += decipher.final("utf8")
-        })
-
-        res.status(200).json(decryptedmessages)
+        res.status(200).json(messages)
     } catch (error) {
         console.log("Error in getMessage controller: ", error.message)
         res.status(500).json({error:"Internal server error"});
     }
 };
+
+export const decryptdata = async (req, res) => {
+    try{
+        const { data } = req.body
+        const decryptedmessages = data.map((message) => {
+            console.log(message.message)
+            // encryption alogrithm
+            const algorithm = 'aes-256-cbc'
+            // private key
+            const key = "anastasiascatwascalledmaxbutdead"
+    
+            //convert initialise vector from base64 to buffer
+            const originaldata = Buffer.from(message.iv, 'base64')
+    
+            // decrypt string using aes and private key
+            const decipher = crypto.createDecipheriv(algorithm, key, originaldata)
+            let decrypted = decipher.update(message.message, "hex", "utf-8")
+            decrypted += decipher.final("utf8")
+        })
+    
+        res.status(200).json(decryptedmessages)
+    }
+    catch (error){
+        console.log("Error in decryptdata controller: ", error.message)
+        res.status(500).json({error:"Internal server error"});
+    }
+}
 
 export const uploadFile = async (req,res) => {
     try {

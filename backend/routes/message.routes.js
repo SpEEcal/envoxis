@@ -1,5 +1,5 @@
 import express from "express";
-import { getMessages, sendMessage, uploadFile } from "../controllers/message.controller.js";
+import { decryptdata, getMessages, sendMessage, uploadFile } from "../controllers/message.controller.js";
 import protectRoute from "../middleware/protectRoute.js"
 
 import multer from "multer";
@@ -19,5 +19,6 @@ const router = express.Router();
 router.get("/M/:id", protectRoute, getMessages);
 router.post("/send/:id", protectRoute,sendMessage);
 router.post("/uploadfile/:id", [upload.single("file"), protectRoute], uploadFile);
+router.post("/decrypt", protectRoute, decryptdata);
 
 export default router;

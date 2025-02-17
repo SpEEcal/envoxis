@@ -94,6 +94,7 @@ export const getMessages = async (req, res) => {
 export const decryptdata = async (req, res) => {
     try{
         const { data } = req.body
+        console.log(data)
         const decryptedmessages = data.map((message) => {
             console.log(message.message)
             // encryption alogrithm

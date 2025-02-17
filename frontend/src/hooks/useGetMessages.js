@@ -14,7 +14,7 @@ const useGetMessages = () => {
                 const data = await res.json()
                 if(data.error) throw new Error(data.error)
                 // map through every message in data array and then decrypt each message into a seperate array and then set that in "setMessages"
-                const decrypteddata = await("/api/messages/decrypt",{
+                const decrypteddata = await fetch("/api/messages/decrypt",{
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",

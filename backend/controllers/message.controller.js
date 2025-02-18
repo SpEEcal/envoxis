@@ -108,8 +108,10 @@ export const decryptdata = async (req, res) => {
             let decrypted = decipher.update(message.message, "hex", "utf-8")
             decrypted += decipher.final("utf8")
             message.message = decrypted
-            console.log(message.message)
         })
+        console.log(decryptedmessages)
+        console.log("//////////////")
+        console.log(data)
     
         res.status(200).json(decryptedmessages)
     }

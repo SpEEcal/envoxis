@@ -25,7 +25,7 @@ const SearchInput = () => {
 
   return (
     <form onSubmit={handleSubmit} className="contact-form">
-        <input type="search" className="contact-input" placeholder="Search contact..." value={search} onChange={(e) => setSearch(e.target.value)}/>
+        <input type="search" className="contact-input" placeholder="Search user..." value={search} onChange={(e) => setSearch(e.target.value)}/>
         <button className="contact-submit"><i className="bx bx-search-alt-2" /></button>
     </form>
   )

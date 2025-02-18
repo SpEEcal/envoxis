@@ -75,6 +75,12 @@ const NoChatSelected = () => {
 
 const AddFriends = () => {
   return (
-    <div>WORKKKKKKKKKKKKKKKKKKKKKKKKKKK</div>
+    <div className="add-friend-container">
+        <form className="friend-form">
+            <input type="search" className="friend-input" placeholder="Search user..."/>
+            <button className="friend-submit"><i className="bx bx-search-alt-2" /></button>
+        </form>
+
+    </div>
   )
 }

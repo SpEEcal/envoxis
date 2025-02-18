@@ -94,7 +94,7 @@ export const getMessages = async (req, res) => {
 export const decryptdata = async (req, res) => {
     try{
         const { data } = req.body
-        const decryptedmessages = data.map((message) => {
+        data.map((message) => {
             // encryption alogrithm
             const algorithm = 'aes-256-cbc'
             // private key
@@ -109,11 +109,9 @@ export const decryptdata = async (req, res) => {
             decrypted += decipher.final("utf8")
             message.message = decrypted
         })
-        console.log(decryptedmessages)
-        console.log("//////////////")
         console.log(data)
     
-        res.status(200).json(decryptedmessages)
+        res.status(200).json(data)
     }
     catch (error){
         console.log("Error in decryptdata controller: ", error.message)

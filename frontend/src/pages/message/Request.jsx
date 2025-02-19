@@ -1,9 +1,13 @@
-import React from 'react'
+import useDeleteRequest from "../../hooks/useDeleteRequest"
 
 const Request = ({request}) => {
-    console.log(request)
+    // setting senderId in request to a variable
     const senderinfo = request.senderId
-    console.log(senderinfo.username)
+
+    // delete request
+    const deleteRequest = (senderid) => {
+        useDeleteRequest(senderid)
+    }
 
   return (
     <div className="request-container">
@@ -14,10 +18,10 @@ const Request = ({request}) => {
             {senderinfo.username}
         </div>
         <div className="accept-button">
-            <i className="bx bx-check"></i>
+            <button><i className="bx bx-check"/></button>
         </div>
         <div className="decline-button">
-            <i className="bx bx-x"></i>
+            <button onClick={deleteRequest(senderinfo._id)}><i className="bx bx-x"/></button>
         </div>
     </div>
   )

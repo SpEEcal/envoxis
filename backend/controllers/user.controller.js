@@ -73,3 +73,20 @@ export const getFriends = async (req, res) => {
 
     res.status(200).json(friends)
 }
+
+export const deleteRequest = async (req, res) => {
+    try {
+        const receiverId = req.user._id
+        const {senderId} = req.body
+        const request = await friendRequest.findOneAndDelete({"receiverId": receiverId, "senderId": senderId})
+
+        if (!request){
+            return res.status(400).json("Request not found")
+        }
+
+        res.status(200).json({message: "Deleted request successfully"});
+    } catch (error) {
+        console.log("Error in deleteRequest controller", error.message)
+        res.status(500).json({error:"Internal Server Error"})
+    }
+}

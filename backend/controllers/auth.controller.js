@@ -217,7 +217,8 @@ export const changepfp = async(req, res) => {
             profilePic: user.profilePic,
             status: user.status
         })
-    } catch{
-
+    } catch (error){
+        console.log("Error in changepfp controller", error.message)
+        res.status(500).json({error:"Internal Server Error"})
     }
 }

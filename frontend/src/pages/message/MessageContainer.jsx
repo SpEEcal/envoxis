@@ -5,6 +5,8 @@ import MessageInput from "./MessageInput"
 import { useAuthContext } from "../../context/AuthContext"
 import useAddFriends from "../../zustand/useAddFriends"
 import useRequestSent from "../../hooks/useRequestSent"
+import Request from "./Request"
+import useGetRequests from "../../hooks/useGetRequests"
 
 const MessageContainer = () => {
     const {selectedConversation, setSelectedConversation} = useConversation()
@@ -75,32 +77,44 @@ const NoChatSelected = () => {
 }
 
 const AddFriends = () => {
+    // to set the username to send the request to
     const [friend, setFriend] = useState("")
-    const isRequest = null
+    // grabs array list of requests
+    const requests = useGetRequests()
+    // checks if there are any requests to the current user
+    const isRequest = requests !== undefined
+    // function to be used from hook
     const { RequestSent } = useRequestSent()
 
     const handleRequest = (e) => {
+        // prevents website from refreshing when user sends request
         e.preventDefault()
+        // if nothing is sent, nothing is returned
         if (!friend) return
+        // usernames cannot be less than 3 characters long
         if(friend.length < 3){
             return toast.error('Usernames are at least 3 characters long')
         }
         else{
+            // sends request to the user
             RequestSent(friend)
         }
     }
 
     return (
-        // displaying both the requests from other users and to give requests to others
         <div className="add-friend-container">
+            {/* displays input box to sent users requests */}
             <h1 className="friend-title">Add and Accept Users to Chat with</h1>
             <form onSubmit={handleRequest} className="friend-form">
+                {/* Grabs username inputted by the user */}
                 <input type="search" className="friend-input" placeholder="Search user..." value={friend} onChange={(e) => setFriend(e.target.value)}/>
                 <button className="friend-submit"><i className="bx bx-search-alt-2" /></button>
             </form>
-            <h1 className="requests-incoming">Requests</h1>
-
-            
+            {/* displays requests sent TO user */}
+            {isRequest ? <h1 className="requests-incoming">Incoming requests</h1> : <h1 className="requests-incoming">No incoming requests</h1>}
+            {isRequest && requests.map((request) => {
+                <Request key={request._id} request={request} />
+            })}
         </div>
     )
 }

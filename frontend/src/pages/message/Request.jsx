@@ -1,6 +1,4 @@
 import React from 'react'
-import { useAuthContext } from '../../context/AuthContext'
-import useGetSenderOfRequest from '../../hooks/useGetSenderOfRequest'
 
 const Request = ({request}) => {
     console.log(request)

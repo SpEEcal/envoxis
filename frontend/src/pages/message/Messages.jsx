@@ -155,14 +155,9 @@ const Messages = () => {
         <div key={message._id} ref={lastMessageRef}>
           {Current_Time(message)}
           {isText = isTextF(message)}
-          {console.log(`//`)}
-          {console.log(`isText: ${isText}`)}
           {isText ? <SentMessage key={message._id} message={message} />: ""}
           {isImage = message.filetype === "image"}
           {isFile = message.filetype === "document"}
-          {console.log(`filetype: ${message.filetype}`)}
-          {console.log(`isImage: ${isImage}`)}
-          {console.log(`isFile: ${isFile}`)}
           {isImage ? (<SentImage key={message._id} message={message} />): ""}
           {isFile ? (<SentFile key={message._id} message={message} />): ""}
         </div>

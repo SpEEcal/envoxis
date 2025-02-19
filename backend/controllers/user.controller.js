@@ -80,6 +80,7 @@ export const deleteRequest = async (req, res) => {
         const {senderId} = req.body
         const request = await friendRequest.findOneAndDelete({"receiverId": receiverId, "senderId": senderId})
 
+        console.log(request)
         if (!request){
             return res.status(400).json("Request not found")
         }

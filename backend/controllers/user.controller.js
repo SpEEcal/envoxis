@@ -77,7 +77,7 @@ export const getFriends = async (req, res) => {
 export const deleteRequest = async (req, res) => {
     try {
         const receiverId = req.user._id
-        const {senderId} = req.body
+        const senderId = req.body
         const request = await friendRequest.findOneAndDelete({"receiverId": receiverId, "senderId": senderId})
 
         console.log(request)

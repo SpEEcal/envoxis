@@ -10,6 +10,10 @@ const Request = ({request}) => {
         window.location.reload(true)
     }
 
+    const acceptRequest = () => {
+        console.log()
+    }
+
   return (
     <div className="request-container">
         <div className="senderPFP">
@@ -18,12 +22,14 @@ const Request = ({request}) => {
         <div className="senderUsername">
             {senderinfo.username}
         </div>
-        <div className="accept-button">
-            <button><i className="bx bx-check"/></button>
-        </div>
-        <div className="decline-button">
-            <button onClick={deleteRequest(senderinfo._id)}><i className="bx bx-x"/></button>
-        </div>
+        <form>
+            <div className="accept-button">
+                <button onClick={acceptRequest()}><i className="bx bx-check"/></button>
+            </div>
+            <div className="decline-button">
+                <button onClick={deleteRequest(senderinfo._id)}><i className="bx bx-x"/></button>
+            </div>
+        </form>
     </div>
   )
 }

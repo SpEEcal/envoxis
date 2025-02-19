@@ -29,7 +29,6 @@ export const sendRequest = async (req, res) => {
         }
         
         const receiverId = userToBeFound._id
-
         // finds if there has already been a request
         const alreadyRequest = await friendRequest.findOne({"receiverId": receiverId, "senderId": senderId})
         // if there is already a request return an error message
@@ -43,7 +42,7 @@ export const sendRequest = async (req, res) => {
             receiverId
         })
 
-        await Promise.all(newRequest.save());
+        await Promise(newRequest.save());
 
         res.status(201).json(newRequest)
     } catch (error) {

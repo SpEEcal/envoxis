@@ -1,6 +1,7 @@
 import toast from "react-hot-toast"
 
 const useDeleteRequest = async (senderid) => {
+    console.log(senderid)
     try {
         const res = await fetch("/api/users/deleterequest", {
             method: "POST",

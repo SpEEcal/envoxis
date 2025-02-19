@@ -112,9 +112,7 @@ const AddFriends = () => {
             </form>
             {/* displays requests sent TO user */}
             {isRequest ? <h1 className="requests-incoming">Incoming requests</h1> : <h1 className="requests-incoming">No incoming requests</h1>}
-            {isRequest && requests.map((request) => {
-                <Request key={request._id} request={request} />
-            })}
+            {requests.map((request) => {isRequest ? <Request key={request._id} request={request} /> : ""})}
         </div>
     )
 }

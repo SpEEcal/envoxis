@@ -42,7 +42,7 @@ export const sendRequest = async (req, res) => {
             receiverId
         })
 
-        await Promise(newRequest.save());
+        await newRequest.save();
 
         res.status(201).json(newRequest)
     } catch (error) {

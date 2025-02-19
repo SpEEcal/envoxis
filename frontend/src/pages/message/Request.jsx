@@ -7,7 +7,6 @@ const Request = ({request}) => {
     // delete request
     const deleteRequest = (senderid) => {
         useDeleteRequest(senderid)
-        window.location.reload(true)
     }
 
     const acceptRequest = () => {

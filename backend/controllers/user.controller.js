@@ -36,6 +36,12 @@ export const sendRequest = async (req, res) => {
             return res.status(400).json({error: "Request has already been sent"})
         }
 
+        //if the user is already the persons friend
+        const alreadyFriend = await User.findOne({"friends": senderId})
+        if (alreadyFriend){
+            return res.status(400).json({error: "User has been already added"})
+        }
+
         // creates a request to be accepted by the receiving user
         const newRequest = new friendRequest({
             senderId,
@@ -88,6 +94,20 @@ export const deleteRequest = async (req, res) => {
         res.status(200).json({message: "Deleted request successfully"});
     } catch (error) {
         console.log("Error in deleteRequest controller", error.message)
+        res.status(500).json({error:"Internal Server Error"})
+    }
+}
+
+export const addFriend = async (req, res) => {
+    try {
+        const receiverId = req.user._id
+        const {senderid} = req.body
+        
+        await User.findOneAndUpdate({"receiverId": receiverId, "senderId": senderid}, { $set: { friends: senderid }})
+
+        res.status(200).json({message: "Added friend successfully"});
+    } catch (error) {
+        console.log("Error in addFriend controller", error.message)
         res.status(500).json({error:"Internal Server Error"})
     }
 }

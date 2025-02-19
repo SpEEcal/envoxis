@@ -20,8 +20,8 @@ export const useUpdateUsername = () => {
                 throw new Error(data.error)
             }
 
-            localStorage.setItem("chat-user", JSON.stringify(data))
-            setAuthUser(data)
+            await localStorage.setItem("chat-user", JSON.stringify(data))
+            await setAuthUser(data)
         } catch (error) {
             toast.error(error.message)
         }

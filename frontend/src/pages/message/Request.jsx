@@ -1,3 +1,4 @@
+import useAddFriend from "../../hooks/useAddFriend"
 import useDeleteRequest from "../../hooks/useDeleteRequest"
 
 const Request = ({request}) => {
@@ -9,8 +10,8 @@ const Request = ({request}) => {
         useDeleteRequest(senderid)
     }
 
-    const acceptRequest = () => {
-        console.log()
+    const acceptRequest = (senderid) => {
+        useAddFriend(senderid)
     }
 
   return (
@@ -21,7 +22,7 @@ const Request = ({request}) => {
         <div className="senderUsername">
             {senderinfo.username}
         </div>
-        <form onSubmit={acceptRequest()}>
+        <form onSubmit={acceptRequest(senderinfo._id)}>
             <div className="accept-button">
                 <button><i className="bx bx-check"/></button>
             </div>

@@ -81,8 +81,8 @@ const AddFriends = () => {
 
     const handleRequest = (e) => {
         e.preventDefault()
-        if (!search) return
-        if(search.length < 3){
+        if (!friend) return
+        if(friend.length < 3){
             return toast.error('Usernames are at least 3 characters long')
         }
         else{

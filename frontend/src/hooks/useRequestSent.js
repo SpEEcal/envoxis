@@ -1,4 +1,4 @@
-import React from 'react'
+import toast from 'react-hot-toast'
 
 const useRequestSent = () => {
     const RequestSent = async (username) => {

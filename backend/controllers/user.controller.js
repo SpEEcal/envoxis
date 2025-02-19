@@ -63,7 +63,7 @@ export const senderinfo = async (req, res) => {
 }
 
 export const getRequests = async (req, res) => {
-    const requests = await friendRequest.find({receiverId: req.user._id}).populate("sender", "_id username profilePic")
+    const requests = await friendRequest.find({receiverId: req.user._id}).populate("senderId", "_id username profilePic")
 
     res.status(200).json(requests)
 }

@@ -80,7 +80,8 @@ const AddFriends = () => {
     // to set the username to send the request to
     const [friend, setFriend] = useState("")
     // grabs array list of requests
-    const requests = useGetRequests()
+    const { requests } = useGetRequests()
+    console.log(requests)
     // checks if there are any requests to the current user
     const isRequest = requests !== undefined
     // function to be used from hook

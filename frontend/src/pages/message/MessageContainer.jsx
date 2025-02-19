@@ -81,7 +81,6 @@ const AddFriends = () => {
     const [friend, setFriend] = useState("")
     // grabs array list of requests
     const { requests } = useGetRequests()
-    console.log(requests)
     // checks if there are any requests to the current user
     const isRequest = requests !== undefined
     // function to be used from hook
@@ -114,7 +113,6 @@ const AddFriends = () => {
             {/* displays requests sent TO user */}
             {isRequest ? <h1 className="requests-incoming">Incoming requests</h1> : <h1 className="requests-incoming">No incoming requests</h1>}
             {isRequest && requests.map((request) => {
-                {console.log(request)}
                 <Request key={request._id} request={request} />
             })}
         </div>

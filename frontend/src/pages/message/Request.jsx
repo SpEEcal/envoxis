@@ -3,8 +3,9 @@ import { useAuthContext } from '../../context/AuthContext'
 import useGetSenderOfRequest from '../../hooks/useGetSenderOfRequest'
 
 const Request = ({request}) => {
-    const senderinfo = useGetSenderOfRequest(request)
-    console.log(senderinfo)
+    console.log(request)
+    const senderinfo = request.senderId
+    console.log(senderinfo.username)
 
   return (
     <div className="request-container">

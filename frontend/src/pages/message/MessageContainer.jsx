@@ -1,9 +1,10 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import useConversation from "../../zustand/useConversation"
 import Messages from "./Messages"
 import MessageInput from "./MessageInput"
 import { useAuthContext } from "../../context/AuthContext"
 import useAddFriends from "../../zustand/useAddFriends"
+import useRequestSent from "../../hooks/useRequestSent"
 
 const MessageContainer = () => {
     const {selectedConversation, setSelectedConversation} = useConversation()
@@ -74,13 +75,32 @@ const NoChatSelected = () => {
 }
 
 const AddFriends = () => {
-  return (
-    <div className="add-friend-container">
-        <form className="friend-form">
-            <input type="search" className="friend-input" placeholder="Search user..."/>
-            <button className="friend-submit"><i className="bx bx-search-alt-2" /></button>
-        </form>
+    const [friend, setFriend] = useState("")
+    const isRequest = null
+    const { RequestSent } = useRequestSent()
 
-    </div>
-  )
+    const handleRequest = (e) => {
+        e.preventDefault()
+        if (!search) return
+        if(search.length < 3){
+            return toast.error('Usernames are at least 3 characters long')
+        }
+        else{
+            RequestSent(friend)
+        }
+    }
+
+    return (
+        // displaying both the requests from other users and to give requests to others
+        <div className="add-friend-container">
+            <h1 className="friend-title">Add and Accept Users to Chat with</h1>
+            <form onSubmit={handleRequest} className="friend-form">
+                <input type="search" className="friend-input" placeholder="Search user..." value={friend} onChange={(e) => setFriend(e.target.value)}/>
+                <button className="friend-submit"><i className="bx bx-search-alt-2" /></button>
+            </form>
+            <h1 className="requests-incoming">Requests</h1>
+
+            
+        </div>
+    )
 }

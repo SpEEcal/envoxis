@@ -4,6 +4,7 @@ import useGetSenderOfRequest from '../../hooks/useGetSenderOfRequest'
 
 const Request = ({request}) => {
     const senderinfo = useGetSenderOfRequest(request)
+    console.log(senderinfo)
 
   return (
     <div className="request-container">

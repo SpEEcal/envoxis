@@ -22,12 +22,14 @@ const Request = ({request}) => {
         <div className="senderUsername">
             {senderinfo.username}
         </div>
-        <form>
+        <form onSubmit={acceptRequest()}>
             <div className="accept-button">
-                <button onClick={acceptRequest()}><i className="bx bx-check"/></button>
+                <button><i className="bx bx-check"/></button>
             </div>
+        </form>
+        <form onSubmit={deleteRequest(senderinfo._id)}>
             <div className="decline-button">
-                <button onClick={deleteRequest(senderinfo._id)}><i className="bx bx-x"/></button>
+                <button><i className="bx bx-x"/></button>
             </div>
         </form>
     </div>

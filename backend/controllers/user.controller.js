@@ -16,7 +16,7 @@ export const getUsersForSidebar = async (req, res) => {
         console.log("/////////////////////")
         console.log(friends)
 
-        res.status(200).json(friends);
+        res.status(200).json(filteredUsers);
 
     } catch (error) {
         console.log("Error in getUsersForSidebar: ", error.message)

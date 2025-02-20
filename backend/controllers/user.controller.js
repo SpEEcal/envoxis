@@ -103,7 +103,7 @@ export const addFriend = async (req, res) => {
         const receiverId = req.user._id
         const {senderid} = req.body
         
-        await User.findOneAndUpdate({"receiverId": receiverId, "senderId": senderid}, { $set: { friends: senderid }})
+        await User.findOneAndUpdate({"_id": receiverId}, { $set: { friends: senderid }})
 
         res.status(200).json({message: "Added friend successfully"});
     } catch (error) {

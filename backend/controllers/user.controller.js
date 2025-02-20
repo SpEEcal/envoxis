@@ -6,7 +6,7 @@ export const getUsersForSidebar = async (req, res) => {
 
         const loggedInUserId = req.user._id;
         const filteredUsers = await User.find({ _id: {$ne: loggedInUserId}}).select("friends")
-        const friends = await User.findById(loggedInUserId).populate("friends", "_id username profilePic status")
+        const friends = await User.findById(loggedInUserId).populate("friends", "-password")
 
         console.log(friends)
 

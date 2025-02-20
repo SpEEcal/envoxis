@@ -86,7 +86,6 @@ export const deleteRequest = async (req, res) => {
         const {senderid} = req.body
         const request = await friendRequest.findOneAndDelete({"receiverId": receiverId, "senderId": senderid})
 
-        console.log(request)
         if (!request){
             return res.status(400).json("Request not found")
         }
@@ -102,10 +101,11 @@ export const addFriend = async (req, res) => {
     try {
         const receiverId = req.user._id
         const {senderid} = req.body
+        console.log(senderid)
         
-        const updatedfriendslist = await User.findOneAndUpdate({ "_id": receiverId }, { $set: { friends: senderid }})
+        const updatedfriendslist = await User.findOneAndUpdate({ "_id": receiverId }, { $set: { friends: [senderid] }})
         console.log(updatedfriendslist)
-        
+
         if (!updatedfriendslist){
             return res.status(400).json("Friend not added")
         }

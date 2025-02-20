@@ -6,18 +6,9 @@ export const getUsersForSidebar = async (req, res) => {
 
         const loggedInUserId = req.user._id;
         const filteredUsers = await User.find({ _id: loggedInUserId}).select("friends")
-        const filteredUsersold = await User.find({ _id: {$ne: loggedInUserId}}).select("-password")
-        const friends = await User.findById(loggedInUserId).populate("friends", "_id username status profilePic")
-
-
         console.log(filteredUsers)
-        console.log("/////////////////////")
-        console.log(filteredUsersold)
-        console.log("/////////////////////")
-        console.log(friends)
 
         res.status(200).json(filteredUsers);
-
     } catch (error) {
         console.log("Error in getUsersForSidebar: ", error.message)
         res.status(500).json({error:"Internal server error"});

@@ -37,7 +37,7 @@ export const sendRequest = async (req, res) => {
         }
 
         //if the user is already the persons friend
-        const alreadyFriend = await User.findOne({"friends": senderId})
+        const alreadyFriend = await User.findOne({"friends": [senderId]})
         if (alreadyFriend){
             return res.status(400).json({error: "User has been already added"})
         }
@@ -101,10 +101,8 @@ export const addFriend = async (req, res) => {
     try {
         const receiverId = req.user._id
         const {senderid} = req.body
-        console.log(senderid)
-        
+
         const updatedfriendslist = await User.findOneAndUpdate({ "_id": receiverId }, { $set: { friends: [senderid] }})
-        console.log(updatedfriendslist)
 
         if (!updatedfriendslist){
             return res.status(400).json("Friend not added")

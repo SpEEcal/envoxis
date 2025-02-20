@@ -6,8 +6,9 @@ export const getUsersForSidebar = async (req, res) => {
 
         const loggedInUserId = req.user._id;
         const filteredUsers = await User.find({ _id: {$ne: loggedInUserId}}).select("friends")
-        const friends = await User.findById(loggedInUserId).populate("friends", "-password")
-
+        const friends = await User.findById(loggedInUserId).populate("friends", "_id username status profilePic")
+        console.log(filteredUsers)
+        console.log("/////////////////////")
         console.log(friends)
 
         res.status(200).json(friends);

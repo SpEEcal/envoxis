@@ -103,7 +103,12 @@ export const addFriend = async (req, res) => {
         const receiverId = req.user._id
         const {senderid} = req.body
         
-        await User.findOneAndUpdate({"_id": receiverId}, { $set: { friends: senderid }})
+        const updatedfriendslist = await User.findOneAndUpdate({ "_id": receiverId }, { $set: { friends: senderid }})
+        console.log(updatedfriendslist)
+        
+        if (!updatedfriendslist){
+            return res.status(400).json("Friend not added")
+        }
 
         res.status(200).json({message: "Added friend successfully"});
     } catch (error) {

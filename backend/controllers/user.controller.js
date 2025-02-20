@@ -102,9 +102,10 @@ export const addFriend = async (req, res) => {
         const receiverId = req.user._id
         const {senderid} = req.body
 
-        const updatedfriendslist = await User.findOneAndUpdate({ "_id": receiverId }, { $set: { friends: [senderid] }})
+        const updatedfriendslistforreceiver = await User.findOneAndUpdate({ "_id": receiverId }, { $set: { friends: [senderid] }})
+        const updatedfriendslistforsender = await User.findOneAndUpdate({ "_id": senderid }, { $set: { friends: [receiverId] }})
 
-        if (!updatedfriendslist){
+        if (!updatedfriendslistforreceiver || !updatedfriendslistforsender){
             return res.status(400).json("Friend not added")
         }
 

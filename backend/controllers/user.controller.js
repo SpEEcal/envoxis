@@ -6,10 +6,11 @@ export const getUsersForSidebar = async (req, res) => {
 
         const loggedInUserId = req.user._id;
         const filteredUsers = await User.find({ _id: {$ne: loggedInUserId}}).select("friends")
+        const friends = await User.findById(loggedInUserId).populate("friends", "_id username profilePic status")
 
-        console.log(filteredUsers)
+        console.log(friends)
 
-        res.status(200).json(filteredUsers);
+        res.status(200).json(friends);
 
     } catch (error) {
         console.log("Error in getUsersForSidebar: ", error.message)

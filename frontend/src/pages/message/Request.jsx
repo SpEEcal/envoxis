@@ -4,6 +4,7 @@ import useDeleteRequest from "../../hooks/useDeleteRequest"
 const Request = ({request}) => {
     // setting senderId in request to a variable
     const senderinfo = request.senderId
+    const { addFriend } = useAddFriend()
 
     // delete request
     const deleteRequest = (senderid) => {
@@ -11,7 +12,7 @@ const Request = ({request}) => {
     }
 
     const acceptRequest = (senderid) => {
-        useAddFriend(senderid)
+        addFriend(senderid)
     }
 
   return (

@@ -1,5 +1,6 @@
 import Status from "./Status"
 import useGetConversations from "../../hooks/useGetConversations"
+import useGetFriends from "../../hooks/useGetFriends"
 
 const Statuses = () => {
   const {loading, conversations} = useGetConversations()

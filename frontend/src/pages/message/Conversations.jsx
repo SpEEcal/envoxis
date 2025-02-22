@@ -12,9 +12,9 @@ const Conversations = () => {
 
   return (
     <div>
-        {conversations.map((conversation) => (
+        {friendList.map((friend) => (
           <div>
-            {friendList.map((friend) =>(
+            {conversations.map((conversation) =>(
               <div>
                 {isFriend = friend._id === conversation._id}
                 {console.log(isFriend)}

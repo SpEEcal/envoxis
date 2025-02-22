@@ -9,6 +9,7 @@ const Conversations = () => {
     var isFriend = null
     console.log(conversations)
     console.log(authUser)
+    console.log(`friends: ${friends}`)
     
   return (
     <div>

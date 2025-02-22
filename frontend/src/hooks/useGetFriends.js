@@ -1,22 +1,29 @@
 import toast from "react-hot-toast"
+import { useEffect, useState } from "react"
 
 const useGetFriends = () => {
-    const getFriend = async () => {
-        try {
-            const res = await fetch("/api/users/getfriends")
+    const [friends, setFriends] = useState([])
 
-            const data = await res.json()
-            if (data.error){
-                throw new Error(data.error)
+    useEffect(() => {
+        const getFriends = async () => {
+            try {
+                const res = await fetch('/api/users/getfriends')
+                const data = await res.json()
+
+                if(data.error){
+                    throw new Error(data.error)
+                }
+
+                setFriends(data)
+            } catch (error) {
+                toast.error(error.message)
             }
-
-            
-        } catch (error) {
-            toast.error(error.message)
         }
-    }
 
-    return { getFriend }
+        getFriends()
+    },[])
+
+    return { friends }
 }
 
 export default useGetFriends

@@ -11,14 +11,16 @@ const Conversations = () => {
 
   return (
     <div>
-        {conversations.map((conversation) => {
-          friends.map((friend) =>(
-            <div>
-              {isFriend = friend === conversation._id}
-              {isFriend ? <Conversation key={conversation._id} conversation={conversation}/> : ""}
-            </div>
-          ))
-        })}
+        {conversations.map((conversation) => (
+          <div>
+            {friends.map((friend) =>(
+              <div>
+                {isFriend = friend === conversation._id}
+                {isFriend ? <Conversation key={conversation._id} conversation={conversation}/> : ""}
+              </div>
+            ))}
+          </div>
+        ))}
         {loading ? <span className="loading loading-spinner mx-auto"></span> : null}
     </div>
   )

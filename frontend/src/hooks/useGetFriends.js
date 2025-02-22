@@ -18,6 +18,8 @@ const useGetFriends = () => {
             toast.error(error.message)
         }
     }
+
+    return { getFriend }
 }
 
 export default useGetFriends

@@ -7,16 +7,18 @@ const Conversations = () => {
   const {friends} = useGetFriends()
   const friendList = friends.friends
   var isFriend = null
-  console.log(`conversations: ${conversations}`)
-  console.log(`friends: ${friendList}`)
+  console.log(conversations)
+  console.log(friendList)
 
   return (
     <div>
         {conversations.map((conversation) => (
           <div>
-            {isFriend = friend === conversation._id}
-            {isFriend && friendList.map((friend) =>(
-              <Conversation key={conversation._id} conversation={conversation}/>
+            {friendList.map((friend) =>(
+              <div>
+                {isFriend = friend === conversation._id}
+                <Conversation key={conversation._id} conversation={conversation}/>
+              </div>
             ))}
           </div>
         ))}

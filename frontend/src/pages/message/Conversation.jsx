@@ -5,11 +5,11 @@ import useConversation from '../../zustand/useConversation'
 const Conversation = ({conversation}) => {
   const {selectedConversation, setSelectedConversation} = useConversation()
   console.log(selectedConversation)
-  const friends = null
-  const friendid = null
+  var friends = null
+  var friendid = null
   if(selectedConversation != null){
     friends = selectedConversation.friends
-    
+
     friends.map((friend) => {
       console.log(friend)
       friendid = friend

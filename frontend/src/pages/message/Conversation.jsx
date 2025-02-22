@@ -5,10 +5,9 @@ import useConversation from '../../zustand/useConversation'
 const Conversation = ({conversation}) => {
   const {selectedConversation, setSelectedConversation} = useConversation()
   console.log(selectedConversation)
-  var isSelected = null
-  console.log(`conversation: ${conversation}`)
+  const isSelected = selectedConversation?._id === conversation._id
   const {onlineUsers} = useSocketContext()
-  const isOnline = onlineUsers.includes(conversation)
+  const isOnline = onlineUsers.includes(conversation._id)
 
   return (
     <div>

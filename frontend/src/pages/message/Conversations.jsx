@@ -3,6 +3,7 @@ import Conversation from "./Conversation"
 
 const Conversations = () => {
     const {loading, conversations} = useGetConversations()
+    console.log(conversations)
   return (
     <div>
         {conversations.map((conversation) => (

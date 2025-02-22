@@ -17,6 +17,7 @@ const Conversations = () => {
             {friendList.map((friend) =>(
               <div>
                 {isFriend = friend === conversation._id}
+                {console.log(isFriend)}
                 {isFriend ? <Conversation key={conversation._id} conversation={conversation}/> : ""}
               </div>
             ))}

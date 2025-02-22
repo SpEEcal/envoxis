@@ -17,7 +17,7 @@ const Conversations = () => {
             {friendList.map((friend) =>(
               <div>
                 {isFriend = friend === conversation._id}
-                <Conversation key={conversation._id} conversation={conversation}/>
+                {isFriend ? <Conversation key={conversation._id} conversation={conversation}/> : ""}
               </div>
             ))}
           </div>

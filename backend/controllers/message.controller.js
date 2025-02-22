@@ -36,7 +36,7 @@ export const sendMessage = async (req, res) => {
         let encrytedData = cipher.update(message, "utf-8", "hex")
         encrytedData += cipher.final("hex")
         message = encrytedData
-        console.log(message)
+        console.log(`message: ${message}`)
 
         // convert the initialisation vector to base64 string
         const base64data = Buffer.from(iv, "binary").toString("base64")
@@ -49,7 +49,7 @@ export const sendMessage = async (req, res) => {
             receiverId,
     
         })
-        console.log(newMessage)
+        console.log(`newMessage: ${newMessage}`)
         if(newMessage) {
             conversation.messages.push(newMessage._id);
         }
@@ -109,7 +109,7 @@ export const decryptdata = async (req, res) => {
             decrypted += decipher.final("utf8")
             message.message = decrypted
         })
-        console.log(data)
+        console.log(`data: ${data}`)
     
         res.status(200).json(data)
     }

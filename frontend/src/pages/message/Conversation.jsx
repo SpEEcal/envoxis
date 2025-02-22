@@ -13,7 +13,7 @@ const Conversation = ({conversation}) => {
       isSelected = friend === conversation._id
     })
   }
-  console.log(`conversation_id: ${conversation._id}`)
+  console.log(`conversation: ${conversation}`)
   const {onlineUsers} = useSocketContext()
   const isOnline = onlineUsers.includes(conversation._id)
 

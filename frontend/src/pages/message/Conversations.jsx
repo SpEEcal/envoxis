@@ -9,7 +9,10 @@ const Conversations = () => {
   return (
     <div>
         {conversations.map((conversation) => (
-          console.log(conversation)
+            <Conversation 
+                key={conversation._id}
+                conversation={conversation.friends}
+            />
         ))}
         {loading ? <span className="loading loading-spinner mx-auto"></span> : null}
     </div>

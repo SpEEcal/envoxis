@@ -10,8 +10,8 @@ const Conversations = () => {
     <div>
         {conversations.map((conversation) => (
             <Conversation 
-                key={conversation.friends}
-                conversation={conversation}
+                key={conversation._id}
+                conversation={conversation.friends}
             />
         ))}
         {loading ? <span className="loading loading-spinner mx-auto"></span> : null}

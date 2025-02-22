@@ -10,12 +10,12 @@ const Conversation = ({conversation}) => {
 
     friends.map((friend) => {
       console.log(`friend_id: ${friend}`)
-      isSelected = friend === conversation._id
+      isSelected = friend === conversation
     })
   }
   console.log(`conversation: ${conversation}`)
   const {onlineUsers} = useSocketContext()
-  const isOnline = onlineUsers.includes(conversation._id)
+  const isOnline = onlineUsers.includes(conversation)
 
   return (
     <div>

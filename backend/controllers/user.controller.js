@@ -76,9 +76,15 @@ export const getRequests = async (req, res) => {
 }
 
 export const getFriends = async (req, res) => {
-    const friends = await User.findById(req.user._id).populate("friends", "_id username profilePic status")
-
-    res.status(200).json(friends)
+    try {
+        const loggedInUser = req.user._id
+        const friends = await User.findById(loggedInUser).populate("friends", "_id username profilePic status")
+    
+        res.status(200).json(friends)
+    } catch (error) {
+        console.log("Error in getFriends controller", error.message)
+        res.status(500).json({error:"Internal Server Error"})
+    }
 }
 
 export const deleteRequest = async (req, res) => {

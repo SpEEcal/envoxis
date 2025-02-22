@@ -4,11 +4,12 @@ import Conversation from "./Conversation"
 const Conversations = () => {
     const {loading, conversations} = useGetConversations()
     const friends = conversations.friends
+    console.log(friends)
   return (
     <div>
-        {friends.map((conversation) => (
+        {conversations.map((conversation) => (
             <Conversation 
-                key={conversation}
+                key={conversation._id}
                 conversation={conversation}
             />
         ))}

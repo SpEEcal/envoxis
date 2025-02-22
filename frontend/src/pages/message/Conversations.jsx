@@ -9,7 +9,7 @@ const Conversations = () => {
         {conversations.map((conversation) => (
             <Conversation 
                 key={conversation._id}
-                conversation={conversation.friends}
+                conversation={conversation}
             />
         ))}
         {loading ? <span className="loading loading-spinner mx-auto"></span> : null}

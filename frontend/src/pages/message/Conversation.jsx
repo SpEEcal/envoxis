@@ -4,6 +4,7 @@ import useConversation from '../../zustand/useConversation'
 
 const Conversation = ({conversation}) => {
   const {selectedConversation, setSelectedConversation} = useConversation()
+  console.log(selectedConversation)
   var isSelected = null
   if(selectedConversation != null){
     const friends = selectedConversation.friends

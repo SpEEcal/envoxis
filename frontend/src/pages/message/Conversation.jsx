@@ -5,10 +5,9 @@ import useConversation from '../../zustand/useConversation'
 const Conversation = ({conversation}) => {
   const {selectedConversation, setSelectedConversation} = useConversation()
   console.log(selectedConversation)
-  var friends = null
   var friendid = null
   if(selectedConversation != null){
-    friends = selectedConversation.friends
+    const friends = selectedConversation.friends
 
     friends.map((friend) => {
       console.log(friend)
@@ -16,7 +15,7 @@ const Conversation = ({conversation}) => {
     })
   }
   console.log(conversation._id)
-  const isSelected = selectedConversation?._id === conversation._id
+  const isSelected = friendid === conversation._id
   const {onlineUsers} = useSocketContext()
   const isOnline = onlineUsers.includes(conversation._id)
 

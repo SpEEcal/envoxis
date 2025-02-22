@@ -18,7 +18,7 @@ const Conversations = () => {
               <div>
                 {isFriend = friend._id === conversation._id}
                 {console.log(isFriend)}
-                {console.log(friend)}
+                {console.log(friend._id)}
                 {console.log(conversation._id)}
                 {isFriend ? <Conversation key={conversation._id} conversation={conversation}/> : ""}
               </div>

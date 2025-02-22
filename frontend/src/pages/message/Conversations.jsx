@@ -10,7 +10,7 @@ const Conversations = () => {
     <div>
         {conversations.map((conversation) => (
             <Conversation 
-                key={conversation._id}
+                key={conversation.friends}
                 conversation={conversation}
             />
         ))}

@@ -12,14 +12,14 @@ const Conversations = () => {
 
   return (
     <div>
-        {friendList.map((friend) => (
+        {conversations.map((conversation) => (
           <div>
-            {conversations.map((conversation) =>(
+            {friendList.map((friend) =>(
               <div>
-                {isFriend = friend._id === conversation._id}
+                {isFriend = friend === conversation._id}
                 {console.log(isFriend)}
-                {console.log(friend._id)}
-                {console.log(conversation._id)}
+                {console.log(friend)}
+                {console.log(conversation)}
                 {isFriend ? <Conversation key={conversation._id} conversation={conversation}/> : ""}
               </div>
             ))}

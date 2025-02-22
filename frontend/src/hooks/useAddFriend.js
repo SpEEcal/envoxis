@@ -17,8 +17,8 @@ const useAddFriend = () => {
                 throw new Error(data.error)
             }
 
-            await localStorage.setItem("chat-user", JSON.stringify(data))
-            await setAuthUser(data)
+            localStorage.setItem("chat-user", JSON.stringify(data))
+            setAuthUser(data)
         } catch (error) {
             toast.error(error.message)
         }

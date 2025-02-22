@@ -4,7 +4,7 @@ const useGetFriends = async () => {
     var friends = null
     try {
         const res = await fetch("/api/users/getfriends", {
-            method: "POST",
+            method: "GET",
             headers: {"Content-Type": "application/json"},
         })
 

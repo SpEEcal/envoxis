@@ -5,19 +5,18 @@ import Conversation from "./Conversation"
 const Conversations = () => {
   const {loading, conversations} = useGetConversations()
   const {friends} = useGetFriends()
+  const friendList = friends.friends
   var isFriend = null
-  console.log(conversations)
-  console.log(friends)
+  console.log(`conversations: ${conversations}`)
+  console.log(`friends: ${friendList}`)
 
   return (
     <div>
         {conversations.map((conversation) => (
           <div>
-            {friends.map((friend) =>(
-              <div>
-                {isFriend = friend === conversation._id}
-                {isFriend ? <Conversation key={conversation._id} conversation={conversation}/> : ""}
-              </div>
+            {isFriend = friend === conversation._id}
+            {isFriend && friendList.map((friend) =>(
+              <Conversation key={conversation._id} conversation={conversation}/>
             ))}
           </div>
         ))}

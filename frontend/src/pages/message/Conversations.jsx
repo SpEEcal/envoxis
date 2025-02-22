@@ -4,7 +4,8 @@ import Conversation from "./Conversation"
 
 const Conversations = () => {
   const {loading, conversations} = useGetConversations()
-  const {friends} = useGetFriends()
+  const {getFriend} = useGetFriends()
+  const friends = getFriend()
   var isFriend = null
   console.log(conversations)
   console.log(friends)

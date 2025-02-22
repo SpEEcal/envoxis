@@ -3,10 +3,7 @@ import toast from "react-hot-toast"
 const useGetFriends = () => {
     const getFriend = async () => {
         try {
-            const res = await fetch("/api/users/getfriends", {
-                method: "GET",
-                headers: {"Content-Type": "application/json"},
-            })
+            const res = await fetch("/api/users/getfriends")
 
             const data = await res.json()
             if (data.error){

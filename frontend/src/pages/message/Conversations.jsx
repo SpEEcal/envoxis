@@ -16,7 +16,7 @@ const Conversations = () => {
           <div>
             {friendList.map((friend) =>(
               <div>
-                {isFriend = friend === conversation._id}
+                {isFriend = friend._id === conversation._id}
                 {console.log(isFriend)}
                 {console.log(friend)}
                 {console.log(conversation)}

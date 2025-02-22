@@ -1,5 +1,7 @@
+import toast from "react-hot-toast"
+
 const useGetFriends = async () => {
-    const friends = null
+    var friends = null
     try {
         const res = await fetch("/api/users/getfriends", {
             method: "POST",

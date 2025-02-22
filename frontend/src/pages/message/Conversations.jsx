@@ -1,9 +1,12 @@
+import { useAuthContext } from "../../context/AuthContext"
 import useGetConversations from "../../hooks/useGetConversations"
 import Conversation from "./Conversation"
 
 const Conversations = () => {
+    const {authUser} = useAuthContext()
     const {loading, conversations} = useGetConversations()
     console.log(conversations)
+    console.log(authUser)
   return (
     <div>
         {conversations.map((conversation) => (

@@ -7,6 +7,7 @@ import useAddFriends from "../../zustand/useAddFriends"
 import useRequestSent from "../../hooks/useRequestSent"
 import Request from "./Request"
 import useGetRequests from "../../hooks/useGetRequests"
+import './message.css';
 
 const MessageContainer = () => {
     const {selectedConversation, setSelectedConversation} = useConversation()
@@ -82,7 +83,7 @@ const AddFriends = () => {
     // grabs array list of requests
     const { requests } = useGetRequests()
     // checks if there are any requests to the current user
-    const isRequest = requests !== undefined
+    const isRequest = requests.length !== 0
     // function to be used from hook
     const { RequestSent } = useRequestSent()
 
@@ -102,17 +103,21 @@ const AddFriends = () => {
     }
 
     return (
-        <div className="add-friend-container">
+        <div>
             {/* displays input box to sent users requests */}
-            <h1 className="friend-title">Add and Accept Users to Chat with</h1>
-            <form onSubmit={handleRequest} className="friend-form">
-                {/* Grabs username inputted by the user */}
-                <input type="search" className="friend-input" placeholder="Search user..." value={friend} onChange={(e) => setFriend(e.target.value)}/>
-                <button className="friend-submit"><i className="bx bx-search-alt-2" /></button>
-            </form>
+            <div className="add-friend-container">
+                <h1 className="friend-title">Add and Accept Users to Chat with</h1>
+                <form id="add-friends" onSubmit={handleRequest} className="friend-form">
+                    {/* Grabs username inputted by the user */}
+                    <input type="search" className="friend-input" placeholder="Search user..." value={friend} onChange={(e) => setFriend(e.target.value)}/>
+                    <button form="add-friends" className="friend-submit" type="submit"><i className="bx bx-search-alt-2" /></button>
+                </form>
+            </div>
             {/* displays requests sent TO user */}
-            {isRequest ? <h1 className="requests-incoming">Incoming requests</h1> : <h1 className="requests-incoming">No incoming requests</h1>}
-            {isRequest && requests.map((request) => ( <Request key={request._id} request={request} /> ))}
+            <div className="requests-container">
+                {isRequest ? <h1 className="requests-incoming">Incoming requests</h1> : <h1 className="requests-incoming">No incoming requests</h1>}
+                {isRequest && requests.map((request) => ( <Request key={request._id} request={request} /> ))}
+            </div>
         </div>
     )
 }

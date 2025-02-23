@@ -745,6 +745,130 @@
     word-wrap: break-word;
 }
 
+/* Customises the Add friends container */
+.add-friend-container{
+    display: grid;
+    place-items: center;
+    margin-top: 10%;
+}
+
+.friend-title{
+    color: rgb(238, 221, 221);
+    font-weight: 600;
+    font-size: 50px;
+}
+
+.friend-form{
+    background-color: #75311e;
+    border-radius: 30px;
+    width: 90%;
+    height: 40px;
+    margin-top: 20px;
+}
+
+.friend-input{
+    background: transparent;
+    width: 90%;
+    height: 40px;
+    margin-left: 30px;
+    font-size: 30px;
+}
+
+.friend-input::placeholder{
+    color: #a78a82;
+    font-size: 30px;
+}
+
+.friend-submit{
+    margin-left: 33px;
+    font-size: 30px;
+}
+
+.friend-submit:hover{
+    color: #795e56;
+}
+
+/* Customises the incoming requests section*/
+.requests-incoming{
+    font-size: 40px;
+    font-weight: 600;
+    color: #ecb09e;
+    margin-top: 70px;
+    text-decoration: overline;
+}
+
+.requests-container{
+    display: grid;
+    place-items: center;
+}
+
+.request-container{
+    display:flex;
+    position: relative;
+    background-color: #a5462c;
+    width: 80%;
+    height: 60px;
+    border-radius: 20px;
+}
+
+.senderUsername,.accept-button,.decline-button, .senderPFP{
+    position: absolute;
+    top: 10px;
+}
+
+.senderPFP{
+    border-radius: 50%;
+    width: 50px;
+    height: 45px;
+    top: 8%;
+    left: 10px;
+}
+
+.senderUsername{
+    color: rgb(224, 178, 178);
+    font-size: 25px;
+    left: 10%;
+    font-weight: 100;
+}
+
+.accept-button,.decline-button{
+    font-size: 30px;
+    bottom: 10px;
+}
+
+.accept-button{
+    color: forestgreen;
+    right:100px;
+    background-color: #eb937b;
+    border-radius: 50%;
+    width: 46px;
+}
+
+.accept-button i{
+    margin-left: 7px;
+}
+
+.accept-button:hover{
+    color: rgb(101, 189, 101);
+}
+
+.decline-button{
+    color: rgb(73, 2, 2);
+    right: 25px;
+    background-color: #eb937b;
+    border-radius: 50%;
+    width: 46px;
+    text-decoration: none;
+}
+
+.decline-button i{
+    margin-left: 7px;
+}
+
+.decline-button:hover{
+    color: rgb(255, 0, 0);
+}
+
 /* Customises the timestamp of a group of messages */
 .Date_of_messages{
     border: #75311e;

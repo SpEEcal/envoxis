@@ -1,5 +1,6 @@
 import useAddFriend from "../../hooks/useAddFriend"
 import useDeleteRequest from "../../hooks/useDeleteRequest"
+import './message.css';
 
 const Request = ({request}) => {
     // setting senderId in request to a variable
@@ -11,6 +12,7 @@ const Request = ({request}) => {
         useDeleteRequest(senderid)
     }
 
+    // accept request
     const acceptRequest = (senderid) => {
         addFriend(senderid)
     }
@@ -18,19 +20,19 @@ const Request = ({request}) => {
   return (
     <div className="request-container">
         <div className="senderPFP">
-            <img src={senderinfo.profilePic} alt="Profile picture of a user" />
+            <img className="senderPFP" src={senderinfo.profilePic} alt="Profile picture of a user" />
         </div>
         <div className="senderUsername">
             {senderinfo.username}
         </div>
-        <form onSubmit={acceptRequest(senderinfo._id)}>
+        <form id="accept-request">
             <div className="accept-button">
-                <button><i className="bx bx-check"/></button>
+                <button form="accept-request" onClick={e => acceptRequest(senderinfo._id)}><i className="bx bx-check"/></button>
             </div>
         </form>
-        <form onSubmit={deleteRequest(senderinfo._id)}>
+        <form id="delete-request">
             <div className="decline-button">
-                <button><i className="bx bx-x"/></button>
+                <button form="delete-request" onClick={e => deleteRequest(senderinfo._id)}><i className="bx bx-x"/></button>
             </div>
         </form>
     </div>

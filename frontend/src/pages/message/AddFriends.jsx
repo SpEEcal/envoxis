@@ -11,8 +11,11 @@ const AddFriends = () => {
         setSelectedAddFriends("notnull")
         setSelectedConversation(null)
     }
+    
   return (
-    <button onClick={handleSubmit} className="add-friends-button"><i className="bx bx-user-plus"></i></button>
+    <form id="add" onSubmit={handleSubmit}>
+      <button form="add" className="add-friends-button"><i className="bx bx-user-plus"></i></button>
+    </form>
   )
 }
 

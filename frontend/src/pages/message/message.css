@@ -156,6 +156,7 @@
     width: 100%;
 }
 
+
 .contact-status{
     position: absolute;
     width: 15px;
@@ -675,7 +676,7 @@
 	}
 }
 
-/* Desgin of user desc */
+/* Design of user desc */
 
 .user-alignment{
     display: flex;
@@ -743,6 +744,15 @@
     text-overflow: ellipsis;
     overflow: initial;
     word-wrap: break-word;
+}
+
+.remove-friend{
+    position: absolute;
+    background-color: #b32c06;
+    width: 80%;
+    bottom: 20px;
+    border-radius: 40px;
+    color: white;
 }
 
 /* Customises the Add friends container */

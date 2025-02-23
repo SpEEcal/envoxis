@@ -10,7 +10,8 @@ const Conversation = ({conversation}) => {
 
   return (
     <div>
-        <div className={`contact ${isSelected ? "bg-light-purple" : ""}`} onClick={() => setSelectedConversation(conversation)}>
+      <form id="selectedchat">
+        <div form='selectedchat' className={`contact ${isSelected ? "bg-light-purple" : ""}`} onClick={(e) => setSelectedConversation(conversation)}>
             <a href="#">
             <img className="contact-status" src={`${isOnline ? conversation.status : "../Messageimg/invis.png"}`} alt="" />
             <img className="contact-pfp" src={conversation.profilePic} alt="" />
@@ -25,6 +26,7 @@ const Conversation = ({conversation}) => {
             </span>
             </a>
         </div>
+       </form>
     </div>
   )
 }

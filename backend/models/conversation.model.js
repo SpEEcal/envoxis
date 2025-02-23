@@ -13,7 +13,11 @@ const conversationSchema = new mongoose.Schema({
             ref: 'Message',
             defalut:[],
         }
-    ]
+    ],
+    type:{
+        type: String,
+        defalut: "solo",
+    }
 }, {timestamps:true})
 
 const Conversation = mongoose.model("Conversation", conversationSchema);

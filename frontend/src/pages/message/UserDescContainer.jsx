@@ -1,6 +1,7 @@
 import { useEffect } from "react"
 import useConversation from "../../zustand/useConversation"
 import { useAuthContext } from "../../context/AuthContext"
+import useRemoveFriend from "../../hooks/useRemoveFriend"
 
 const UserDescContainer = () => {
     const {selectedConversation, setSelectedConversation} = useConversation()
@@ -11,6 +12,11 @@ const UserDescContainer = () => {
         return () => setSelectedConversation(null)
     },[setSelectedConversation])
 
+    const RemoveFriend = (friendid) => {
+        {console.log("DELETEEDDD")}
+        useRemoveFriend(friendid)
+    }
+
   return (
     <div>
     {!selectedConversation ? <NoChatSelected /> : (
@@ -20,10 +26,12 @@ const UserDescContainer = () => {
                 <div className="user-name">{selectedConversation.username}</div>
             </div>
             <div className="User-bio-desc">
-                <div className="bio-title">Bio
-                </div>
+                <div className="bio-title">Bio</div>
                 <div className="user-bio">Hey! I'm {selectedConversation.username} nice to meet you!</div>
             </div>
+            <form id="remove-friend" className="remove-friend">
+                <button form="remove-friend" className="remove-friend-button" onClick={e => RemoveFriend(selectedConversation._id)}>Remove Friend</button>
+            </form>
         </div>
     )}
 

@@ -122,3 +122,23 @@ export const addFriend = async (req, res) => {
         res.status(500).json({error:"Internal Server Error"})
     }
 }
+
+export const deleteFriend = async (req,res) => {
+    try {
+        const userid = req.user._id
+        const {friendid} = req.body
+        {console.log(friendid)}
+
+        const updatedfriendslistforuser = await User.findOneAndUpdate({ "_id": userid }, { $pull: { friends: friendid }})
+        const updatedfriendslistforfriend = await User.findOneAndUpdate({ "_id": friendid }, { $pull: { friends: userid }})
+
+        if (!updatedfriendslistforuser || !updatedfriendslistforfriend){
+            return res.status(400).json("Friend has not been deleted")
+        }
+
+        res.status(200).json({message: "Added friend successfully"});
+    } catch (error) {
+        console.log("Error in deleteFriend controller", error.message)
+        res.status(500).json({error:"Internal Server Error"})
+    }
+}

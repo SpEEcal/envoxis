@@ -1,19 +1,25 @@
+// library or external function to be used in program
 import { useState } from "react"
 import { useAuthContext } from "../../context/AuthContext"
 import useChangeStatus from "../../hooks/useChangeStatus"
 
 const MiniProfile = () => {
+    // allows to use user information to display
     const {authUser} = useAuthContext()
+    // allows the miniprofile to expand when clicked upon
     const [style, setStyle] = useState("personal-status")
+    // imported function to change status
     const { newstatus } = useChangeStatus()
 
+    // function to expand miniprofile depending on value of style
     const Expand = () => {
         if (style !== "change-status") setStyle("change-status");
         else setStyle("personal-status");
     }
 
+    // functions to be called depending on what status the user wants
     const Idle = async () => {
-        await newstatus("../Messageimg/idle.png")
+        await newstatus("../Messageimg/idle.png") // sets status in database as a string as images are in the public folder
     }
 
     const Online = async () => {
@@ -30,13 +36,17 @@ const MiniProfile = () => {
 
     return(
         <div onClick={Expand} className={style}>
+            {/* displays status for user */}
             <img src={authUser.status} className="status-image" alt="" />
+            {/* displays profile picture for user */}
             <div className="profile-pic">
                 <img src={authUser.profilePic} alt="" />
             </div>
+            {/* displays username for user */}
             <div className="details">
                 <span>{authUser.username}</span>
             </div>
+            {/* displays all statuses that the user can choose from */}
             <div className="statues">
                 <button className="online-status" onClick={Online}>
                     <img src="./Messageimg/active1.png" alt="" />

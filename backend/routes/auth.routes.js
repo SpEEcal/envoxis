@@ -21,12 +21,14 @@ router.post("/login", login)
 
 router.post("/logout", logout)
 
+// runs function when path is called
 router.post("/deleteuser", protectRoute, deleteuser)
 
 router.post("/updateusername", protectRoute, updateusername)
 
 router.post("/updateemail", protectRoute, updateemail)
 
+// runs function when path is called
 router.post("/changestatus", protectRoute, changestatus)
 
 router.post("/changepfp", [upload.single("file"), protectRoute], changepfp);

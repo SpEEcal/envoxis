@@ -1,6 +1,8 @@
 import toast from "react-hot-toast"
+import { useAuthContext } from "../context/AuthContext"
 
 export const useUpdatePFP = () => {
+    const {authUser, setAuthUser} = useAuthContext()
 
     const updatePFP = async (formData) => {
         try {

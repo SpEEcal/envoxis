@@ -27,11 +27,6 @@ const Sidebar = () => {
                         <i className="bx bx-chat"></i>
                     </a>
                 </div>
-                <div className={`sidebar-events ${Change3 ? "bg-dark-dark-purple" : ""}`}>
-                    <a href="events">
-                        <i className="bx bx-calendar-event"></i>
-                    </a>
-                </div>
                 <div className={`sidebar-settings ${Change4 ? "bg-dark-dark-purple" : ""}`}>
                     <a href="settings">
                         <i className="bx bx-cog"></i>

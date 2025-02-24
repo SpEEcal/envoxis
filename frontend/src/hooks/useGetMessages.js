@@ -22,7 +22,10 @@ const useGetMessages = () => {
                     },
                     body: JSON.stringify({data})
                 })
+                console.log(data)
                 const decrypteddata = await decrypted.json()
+                console.log(decrypteddata)
+
                 setMessages(decrypteddata)
             } catch (error) {
                 toast.error(error.message)

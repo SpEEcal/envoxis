@@ -1,24 +1,26 @@
+// library or external function to be used in program
 import { useState } from "react"
 import useSendMessage from "../../hooks/useSendMessage"
 import useUploadFile from "../../hooks/useUploadFile"
-import { useAuthContext } from "../../context/AuthContext"
-import EmojiPicker from 'emoji-picker-react';
 
 const MessageInput = () => {
-    const {authUser} = useAuthContext()
     const [message, setMessage] = useState("")
-    const {loading, sendMessage} = useSendMessage()
+    const {sendMessage} = useSendMessage()
+    // function from hook to upload file
     const {uploadfile} = useUploadFile()
     const [file, setFile] = useState("")
 
     const handleSubmit = async (e) => {
+      // prevents website from refreshing
         e.preventDefault()
+      // checks if the message is a file
         if (file) {
-          const formData = new FormData()
-          formData.append("file", file)
-          await uploadfile(formData)
-          setFile("")
+          const formData = new FormData() // sets array
+          formData.append("file", file) // adds file to array
+          await uploadfile(formData) // used as parameter in hook function
+          setFile("") // sets file back to an empty string
         }
+      // checks if a message exists
         if(!message) return;
         await sendMessage(message)
         setMessage("")
@@ -33,8 +35,8 @@ const MessageInput = () => {
         <form className="convo-form">
             <input type="text" id="convo-input" placeholder="Your message" value={message} onChange={(e) => setMessage(e.target.value)}/>
             <label for="file-upload" class="custom-file-upload"><i className="bx bx-paperclip" /></label>
-            <input type="file" name="file" id="file-upload" onChange={onInputChange}/>
-            <button type="submit" className="convo-submit"><i className="bx bx-send" /></button>
+            <input type="file" name="file" id="file-upload" onChange={onInputChange}/> {/* gets file from user to be sent to other user */}
+            <button type="submit" className="convo-submit"><i className="bx bx-send" /></button> { /* submits the message / file to be sent */}
             <button className="convo-emoji"></button>
         </form>
     </div>

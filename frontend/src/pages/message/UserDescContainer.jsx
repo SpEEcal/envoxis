@@ -43,8 +43,6 @@ const UserDescContainer = () => {
 export default UserDescContainer
 
 const NoChatSelected = () => {
-    const {authUser} = useAuthContext()
-
     return(
         <div className="Starter1">
             <p>Click a chat to see the users description</p>

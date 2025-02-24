@@ -28,8 +28,9 @@ const sendimage = ({message}) => {
                 {username}
             </div>
             <div className={`chat-bubble bg-light-orange ${bubbleBgColor} ${shakeClass}`}>
+            {console.log(message.message)}
             <img className='ImageContainer'
-                alt="Image"
+                alt="${}"
                 src={message.message} />
             </div>
             <time className={`sent_message_time`}>{moment(message.createdAt).format('HH:mm')}</time>

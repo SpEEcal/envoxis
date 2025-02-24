@@ -31,12 +31,12 @@ const Settings = () => {
 
     // waits for the username to be updated
     const handleSubmitUsername = async (e) => {
-        e.preventDefault()
+        e.preventDefault() // prevents website from refreshing
         await updateUsername(username)
     }
     // waits for the email to be updated
     const handleSubmitEmail = async (e) => {
-        e.preventDefault()
+        e.preventDefault() // prevents website from refreshing
         await updateEmail(email)
     }
 
@@ -64,50 +64,95 @@ const Settings = () => {
     }
 
     return(
-        <>
-            <meta charSet="UTF-8" />
-            <meta name="viewpoint" content="width=device-width, initial-scale=1.0" />
-            <title>Envoxis | Settings</title>
-            {/*- Box icons */}
-            <link
-                href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
-                rel="stylesheet"
-            />
-            <div className="settings-container">
-                <Sidebar />
-                <div className="menu-filter"></div>
-                <div className="option-listing"></div>
-                <div className="profile-view">
-                    <h1 className="titleUP">Update Profile</h1>
-                    <form id='updatepfp' className='Update3'>
-                        <label htmlFor="pfp-upload"><img src={authUser.profilePic} className='ChangePFP'/></label>
-                        {/* <label for="file-upload" class="custom-file-upload"><i className="bx bx-paperclip" /></label>
-                        <input type="file" name="file" id="file-upload" onChange={onInputChange}/> gets file from user to be sent to other user */}
-                        <input type='file' id='pfp-upload' placeholder={authUser.profilePic} onChange={onInputChange}/>
-                        <button type="submit" form='updatepfp' className="pfp-submit" onClick={handleSumbitPFP}><i className="bx bx-send" /></button>
-                    </form>
-                    <form className="Update1" onSubmit={handleSubmitUsername}>
-                        <h1 className="CUTitle">Username</h1>
-                        <i className="bx bx-pencil" />
-                        <input type='text' className="ChangeUsername" placeholder={authUser.username} 
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                        />
-                    </form>
-                    <form className="Update2" onSubmit={handleSubmitEmail}>
-                        <h1 className="CETitle">Email Address</h1>
-                        <i className="bx bx-pencil" />
-                        <input type='text' className="ChangeEmail" placeholder={authUser.email} 
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-                    </form>
-                    {/* once pressed function will be executed to delete user */}
-                    <button className="DeleteUser" onClick={deleteUser}>Delete Account</button>
+            <>
+                <meta charSet="UTF-8" />
+                <meta name="viewpoint" content="width=device-width, initial-scale=1.0" />
+                <title>Envoxis | Settings</title>
+                {/*- Box icons */}
+                <link
+                    href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+                    rel="stylesheet"
+                />
+                <div className="settings-container">
+                    <Sidebar />
+                    <div className="menu-filter"></div>
+                    <div className="option-listing"></div>
+                    <div className="profile-view">
+                        <h1 className="titleUP">Update Profile</h1>
+                        <form id='updatepfp' className='Update3'>
+                            <label htmlFor="pfp-upload"><img src={authUser.profilePic} className='ChangePFP'/></label>
+                            <input type='file' id='pfp-upload' placeholder={authUser.profilePic} onChange={onInputChange}/>
+                            <button type="submit" form='updatepfp' className="pfp-submit" onClick={handleSumbitPFP}>Submit Image<i className="bx bx-send" /></button>
+                            </form>
+                        <form className="Update1" onSubmit={handleSubmitUsername}>
+                            <h1 className="CUTitle">Username</h1>
+                            <i className="bx bx-pencil" />
+                            <input type='text' className="ChangeUsername" placeholder={authUser.username} 
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                            />
+                        </form>
+                        <form className="Update2" onSubmit={handleSubmitEmail}>
+                            <h1 className="CETitle">Email Address</h1>
+                            <i className="bx bx-pencil" />
+                            <input type='text' className="ChangeEmail" placeholder={authUser.email} 
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                        </form>
+                        {/* once pressed function will be executed to delete user */}
+                        <button className="DeleteUser" onClick={deleteUser}>Delete Account</button>
+                    </div>
                 </div>
-            </div>
-        </>
-    )
+            </>
+        )
 }
 
 export default Settings
+
+// return(
+//     <>
+//         <meta charSet="UTF-8" />
+//         <meta name="viewpoint" content="width=device-width, initial-scale=1.0" />
+//         <title>Envoxis | Settings</title>
+//         {/*- Box icons */}
+//         <link
+//             href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+//             rel="stylesheet"
+//         />
+//         <div className="settings-container">
+//             <Sidebar />
+//             <div className="update-profile-photo-container"></div>
+//             <div className="option-listing"></div>
+//             <div className="profile-view">
+//                 <h1 className="titleUP">Update Profile</h1>
+//                 <form id='updatepfp' className='Update3'>
+                    // <hi className="title-pfp">Current Profile Picture</hi>
+                    // <label htmlFor="pfp-upload"><img src={authUser.profilePic} className='ChangePFP'/></label>
+                    // {/* <label for="file-upload" class="custom-file-upload"><i className="bx bx-paperclip" /></label>
+                    // <input type="file" name="file" id="file-upload" onChange={onInputChange}/> gets file from user to be sent to other user */}
+                    // <input type='file' id='pfp-upload' placeholder={authUser.profilePic} onChange={onInputChange}/>
+                    // <button type="submit" form='updatepfp' className="pfp-submit" onClick={handleSumbitPFP}>Submit Image<i className="bx bx-send" /></button>
+                    // </form>
+//                 <form className="Update1" onSubmit={handleSubmitUsername}>
+//                     <h1 className="CUTitle">Username</h1>
+//                     <i className="bx bx-pencil" />
+//                     <input type='text' className="ChangeUsername" placeholder={authUser.username} 
+//                         value={username}
+//                         onChange={(e) => setUsername(e.target.value)}
+//                     />
+//                 </form>
+//                 <form className="Update2" onSubmit={handleSubmitEmail}>
+//                     <h1 className="CETitle">Email Address</h1>
+//                     <i className="bx bx-pencil" />
+//                     <input type='text' className="ChangeEmail" placeholder={authUser.email} 
+//                         value={email}
+//                         onChange={(e) => setEmail(e.target.value)}
+//                     />
+//                 </form>
+//                 {/* once pressed function will be executed to delete user */}
+//                 <button className="DeleteUser" onClick={deleteUser}>Delete Account</button>
+//             </div>
+//         </div>
+//     </>
+// )

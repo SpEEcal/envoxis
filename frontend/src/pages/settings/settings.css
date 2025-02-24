@@ -33,8 +33,7 @@ body{
     justify-content: center;
     flex-direction: column;
     width: 15%;
-    background: #1a171b;
-    opacity: 0.6;
+    background: #1a171bbe;
     backdrop-filter: blur(30px);
     border-radius: 20px;
 }
@@ -42,7 +41,6 @@ body{
 .option-listing{
     display: flex;
     align-items: center;
-    justify-content: center;
     flex-direction: column;
     width: 60%;
     background: #342e37;
@@ -54,6 +52,7 @@ body{
 /* To change the profile stuff */
 .profile-view{
     display: flex;
+    align-items: center;
     flex-direction: column;
     width: 20%;
     background: rgba(101, 89, 107, 0.6);
@@ -61,31 +60,35 @@ body{
     border-radius: 20px;
 }
 
+.ChangePFP{
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    margin-top: 15%;
+    margin-left: 20px;
+}
+
+.pfp-submit{
+    margin-top: 20px;
+    background-color: #5f5b61;
+    width: 300px;
+    height: 30px;
+    border-radius: 10px;
+    color: #c1a7bf;
+    text-align:left;
+    padding: 10px;
+    padding-top: 4px;
+}
+
+.pfp-submit i{
+    margin-left: 151px;
+}
+
 .titleUP{
     align-self: center;
     font-size: 35px;
     font-weight: 1000;
     text-decoration: underline;
-    margin-top: 5%;
-}
-
-.ChangePFP{
-    margin-top: 25%;
-    margin-left: 15%;
-    width: 250px;
-    height: 250px;
-    border-radius: 50%;
-}
-
-.pfp-submit{
-    margin-left: 75%;
-    position: absolute;
-    background-color: #342e37;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    top: 45%;
-    right: 20%;
 }
 
 .ChangeUsername{
@@ -101,7 +104,7 @@ body{
 }
 
 .CUTitle{
-    margin-top: 5px;
+    margin-top: 10px;
     text-decoration:underline;
     display: flex;
     position: absolute;
@@ -117,6 +120,10 @@ body{
     margin-top: 11%;
 }
 
+.Update1{
+    margin-top: 40px;
+}
+
 .ChangeEmail{
     margin-top: 30%;
     color: #ffffff;
@@ -130,7 +137,7 @@ body{
 }
 
 .CETitle{
-    margin-top: 70px;
+    margin-top: 80px;
     text-decoration:underline;
     display: flex;
     position: absolute;

@@ -12,12 +12,9 @@ const Statuses = () => {
     <div>
         {conversations.map((conversation) => (
           <div>
-            {friendList.map((friend) =>(
+            {friendList != undefined && friendList.map((friend) =>(
               <div>
                 {isFriend = friend._id === conversation._id}
-                {console.log(isFriend)}
-                {console.log(`friendid: ${friend._id}`)}
-                {console.log(`conversationid: ${conversation._id}`)}
                 {isFriend ? <Status key={conversation._id} conversation={conversation}/> : ""}
               </div>
             ))}

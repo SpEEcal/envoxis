@@ -2,16 +2,21 @@ import { useEffect, useState } from "react"
 import useConversation from "../../zustand/useConversation"
 import Messages from "./Messages"
 import MessageInput from "./MessageInput"
+import SelectedFriend from "./SelectedFriend"
 import { useAuthContext } from "../../context/AuthContext"
 import useAddFriends from "../../zustand/useAddFriends"
 import useRequestSent from "../../hooks/useRequestSent"
 import Request from "./Request"
 import useGetRequests from "../../hooks/useGetRequests"
 import './message.css';
+import useCreateGroupChat from "../../zustand/useCreateGroupChat"
+import Friends from "./Friends"
+import useGetFriends from "../../hooks/useGetFriends"
 
 const MessageContainer = () => {
     const {selectedConversation, setSelectedConversation} = useConversation()
     const {selectedAddFriends, setSelectedAddFriends} = useAddFriends()
+    const {selectedCreateGroupChat, setSelectedCreateGroupChat} = useCreateGroupChat()
 
     useEffect(() => {
 
@@ -19,6 +24,7 @@ const MessageContainer = () => {
         return () => {
             setSelectedConversation(null)
             setSelectedAddFriends(null)
+            setSelectedCreateGroupChat(null)
         }
     },[setSelectedConversation, setSelectedAddFriends])
 
@@ -49,6 +55,11 @@ const MessageContainer = () => {
     else if (selectedAddFriends != null){
         return(
             <AddFriends />
+        )
+    }
+    else if (selectedCreateGroupChat != null){
+        return(
+            <CreateGroupChat />
         )
     }
     else{
@@ -118,6 +129,64 @@ const AddFriends = () => {
                 {isRequest ? <h1 className="requests-incoming">Incoming requests</h1> : <h1 className="requests-incoming">No incoming requests</h1>}
                 {isRequest && requests.map((request) => ( <Request key={request._id} request={request} /> ))}
             </div>
+        </div>
+    )
+}
+
+const CreateGroupChat = () => {
+    const {selectedUsers, isSelectedUser, oldSelectedUser} = useCreateGroupChat()
+    console.log(selectedUsers)
+    const friendList = useGetFriends()
+    const friends = friendList.friends
+
+    // makes sure the array is empty before creatng groupchat
+    while (selectedUsers.length != 0){
+        selectedUsers.pop()
+    }
+
+    const ChangeInArray = () => {
+        const {isSelectedUser, oldSelectedUser, setoldSelectedUser, selectedUsers, setSelectedUsers} = useCreateGroupChat()
+
+        if (isSelectedUser > oldSelectedUser){
+            setoldSelectedUser(isSelectedUser)
+            setSelectedUsers(selectedUsers)
+        }
+    }
+
+    if (friends.friends != undefined && friends.friends.length > 1){
+        return(
+            <form id="creation-group-container">
+                <h1 className="GC-creation-title">Select Users to Add to Group Chat</h1>
+                <div className="creation">
+                    <Friends />
+                    {isSelectedUser > oldSelectedUser && (
+                        <div>
+                            <ChangeInArray/>
+                        </div>
+                    )}
+                </div>
+                
+                <button form="creation-group-container" className="creation-submit">
+                    <p>Create Group Chat</p>
+                    <i className="bx bx-send"></i>
+                </button>
+            </form>
+        )
+    }
+    else{
+        return(
+            <div>
+                <CannotCreateGroup/>
+            </div>
+        )
+    }
+}
+
+const CannotCreateGroup = () => {
+    return(
+        <div className="cannot-create-group-container">
+            <i className="bx bx-lock"></i>
+            <h1 className="cannot-create-group-text">Add more friends to gain access to creating groups!</h1>
         </div>
     )
 }

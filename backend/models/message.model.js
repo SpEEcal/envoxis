@@ -11,9 +11,15 @@ const messageSchema = new mongoose.Schema({
     // stores the ID of the receiver of the message
     receiverId:{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-        required: true
+        ref: "User"
     },
+    // stores IDs of all receivers of the message
+    receiversIds:[
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+        }
+    ],
     // stores iinitialisation vector for later decryption
     iv:{
         type: String

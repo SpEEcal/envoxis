@@ -916,6 +916,167 @@ input[type="file"] {
     background: rgba(255, 255, 255, 0.1);
 }
 
+/* To customise the group creation section */
+
+#creation-group-container{
+    display: grid;
+    place-items: center;
+}
+
+.GC-creation-title{
+    font-weight: 600;
+    text-decoration: underline;
+    font-size: 300%;
+    color: #974730;
+    margin-top: 6%;
+}
+
+.selected-people-container{
+    display: flex;
+    flex-direction: row;
+    margin-top: 5%;
+    background-color: #75311e;
+    width: 80%;
+    max-height: 45%;
+    border-radius: 10px;
+}
+
+.add-selected-button{
+    justify-self: end;
+}
+
+
+.creation{
+    margin-top: 5%;
+    display: flex;
+    flex-direction: row;
+}
+
+.friends-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 100px;
+    margin-left: 15px;
+}
+
+.friend-container{
+    display: flex;
+    flex-direction: row;
+    width: 120%;
+    background-color: #344675;
+    width: 120%;
+    padding: 10px;
+    border-radius: 50px;
+    color: #081a47;
+}
+
+.selected-container{
+    display: flex;
+    flex-direction: row;
+    background-color: #1e2843;
+    width: 120%;
+    padding: 10px;
+    border-radius: 50px;
+    color: #4a68b6;
+}
+
+.friend-header{
+    margin-left: 20px;
+    margin-top: 6px;
+}
+
+.friend-container:hover{
+    background-color: #48609c;
+    width: 120%;
+    padding: 10px;
+    border-radius: 50px;
+}
+
+.selected-container:hover{
+    background-color: #2f3f69;
+    width: 120%;
+    padding: 10px;
+    border-radius: 50px;
+}
+
+.creation-submit{
+    position: absolute;
+    width: 100%;
+    background-color: #772d18;
+    text-align: center;
+    bottom: 0;
+    border-radius: 10px;
+    color: #d78169;
+}
+
+/* Customising bar to show the current selected users */
+
+.selected-friend-container{
+    display: flex;
+    flex-direction: row;
+    background-color: #8e3b24;
+    border-radius: 50px;
+    width: 15%;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    margin-left: 10px;
+    padding: 2px;
+    padding-left: 10px;
+}
+
+.selected-friend-PFP{
+    margin-top: 1px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.selected-friend-username{
+    margin-left: 10px;
+}
+
+.remove-selected-friend-button{
+    margin-left: 15px;
+    margin-top: 2px;
+}
+
+/* Customising button for creating Groupchats */
+
+#group-chat-creation{
+    display: grid;
+    place-items: center;
+    color: #b69fc0;
+    font-weight: 600;
+    margin-top: 5%;
+}
+
+.create-group-button{
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 50px;
+}
+
+.create-group-button:hover{
+    background-color: #4a404f;
+}
+
+/* Customising Cannot Create Group Function*/
+.cannot-create-group-container{
+    display: grid;
+    place-items: center;
+}
+
+.cannot-create-group-text{
+    color: #75311e;
+}
+
+.cannot-create-group-container i{
+    margin-top: 30%;
+    color: #000;
+    font-size: 50px;
+}
+
 /* 1136 */
 @media (max-width:1136px){
     .message-container{

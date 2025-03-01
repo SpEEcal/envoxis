@@ -1,8 +1,6 @@
 import toast from 'react-hot-toast'
-import { useAuthContext } from "../context/AuthContext"
 
 const useAddFriend = () => {
-    const {setAuthUser} = useAuthContext()
 
     const addFriend = async (senderid) => {
         try {

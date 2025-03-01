@@ -13,8 +13,9 @@ const Request = ({request}) => {
     }
 
     // accept request
-    const acceptRequest = (senderid) => {
-        addFriend(senderid)
+    const acceptRequest = async (senderid) => {
+        await addFriend(senderid)
+        useDeleteRequest(senderid)
     }
 
   return (

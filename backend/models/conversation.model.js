@@ -17,7 +17,15 @@ const conversationSchema = new mongoose.Schema({
     type:{
         type: String,
         defalut: "solo",
-    }
+    },
+    groupchatname:{
+        type: String,
+        default: "Group chat"
+    },
+    groupchatpfp:{
+        type: String,
+        default: "../Messageimg/groupchatdefault.png"
+    },
 }, {timestamps:true})
 
 const Conversation = mongoose.model("Conversation", conversationSchema);

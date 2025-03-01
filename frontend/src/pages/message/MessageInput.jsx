@@ -36,7 +36,7 @@ const MessageInput = () => {
             <input type="text" id="convo-input" placeholder="Your message" value={message} onChange={(e) => setMessage(e.target.value)}/>
             <label for="file-upload" class="custom-file-upload"><i className="bx bx-paperclip" /></label>
             <input type="file" name="file" id="file-upload" onChange={onInputChange}/> {/* gets file from user to be sent to other user */}
-            <button type="submit" className="convo-submit"><i className="bx bx-send" /></button> { /* submits the message / file to be sent */}
+            <button type="submit" className="convo-submit"><i className="bx bx-send"/></button> { /* submits the message / file to be sent */}
             <button className="convo-emoji"></button>
         </form>
     </div>

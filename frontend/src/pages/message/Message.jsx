@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import './message.css';
-import useLogout from '../../hooks/useLogout';
 import Conversations from './Conversations';
 import MessageContainer from './MessageContainer';
 import SearchInput from './SearchInput';
@@ -8,10 +7,9 @@ import Sidebar from '../sidebar/Sidebar';
 import UserDescContainer from './UserDescContainer';
 import AddFriends from './AddFriends';
 import MiniProfile from './MiniProfile';
+import CreateGroupChat from './CreateGroupChat';
 
 const Message = () => {
-  const {loading, logout} = useLogout()
-
   return (
     <div>
         <meta charSet="UTF-8" />
@@ -27,6 +25,7 @@ const Message = () => {
               <div className="contact-title">Chats</div>
               <SearchInput />
               <AddFriends />
+              <CreateGroupChat />
               <div className="contact-messages">
                 <ul className="contact-list">
                   <li>

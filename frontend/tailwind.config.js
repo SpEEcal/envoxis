@@ -21,6 +21,7 @@ export default {
         'dark-dark-purple': 'rgb(52, 46, 55)',
         'dark-purple': '#5E5263',
         'light-purple': '#796a80',
+        'purple': '#5e5263',
         'light-orange': 'rgb(151, 78, 58)',
         'light-very-orange': '#eb937b'
       }

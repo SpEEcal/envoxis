@@ -118,12 +118,6 @@ const Login = () => {
                             <i className="bx bx-right-arrow-alt" />
                         </button>
                         </div>
-                        <div className="social-login">
-                        <i className="bx bxl-google" />
-                        <i className="bx bxl-facebook" />
-                        <i className="bx bxl-twitter" />
-                        <i className="bx bxl-github" />
-                        </div>
                     </div>
                 </form>
                 </div>
@@ -159,12 +153,6 @@ const Login = () => {
                             <span> Sign Up</span>
                             <i className="bx bx-right-arrow-alt" />
                         </button>
-                        </div>
-                        <div className="social-login">
-                        <i className="bx bxl-google" />
-                        <i className="bx bxl-facebook" />
-                        <i className="bx bxl-twitter" />
-                        <i className="bx bxl-github" />
                         </div>
                     </div>
                     </form>

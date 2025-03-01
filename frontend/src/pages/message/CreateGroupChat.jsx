@@ -6,7 +6,7 @@ import './message.css';
 const CreateGroupChat = () => {
     const {setSelectedAddFriends} = useAddFriends()
     const {setSelectedConversation} = useConversation()
-    const {setSelectedCreateGroupChat, setIsSelectedUser, setoldSelectedUser, setSelectedUsers} = useCreateGroupChat()
+    const {setSelectedCreateGroupChat, setIsSelectedUser, setSelectedUsers} = useCreateGroupChat()
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -15,7 +15,6 @@ const CreateGroupChat = () => {
         setSelectedConversation(null)
         setSelectedUsers([])
         setIsSelectedUser(0)
-        setoldSelectedUser(0)
     }
     
   return (

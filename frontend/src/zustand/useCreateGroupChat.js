@@ -7,9 +7,6 @@ const useCreateGroupChat = create((set) => ({
     setSelectedUsers: (selectedUsers) => set({selectedUsers}),
     isSelectedUser: 0,
     setIsSelectedUser: (isSelectedUser) => set({isSelectedUser}),
-    oldSelectedUser: 0,
-    setoldSelectedUser: (oldSelectedUser) => set({oldSelectedUser}),
-
 }))
 
 export default useCreateGroupChat

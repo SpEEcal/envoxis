@@ -134,36 +134,32 @@ const AddFriends = () => {
 }
 
 const CreateGroupChat = () => {
-    const {selectedUsers, isSelectedUser, oldSelectedUser} = useCreateGroupChat()
-    console.log(selectedUsers)
     const friendList = useGetFriends()
     const friends = friendList.friends
 
-    // makes sure the array is empty before creatng groupchat
-    while (selectedUsers.length != 0){
-        selectedUsers.pop()
-    }
-
     const ChangeInArray = () => {
-        const {isSelectedUser, oldSelectedUser, setoldSelectedUser, selectedUsers, setSelectedUsers} = useCreateGroupChat()
-
-        if (isSelectedUser > oldSelectedUser){
-            setoldSelectedUser(isSelectedUser)
-            setSelectedUsers(selectedUsers)
-        }
+        const {selectedUsers} = useCreateGroupChat()
+        console.log(selectedUsers)
+        return(
+            <div className="selected-people-container">
+                {selectedUsers.map((selecteduser) => (
+                    <div className="selected-friend-container">
+                        {console.log(selecteduser)}
+                        <img src={selecteduser.profilePic} alt="selectedUserPFP" className="selected-friend-PFP" />
+                        <h1 className="selected-friend-username">{selecteduser.username}</h1>
+                    </div>
+                ))}
+            </div>
+        )
     }
 
     if (friends.friends != undefined && friends.friends.length > 1){
         return(
             <form id="creation-group-container">
                 <h1 className="GC-creation-title">Select Users to Add to Group Chat</h1>
+                <ChangeInArray/>
                 <div className="creation">
                     <Friends />
-                    {isSelectedUser > oldSelectedUser && (
-                        <div>
-                            <ChangeInArray/>
-                        </div>
-                    )}
                 </div>
                 
                 <button form="creation-group-container" className="creation-submit">

@@ -4,7 +4,8 @@ import './message.css';
 
 const Friend = ({friend}) => {
     //stores selected users
-    const {selectedUsers, isSelectedUser, setIsSelectedUser} = useCreateGroupChat()
+    const {selectedUsers, setSelectedUsers, isSelectedUser, setIsSelectedUser} = useCreateGroupChat()
+
     // changing style of selected users
     const [Friend, setStyleOne] = useState('friend-container');
 
@@ -13,19 +14,19 @@ const Friend = ({friend}) => {
 
     const SelectedUser = (e) => {
         e.preventDefault()
-        if (isSelected == false){
+        if (isSelected == false) {
             selectedUsers.push(friend)
-            console.log(selectedUsers)
             setIsSelected(true)
-            setIsSelectedUser(isSelectedUser+1)
             setStyleOne('selected-container')
+            setIsSelectedUser(isSelectedUser + 1)
         }
         else {
             selectedUsers.pop(friend)
             setIsSelected(false)
-            setIsSelectedUser(isSelectedUser+1)
             setStyleOne('friend-container')
+            setIsSelectedUser(isSelectedUser + 1)
         }
+        console.log(selectedUsers)
     }
 
   return (

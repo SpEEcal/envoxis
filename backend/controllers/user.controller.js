@@ -54,7 +54,7 @@ export const sendRequest = async (req, res) => {
 
         //if the user is already the persons friend
         const alreadyFriend = await User.find({"_id": senderId,"friends": receiverId})
-        if (alreadyFriend){
+        if (alreadyFriend != []){
             console.log(senderId)
             console.log(alreadyFriend)
             return res.status(400).json({error: "User has been already added"})

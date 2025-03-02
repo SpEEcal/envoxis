@@ -14,7 +14,7 @@ const conversationSchema = new mongoose.Schema({
             defalut:[],
         }
     ],
-    type:{
+    typeofchat:{
         type: String,
         defalut: "solo",
     },

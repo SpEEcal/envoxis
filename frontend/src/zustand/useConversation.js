@@ -7,7 +7,10 @@ const useConversation = create((set) => ({
     setMessages: (messages) => set({messages}),
     files:[],
     setFiles: (files) => set({files}),
-
+    groupmessages:[],
+    setGroupMessages: (groupmessages) => set({groupmessages}),
+    groupfiles:[],
+    setFiles: (groupfiles) => set({groupfiles}),
 }))
 
 export default useConversation

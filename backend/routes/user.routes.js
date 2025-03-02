@@ -1,6 +1,6 @@
 import express from "express";
 import protectRoute from "../middleware/protectRoute.js";
-import { addFriend, deleteFriend, deleteRequest, getFriends, getRequests, getUsersForSidebar, senderinfo, sendRequest } from "../controllers/user.controller.js";
+import { addFriend, createGroupChat, deleteFriend, deleteRequest, getFriends, getGroupChatsForSidebar, getRequests, getUsersForSidebar, senderinfo, sendRequest } from "../controllers/user.controller.js";
 
 const router = express.Router();
 
@@ -13,5 +13,6 @@ router.post("/senderinfo", protectRoute, senderinfo)
 router.post("/deleterequest", protectRoute, deleteRequest)
 router.post("/addfriend", protectRoute, addFriend)
 router.post("/deletefriend", protectRoute, deleteFriend)
-
+router.post("/creategroupchat", protectRoute, createGroupChat)
+router.get("/getgroupchatsforsidebar", protectRoute, getGroupChatsForSidebar)
 export default router;

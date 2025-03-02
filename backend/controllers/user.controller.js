@@ -1,17 +1,31 @@
 import User from "../models/user.model.js";
 import friendRequest from "../models/friendrequest.model.js";
+import Conversation from "../models/conversation.model.js";
 
 export const getUsersForSidebar = async (req, res) => {
     try {
 
         const loggedInUserId = req.user._id;
-        const filteredUsers = await User.find({ _id: loggedInUserId}).select("friends")
-        const oldfilteredUsers = await User.find({ _id: {$ne: loggedInUserId}}).select("-password")
+        const filteredUsers = await User.find({ _id: {$ne: loggedInUserId}}).select("-password")
 
 
-        res.status(200).json(oldfilteredUsers);
+        res.status(200).json(filteredUsers);
     } catch (error) {
         console.log("Error in getUsersForSidebar: ", error.message)
+        res.status(500).json({error:"Internal server error"});
+    }
+}
+
+export const getGroupChatsForSidebar = async (req, res) => {
+    try {
+
+        const loggedInUserId = req.user._id;
+        const filteredUsers = await Conversation.find({ _id: {$ne: loggedInUserId}, typeofchat: "group"}).select("-password")
+
+        console.log(filteredUsers)
+        res.status(200).json(filteredUsers);
+    } catch (error) {
+        console.log("Error in getGroupChatsForSidebar: ", error.message)
         res.status(500).json({error:"Internal server error"});
     }
 }
@@ -39,12 +53,12 @@ export const sendRequest = async (req, res) => {
         }
 
         //if the user is already the persons friend
-        const alreadyFriend = await User.find({"_id": senderId,"friends": [receiverId]})
-        if (alreadyFriend){
-            console.log(senderId)
-            console.log(alreadyFriend)
-            return res.status(400).json({error: "User has been already added"})
-        }
+        // const alreadyFriend = await User.find({"_id": senderId,"friends": [receiverId]})
+        // if (alreadyFriend){
+        //     console.log(senderId)
+        //     console.log(alreadyFriend)
+        //     return res.status(400).json({error: "User has been already added"})
+        // }
 
         // creates a request to be accepted by the receiving user
         const newRequest = new friendRequest({
@@ -142,6 +156,26 @@ export const deleteFriend = async (req,res) => {
         res.status(200).json({message: "Added friend successfully"});
     } catch (error) {
         console.log("Error in deleteFriend controller", error.message)
+        res.status(500).json({error:"Internal Server Error"})
+    }
+}
+
+export const createGroupChat = async (req, res) => {
+    try {
+        const {listofuserids} = req.body
+
+        const newGroupchat = await Conversation.create({
+            participants: listofuserids,
+            typeofchat: "group",
+        })
+
+        if (!newGroupchat){
+            return res.status(400).json("Group Chat not made")
+        }
+
+        res.status(200).json(newGroupchat);
+    } catch (error) {
+        console.log("Error in createGroupChat controller", error.message)
         res.status(500).json({error:"Internal Server Error"})
     }
 }

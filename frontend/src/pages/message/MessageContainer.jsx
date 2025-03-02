@@ -2,7 +2,6 @@ import { useEffect, useState } from "react"
 import useConversation from "../../zustand/useConversation"
 import Messages from "./Messages"
 import MessageInput from "./MessageInput"
-import SelectedFriend from "./SelectedFriend"
 import { useAuthContext } from "../../context/AuthContext"
 import useAddFriends from "../../zustand/useAddFriends"
 import useRequestSent from "../../hooks/useRequestSent"
@@ -12,11 +11,16 @@ import './message.css';
 import useCreateGroupChat from "../../zustand/useCreateGroupChat"
 import Friends from "./Friends"
 import useGetFriends from "../../hooks/useGetFriends"
+import useAddGroupChat from "../../hooks/useAddGroupChat"
+import toast from "react-hot-toast"
+import GroupMessages from "./GroupMessages"
+import GroupMessageInput from "./GroupMessageInput"
 
 const MessageContainer = () => {
     const {selectedConversation, setSelectedConversation} = useConversation()
     const {selectedAddFriends, setSelectedAddFriends} = useAddFriends()
     const {selectedCreateGroupChat, setSelectedCreateGroupChat} = useCreateGroupChat()
+    console.log(selectedConversation)
 
     useEffect(() => {
 
@@ -28,7 +32,31 @@ const MessageContainer = () => {
         }
     },[setSelectedConversation, setSelectedAddFriends])
 
-    if (selectedConversation != null){
+    if (selectedConversation != null && selectedConversation.typeofchat == "group"){
+        return (
+            <>
+                <div className="chat-top">
+                    <button type="button" className="chat-back"><i className="bx bx-left-arrow-alt" /></button>
+                    <div className="chat-user">
+                        <img src={selectedConversation.groupchatpfp} className="chat-user-pfp" alt="" />
+                        <div className="detail-three">
+                            <div className="chat-username">{selectedConversation.groupchatname}</div>
+                        </div>
+                        <div className="chat-voice-call">
+                        <img src="./Messageimg/voicecall.png" alt="" />
+                        </div>
+                        <div className="chat-video-call">
+                        <img src="./Messageimg/videocall.png" alt="" />
+                        </div>
+                    </div>
+                </div>
+
+                <GroupMessages />
+                <GroupMessageInput />
+            </>
+        )
+    }
+    else if (selectedConversation != null){
         return (
             <>
                 <div className="chat-top">
@@ -134,12 +162,13 @@ const AddFriends = () => {
 }
 
 const CreateGroupChat = () => {
+    const { authUser } = useAuthContext()
     const friendList = useGetFriends()
     const friends = friendList.friends
+    const { addGroupChat } = useAddGroupChat()
 
     const ChangeInArray = () => {
         const {selectedUsers} = useCreateGroupChat()
-        console.log(selectedUsers)
         return(
             <div className="selected-people-container">
                 {selectedUsers.map((selecteduser) => (
@@ -152,6 +181,25 @@ const CreateGroupChat = () => {
             </div>
         )
     }
+    const getSelectedUser = () => {
+        const {selectedUsers} = useCreateGroupChat()
+        return selectedUsers
+    }
+
+    let array = getSelectedUser()
+
+    const submitGroupInfo = async (e) => {
+        e.preventDefault()
+        if (array.length == 10){
+            toast.error("Maximum 10 users per group")
+        }
+        else if (array.length == 1){
+            toast.error("Add one more user to create a group")
+        }
+        else{
+            await addGroupChat(authUser._id, array)
+        }
+    }
 
     if (friends.friends != undefined && friends.friends.length > 1){
         return(
@@ -161,8 +209,7 @@ const CreateGroupChat = () => {
                 <div className="creation">
                     <Friends />
                 </div>
-                
-                <button form="creation-group-container" className="creation-submit">
+                <button form="creation-group-container" className="creation-submit" onClick={submitGroupInfo}>
                     <p>Create Group Chat</p>
                     <i className="bx bx-send"></i>
                 </button>

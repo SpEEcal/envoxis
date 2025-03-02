@@ -15,18 +15,23 @@ export const sendMessage = async (req, res) => {
         // random 16 bit initialization vector
         let iv = crypto.randomBytes(16)
 
+        // finds the conversation to add the message to
         let conversation = await Conversation.findOne({
             participants: { $all: [senderId, receiverId] },
         })
 
+        // creates a conversation if there is no previous messages between two users
         if(!conversation){
             conversation = await Conversation.create({
                 participants: [senderId, receiverId],
             })
         }
 
+        const base64message = message
+
+        // stores the message to be sent in base 64 using message model
         const messagetobesent = Message({
-            message,
+            message: base64message,
             senderId,
             receiverId,
         })
@@ -41,6 +46,7 @@ export const sendMessage = async (req, res) => {
         const base64data = Buffer.from(iv, "binary").toString("base64")
         iv = base64data
 
+        // stores encrypted message using message model
         const newMessage = new Message({
             iv,
             message,
@@ -48,20 +54,22 @@ export const sendMessage = async (req, res) => {
             receiverId,
     
         })
-        console.log(`newMessage: ${newMessage}`)
+        
+        // puts message into conversation
         if(newMessage) {
             conversation.messages.push(newMessage._id);
         }
-        //SOCKET IO FUNCTIONALITY
 
+        //SOCKET TO FUNCTIONALITY - tells live application that a new message has been sent 
         const receiverSocketId = getReceiverSocketId(receiverId)
         if(receiverSocketId){
             io.to(receiverSocketId).emit("newMessage", newMessage)
         }
 
-        //will run in parallel
+        //will run in parallel - saves the message and conversation 
         await Promise.all([conversation.save(), newMessage.save()]);
 
+        // returns the base64 message (NOT ENCRYPTED)
         res.status(201).json(messagetobesent);
 
     } catch (error) {
@@ -76,7 +84,8 @@ export const getMessages = async (req, res) => {
         const senderId = req.user._id;
 
         const conversation = await Conversation.findOne({
-            participants: { $all: [senderId, userToChatId] },
+            participants: { $all: [senderId, userToChatId]},
+            typeofchat: "solo"
         }).populate("messages"); // NOT REF BUT ACTUAL MESSAGES
 
         if(!conversation) return res.status(200).json([])
@@ -203,6 +212,90 @@ export const uploadFile = async (req,res) => {
     // displays errors if found
     } catch (error) {
         console.log("Error in uploadFile controller: ", error.message)
+        res.status(500).json({error:"Internal server error"});
+    }
+};
+
+export const getGroupMessages = async (req, res) => {
+    try {
+        const users = req.params;
+
+        const conversation = await Conversation.findOne({
+            participants: {$all: [users[0], users[1], users[2], users[3], users[4], users[5], users[6], users[7], users[8], users[9]]},
+            typeofchat: "group"
+        }).populate("messages"); // NOT REF BUT ACTUAL MESSAGES
+
+        if(!conversation) return res.status(200).json([])
+
+        const messages = conversation.messages
+
+        res.status(200).json(messages)
+    } catch (error) {
+        console.log("Error in getGroupMessage controller: ", error.message)
+        res.status(500).json({error:"Internal server error"});
+    }
+};
+
+export const sendGroupMessage = async (req, res) => {
+    try {
+        let { message } = req.body;
+        const receiversIds = req.params;
+        console.log(`receiverids: ${receiversIds[4]}`)
+        const senderId = req.user._id;
+        // set encryption alogrithm
+        const algorithm = 'aes-256-cbc'
+        // private key
+        const key = "anastasiascatwascalledmaxbutdead"
+        // random 16 bit initialization vector
+        let iv = crypto.randomBytes(16)
+
+        let conversation = await Conversation.findOne({
+            participants: { $all: [receiversIds[0], receiversIds[1], receiversIds[2], receiversIds[3], receiversIds[4], receiversIds[5], receiversIds[6], receiversIds[7], receiversIds[8], receiversIds[9]] },
+        })
+
+        console.log(conversation)
+
+        const messagetobesent = Message({
+            message,
+            senderId,
+            receiversIds,
+        })
+
+        //encrypt message using AES, Private key and initialisation vector
+        const cipher = crypto.createCipheriv(algorithm, key, iv)
+        let encrytedData = cipher.update(message, "utf-8", "hex")
+        encrytedData += cipher.final("hex")
+        message = encrytedData
+
+        // convert the initialisation vector to base64 string
+        const base64data = Buffer.from(iv, "binary").toString("base64")
+        iv = base64data
+
+        const newMessage = new Message({
+            iv,
+            message,
+            senderId,
+            receiversIds,
+    
+        })
+        console.log(`newMessage: ${newMessage}`)
+        if(newMessage) {
+            conversation.messages.push(newMessage._id);
+        }
+        //SOCKET IO FUNCTIONALITY
+
+        const receiverSocketId = getReceiverSocketId(receiversIds)
+        if(receiverSocketId){
+            io.to(receiverSocketId).emit("newMessage", newMessage)
+        }
+
+        //will run in parallel
+        await Promise.all([conversation.save(), newMessage.save()]);
+
+        res.status(201).json(messagetobesent);
+
+    } catch (error) {
+        console.log("Error in sendGroupMessage controller: ", error.message)
         res.status(500).json({error:"Internal server error"});
     }
 };

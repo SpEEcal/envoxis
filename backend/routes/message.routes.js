@@ -1,5 +1,5 @@
 import express from "express";
-import { decryptdata, getMessages, sendMessage, uploadFile } from "../controllers/message.controller.js";
+import { decryptdata, getGroupMessages, getMessages, sendGroupMessage, sendMessage, uploadFile } from "../controllers/message.controller.js";
 import protectRoute from "../middleware/protectRoute.js"
 
 import multer from "multer";
@@ -20,7 +20,9 @@ const upload = multer({ storage: storage })
 const router = express.Router();
 
 router.get("/M/:id", protectRoute, getMessages);
+router.get("/GM/:participants", protectRoute, getGroupMessages);
 router.post("/send/:id", protectRoute,sendMessage);
+router.post("/sendG/:participants", protectRoute,sendGroupMessage);
 //runs the function and middleware to store the file in a folder and to grab user information
 router.post("/uploadfile/:id", [upload.single("file"), protectRoute], uploadFile);
 router.post("/decrypt", protectRoute, decryptdata);

@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { type } from "os";
 
 const messageSchema = new mongoose.Schema({
     // stores the ID of the sender of the message

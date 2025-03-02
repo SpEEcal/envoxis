@@ -13,14 +13,25 @@ const UserDescContainer = () => {
     },[setSelectedConversation])
 
     const RemoveFriend = (friendid) => {
-        {console.log("DELETEEDDD")}
         useRemoveFriend(friendid)
     }
 
-  return (
-    <div>
-    {!selectedConversation ? <NoChatSelected /> : (
-        <div className="user-alignment">
+    if (selectedConversation && selectedConversation.typeofchat == "group"){
+        return (
+            <div className="user-alignment">
+                <div className="User-description">
+                    <img src={selectedConversation.groupchatpfp} className="user-pfp" alt="" />
+                    <div className="user-name">{selectedConversation.groupchatname}</div>
+                </div>
+                {/* <form id="remove-friend" className="remove-friend">
+                    <button form="remove-friend" className="remove-friend-button" onClick={e => RemoveFriend(selectedConversation._id)}>Remove Friend</button>
+                </form> */}
+            </div>
+        )
+    }
+    else if (selectedConversation && selectedConversation.username == selectedConversation.username){
+        return (
+            <div className="user-alignment">
             <div className="User-description">
                 <img src={selectedConversation.profilePic} className="user-pfp" alt="" />
                 <div className="user-name">{selectedConversation.username}</div>
@@ -33,11 +44,13 @@ const UserDescContainer = () => {
                 <button form="remove-friend" className="remove-friend-button" onClick={e => RemoveFriend(selectedConversation._id)}>Remove Friend</button>
             </form>
         </div>
-    )}
-
-    
-    </div>
-  )
+        )
+    }
+    else {
+        return(
+            <NoChatSelected />
+        )
+    }
 }
 
 export default UserDescContainer

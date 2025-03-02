@@ -70,6 +70,7 @@ export const sendMessage = async (req, res) => {
         await Promise.all([conversation.save(), newMessage.save()]);
 
         // returns the base64 message (NOT ENCRYPTED)
+        console.log(messagetobesent)
         res.status(201).json(messagetobesent);
 
     } catch (error) {

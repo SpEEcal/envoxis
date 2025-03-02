@@ -53,12 +53,12 @@ export const sendRequest = async (req, res) => {
         }
 
         //if the user is already the persons friend
-        // const alreadyFriend = await User.find({"_id": senderId,"friends": [receiverId]})
-        // if (alreadyFriend){
-        //     console.log(senderId)
-        //     console.log(alreadyFriend)
-        //     return res.status(400).json({error: "User has been already added"})
-        // }
+        const alreadyFriend = await User.find({"_id": senderId,"friends": [receiverId]})
+        if (alreadyFriend){
+            console.log(senderId)
+            console.log(alreadyFriend)
+            return res.status(400).json({error: "User has been already added"})
+        }
 
         // creates a request to be accepted by the receiving user
         const newRequest = new friendRequest({
@@ -106,15 +106,20 @@ export const getFriends = async (req, res) => {
 
 export const deleteRequest = async (req, res) => {
     try {
-        const receiverId = req.user._id
-        const {senderid} = req.body
+        const receiverId = req.user._id // gets user id from protectRoute middleware 
+        const {senderid} = req.body // gets the sender id from the body in fetch func
+
+        // finds request and deletes it from friendrequest collection
         const request = await friendRequest.findOneAndDelete({"receiverId": receiverId, "senderId": senderid})
 
+        // checks if there is no request
         if (!request){
             return res.status(400).json("Request not found")
         }
 
+        // returns status that everything worked
         res.status(200).json({message: "Deleted request successfully"});
+        // checks for any errors that have occured
     } catch (error) {
         console.log("Error in deleteRequest controller", error.message)
         res.status(500).json({error:"Internal Server Error"})
@@ -123,17 +128,21 @@ export const deleteRequest = async (req, res) => {
 
 export const addFriend = async (req, res) => {
     try {
-        const receiverId = req.user._id
-        const {senderid} = req.body
+        const receiverId = req.user._id // gets user id from protectRoute middleware
+        const {senderid} = req.body // gets the sender id from the body in fetch func
 
+        // updates both friend lists for both users using the id of both users
         const updatedfriendslistforreceiver = await User.findOneAndUpdate({ "_id": receiverId }, { $addToSet: { friends: [senderid] }})
         const updatedfriendslistforsender = await User.findOneAndUpdate({ "_id": senderid }, { $addToSet: { friends: [receiverId] }})
 
+        // checks if any errors occured when adding users to friends lists
         if (!updatedfriendslistforreceiver || !updatedfriendslistforsender){
             return res.status(400).json("Friend not added")
         }
 
+        // returns status that everything worked
         res.status(200).json({message: "Added friend successfully"});
+        // checks for any errors that have occured
     } catch (error) {
         console.log("Error in addFriend controller", error.message)
         res.status(500).json({error:"Internal Server Error"})

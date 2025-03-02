@@ -81,17 +81,23 @@ export const sendMessage = async (req, res) => {
 
 export const getMessages = async (req, res) => {
     try {
+        // gets receiver id from api url
         const {id:userToChatId} = req.params;
+        // gets sender id from protectRoute middleware
         const senderId = req.user._id;
 
+        // finds the conversation between the two users
         const conversation = await Conversation.findOne({
             participants: { $all: [senderId, userToChatId]},
         }).populate("messages"); // NOT REF BUT ACTUAL MESSAGES
 
+        // checks if there is no conversation
         if(!conversation) return res.status(200).json([])
-
+        
+        // gets messages from conversation
         const messages = conversation.messages
 
+        // returns array of messages
         res.status(200).json(messages)
     } catch (error) {
         console.log("Error in getMessage controller: ", error.message)
@@ -101,7 +107,7 @@ export const getMessages = async (req, res) => {
 
 export const decryptdata = async (req, res) => {
     try{
-        const { data } = req.body
+        const { data } = req.body // gets encrypted message from "body" in fetch function
         data.map((message) => { // loops through all encrypted messages
             // encryption alogrithm
             const algorithm = 'aes-256-cbc'
@@ -123,6 +129,7 @@ export const decryptdata = async (req, res) => {
     
         res.status(200).json(data) // returns data
     }
+    // gets backend error and sends it to frontend
     catch (error){
         console.log("Error in decryptdata controller: ", error.message)
         res.status(500).json({error:"Internal server error"});

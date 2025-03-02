@@ -30,8 +30,8 @@ const userSchema = new mongoose.Schema({
     },
     friends: [
         {
-            type: mongoose.Schema.ObjectId,
-            ref: "User"
+            type: mongoose.Schema.ObjectId, // saves user id
+            ref: "User" // gets data about each user from their User model
         }
     ],
     // createdAt updatedAt

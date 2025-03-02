@@ -63,7 +63,7 @@ export const sendMessage = async (req, res) => {
         //SOCKET TO FUNCTIONALITY - tells live application that a new message has been sent 
         const receiverSocketId = getReceiverSocketId(receiverId)
         if(receiverSocketId){
-            io.to(receiverSocketId).emit("newMessage", newMessage)
+            io.to(receiverSocketId).emit("messagetobesent", messagetobesent)
         }
 
         //will run in parallel - saves the message and conversation 

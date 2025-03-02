@@ -86,7 +86,6 @@ export const getMessages = async (req, res) => {
 
         const conversation = await Conversation.findOne({
             participants: { $all: [senderId, userToChatId]},
-            typeofchat: "solo"
         }).populate("messages"); // NOT REF BUT ACTUAL MESSAGES
 
         if(!conversation) return res.status(200).json([])

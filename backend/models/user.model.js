@@ -26,7 +26,7 @@ const userSchema = new mongoose.Schema({
     },
     status:{
         type:String,
-        default: "../Messageimg/active1.png",
+        default: "",
     },
     friends: [
         {

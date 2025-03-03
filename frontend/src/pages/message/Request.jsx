@@ -16,7 +16,6 @@ const Request = ({request}) => {
     // accept request
     const acceptRequest = async (senderid) => {
         await addFriend(senderid)
-        useDeleteRequest(senderid)
     }
 
   return (

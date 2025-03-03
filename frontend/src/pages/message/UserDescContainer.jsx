@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import useConversation from "../../zustand/useConversation"
-import { useAuthContext } from "../../context/AuthContext"
+import $ from "jquery"
 import useRemoveFriend from "../../hooks/useRemoveFriend"
 
 const UserDescContainer = () => {
@@ -13,7 +13,11 @@ const UserDescContainer = () => {
     },[setSelectedConversation])
 
     const RemoveFriend = (friendid) => {
-        useRemoveFriend(friendid)
+        useRemoveFriend(friendid) // calls hook to remove the friend from array
+    }
+
+    const BackToMessaging = () => {
+        $('style').append("<style type='text/css'>@media screen and (max-width: 1316px) {.chat-container {width: 80%;} .contact-container {width: 0%;} .user-desc{ width: 0%;} .message-container {width: 100vw; gap: 0px;} }</style>");
     }
 
     if (selectedConversation && selectedConversation.typeofchat == "group"){
@@ -32,14 +36,17 @@ const UserDescContainer = () => {
     else if (selectedConversation && selectedConversation.username == selectedConversation.username){
         return (
             <div className="user-alignment">
-            <div className="User-description">
+            <button type="button" className="back-to-messaging-button" onClick={(e) => BackToMessaging()}><i className="bx bx-left-arrow-alt" /></button>
+            <div className="User-description"> {/* shows username and profile picture of the user that is being texted to */}
                 <img src={selectedConversation.profilePic} className="user-pfp" alt="" />
                 <div className="user-name">{selectedConversation.username}</div>
             </div>
             <div className="User-bio-desc">
+                {/* Shows the bio of the user that is being texted to */}
                 <div className="bio-title">Bio</div>
                 <div className="user-bio">Hey! I'm {selectedConversation.username} nice to meet you!</div>
             </div>
+            {/* Button to delete the user as a friend */}
             <form id="remove-friend" className="remove-friend">
                 <button form="remove-friend" className="remove-friend-button" onClick={e => RemoveFriend(selectedConversation._id)}>Remove Friend</button>
             </form>

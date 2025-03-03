@@ -2,6 +2,8 @@ import { useState } from "react"
 import useConversation from "../../zustand/useConversation"
 import useGetConversations from "../../hooks/useGetConversations"
 import toast from "react-hot-toast"
+import './message.css';
+import $ from "jquery"
 
 const SearchInput = () => {
     const [search, setSearch] = useState("")
@@ -10,6 +12,8 @@ const SearchInput = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+
+        $('style').append("<style type='text/css'>@media screen and (max-width: 1316px) {.chat-container {width: 80%;} .contact-container {width: 0%;} .user-desc{ width: 0%;} .message-container {width: 100vw; gap: 0px;} }</style>");
         if(!search) return
         if(search.length < 3){
             return toast.error('Search term must be at least 3 characters long')

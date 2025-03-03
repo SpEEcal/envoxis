@@ -19,7 +19,7 @@ body{
 
 .settings-container{
     display: flex;
-    width: 1800px;
+    width: 90vw;
     height: 800px;
     border: 3px solid rgba(255, 255, 255, 0.3);
     border-radius: 30px;
@@ -61,17 +61,17 @@ body{
 }
 
 .ChangePFP{
-    width: 250px;
-    height: 250px;
+    width: 90%;
+    height: 60%;
     border-radius: 50%;
     margin-top: 15%;
-    margin-left: 20px;
+    margin-left: 10px;
 }
 
 .pfp-submit{
     margin-top: 20px;
     background-color: #5f5b61;
-    width: 300px;
+    width:100%;
     height: 30px;
     border-radius: 10px;
     color: #c1a7bf;
@@ -80,8 +80,8 @@ body{
     padding-top: 4px;
 }
 
-.pfp-submit i{
-    margin-left: 151px;
+#submit-image-icon{
+    margin-left: 3rem;
 }
 
 .titleUP{
@@ -92,7 +92,7 @@ body{
 }
 
 .ChangeUsername{
-    margin-top: 10%;
+    margin-top: 40px;
     color: #ffffff;
     text-align: center;
     border-radius: 10%;
@@ -117,15 +117,15 @@ body{
     color: #fff;
     position: absolute;
     right: 19%;
-    margin-top: 11%;
+    margin-top: 43px;
 }
 
 .Update1{
-    margin-top: 40px;
+    margin-top: -30px;
 }
 
 .ChangeEmail{
-    margin-top: 30%;
+    margin-top: 110px;
     color: #ffffff;
     text-align: center;
     border-radius: 10%;
@@ -150,7 +150,7 @@ body{
     color: #fff;
     position: absolute;
     right: 19%;
-    margin-top: 31%;
+    margin-top: 113px;
 }
 
 .ChangeEmail, .ChangePassword{
@@ -169,21 +169,8 @@ body{
     font-weight: 900;
 }
 
-.ChangePassword{
-    background-color: rgb(69, 82, 90);
-    align-self: center;
-    position: absolute;
-    bottom: 25%;
-    left: 13%;
-    border-radius: 10px;
-    border-width: 8px;
-    border-color: rgb(69, 82, 90);
-    color: white;
-    font-weight: 900;
-}
-
 /* To support mobile devices */
-@media (max-width:892px){
+@media (max-width:1136px){
     .settings-container{
         width: 400px;
     }

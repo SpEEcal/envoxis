@@ -23,12 +23,15 @@ export const signup = async (req,res) => {
         // https://avatar-placeholder.iran.liara.run/avatar/200/200/any
         const ProfilePic = `../Messageimg/unknown.jpg`
 
+        const status = `../Messageimg/active1.png`
+
         const newUser = new User({
             username,
             email,
             phonenumber,
             password: hashedPassword,
             profilePic: ProfilePic,
+            status: status,
         })
 
         if(newUser) {
@@ -41,7 +44,8 @@ export const signup = async (req,res) => {
                 username: newUser.username,
                 email: newUser.email,
                 phonenumber: newUser.phonenumber,
-                profilePic: newUser.profilePic
+                profilePic: newUser.profilePic,
+                status: newUser.status,
             })
         } else {
             res.status(400).json({error: "Invalid user data"})

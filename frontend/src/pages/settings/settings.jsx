@@ -82,7 +82,7 @@ const Settings = () => {
                         <form id='updatepfp' className='Update3'>
                             <label htmlFor="pfp-upload"><img src={authUser.profilePic} className='ChangePFP'/></label>
                             <input type='file' id='pfp-upload' placeholder={authUser.profilePic} onChange={onInputChange}/>
-                            <button type="submit" form='updatepfp' className="pfp-submit" onClick={handleSumbitPFP}>Submit Image<i className="bx bx-send" /></button>
+                            <button type="submit" form='updatepfp' className="pfp-submit" onClick={handleSumbitPFP}>Submit Image<i className="bx bx-send" id='submit-image-icon' /></button>
                             </form>
                         <form className="Update1" onSubmit={handleSubmitUsername}>
                             <h1 className="CUTitle">Username</h1>

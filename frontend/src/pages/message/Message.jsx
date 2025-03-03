@@ -8,8 +8,17 @@ import UserDescContainer from './UserDescContainer';
 import AddFriends from './AddFriends';
 import MiniProfile from './MiniProfile';
 import CreateGroupChat from './CreateGroupChat';
+import $ from "jquery"
 
 const Message = () => {
+   // for mobile users so that they can access this container
+   const ToAddFriends = () => {
+    $('style').append("<style type='text/css'>@media screen and (max-width: 1316px) {.chat-container {width: 80%;} .contact-container {width: 0%;} .user-desc{ width: 0%;} .message-container {width: 100vw; gap: 0px;} .friend-title {font-size: 30px;} .friend-input::placeholder{font-size: 20px;} .friend-input{font-size: 20px; margin-left: 5px; width: 85%;} .friend-submit{position: absolute; right: 20px;} .requests-incoming{ font-size: 25px; margin-bottom: 15px} .request-container{width: 95%; margin-bottom: 10px;} .senderUsername{ font-size: 20px; left: 25%; top: 25%;} .accept-button{ right: 70px; } .decline-button{ right: 10px; }}</style>");
+}
+  const MiniProfileUsed = () => {
+    $('style').append("<style type='text/css'>@media screen and (max-width: 1316px) { .idle-status { left: 160px;} .dnd-status { left: 160px;} .dnd-status span {margin-left: 3px; margin-top: 10px;}}</style>");
+  }
+
   return (
     <div>
         <meta charSet="UTF-8" />
@@ -24,7 +33,9 @@ const Message = () => {
             <div className="contact-container">
               <div className="contact-title">Chats</div>
               <SearchInput />
-              <AddFriends />
+              <div className="button-to-add-friends" onClick={(e) => ToAddFriends()}>
+                <AddFriends />
+              </div>
               <CreateGroupChat />
               <div className="contact-messages">
                 <ul className="contact-list">
@@ -33,8 +44,9 @@ const Message = () => {
                   </li>
                 </ul>
               </div>
-              
-              <MiniProfile />
+              <div className="mini-profile-button" onClick={(e) => MiniProfileUsed()}>
+                <MiniProfile />
+              </div>
             </div>
 
             <div className="chat-container">

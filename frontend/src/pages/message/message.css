@@ -31,7 +31,7 @@
 
 .message-container{
     display: flex;
-    width: 1800px;
+    width: 90vw;
     height: 800px;
     border: 3px solid rgba(255, 255, 255, 0.3);
     border-radius: 30px;
@@ -420,10 +420,16 @@
 
 .chat-back{
     position: absolute;
-    top: 20px;
-    background: transparent;
+    top: 17px;
+    background: #e49985;
     border: none;
     font-size: 30px;
+    color: #2c130c;
+    left: 10px;
+    border-radius: 50%;
+    padding-left: 6px;
+    padding-right: 6px;
+    height: 40px;
 }
 
 .chat-user{
@@ -504,6 +510,7 @@
     width: 100%;
     height: 100%;
     overflow: auto;
+    color: #471818;
 }
 
 .Starter{
@@ -514,7 +521,10 @@
 
 .Starter1{
     text-align: center;
-    margin-top: 170%;
+    display: grid;
+    place-items: center;
+    color: #4d5327;
+    margin-top: 350px;
 }
 
 .Starter2{
@@ -690,11 +700,19 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    margin-top: 100%;
+    margin-top: 100px;
     width: 100%;
     height: 50%;
     background: #ebdfc9;
     backdrop-filter: blur(30px);
+    border-radius: 20px;
+}
+
+.back-to-messaging-button{
+    background-color: #e5c995;
+    color: #705523;
+    font-size: 40px;
+    width: 100%;
     border-radius: 20px;
 }
 
@@ -766,6 +784,7 @@
     color: rgb(238, 221, 221);
     font-weight: 600;
     font-size: 50px;
+    text-align: center;
 }
 
 .friend-form{
@@ -1065,6 +1084,7 @@ input[type="file"] {
 .cannot-create-group-container{
     display: grid;
     place-items: center;
+    margin-top: 350px;
 }
 
 .cannot-create-group-text{
@@ -1072,7 +1092,6 @@ input[type="file"] {
 }
 
 .cannot-create-group-container i{
-    margin-top: 30%;
     color: #000;
     font-size: 50px;
 }
@@ -1090,10 +1109,10 @@ input[type="file"] {
         width: 80%;
     }
     .chat-container{
-        display: none;
+        width: 0%;
     }
     .user-desc{
-        display: none;
+        width: 0%;
     }
     .contact-last-message{
         width: 175px;

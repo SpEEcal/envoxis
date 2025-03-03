@@ -15,6 +15,7 @@ import useAddGroupChat from "../../hooks/useAddGroupChat"
 import toast from "react-hot-toast"
 import GroupMessages from "./GroupMessages"
 import GroupMessageInput from "./GroupMessageInput"
+import $ from "jquery"
 
 const MessageContainer = () => {
     const {selectedConversation, setSelectedConversation} = useConversation()
@@ -32,6 +33,14 @@ const MessageContainer = () => {
         }
     },[setSelectedConversation, setSelectedAddFriends])
 
+    const UserDescButton = () => {
+        $('style').append("<style type='text/css'>@media screen and (max-width: 1316px) {.chat-container {width: 0%;} .contact-container {width: 0%;} .user-desc{ width: 80%;} .message-container {width: 100vw; gap: 0px;} }</style>");
+    }
+
+    const BackToContactList = () => {
+        $('style').append("<style type='text/css'>@media screen and (max-width: 1316px) {.chat-container {width: 0%;} .contact-container {width: 80%;} .user-desc{ width: 0%;} .message-container {width: 100vw; gap: 0px;} }</style>");
+    }
+
     if (selectedConversation != null && selectedConversation.typeofchat == "group"){
         return (
             <>
@@ -41,12 +50,6 @@ const MessageContainer = () => {
                         <img src={selectedConversation.groupchatpfp} className="chat-user-pfp" alt="" />
                         <div className="detail-three">
                             <div className="chat-username">{selectedConversation.groupchatname}</div>
-                        </div>
-                        <div className="chat-voice-call">
-                        <img src="./Messageimg/voicecall.png" alt="" />
-                        </div>
-                        <div className="chat-video-call">
-                        <img src="./Messageimg/videocall.png" alt="" />
                         </div>
                     </div>
                 </div>
@@ -59,18 +62,12 @@ const MessageContainer = () => {
     else if (selectedConversation != null){
         return (
             <>
-                <div className="chat-top">
-                    <button type="button" className="chat-back"><i className="bx bx-left-arrow-alt" /></button>
+                <button type="button" className="chat-back" onClick={(e) => BackToContactList()}><i className="bx bx-left-arrow-alt" /></button>
+                <div className="chat-top" onClick={(e) => UserDescButton()}>
                     <div className="chat-user">
                         <img src={selectedConversation.profilePic} className="chat-user-pfp" alt="" />
                         <div className="detail-three">
                             <div className="chat-username">{selectedConversation.username}</div>
-                        </div>
-                        <div className="chat-voice-call">
-                        <img src="./Messageimg/voicecall.png" alt="" />
-                        </div>
-                        <div className="chat-video-call">
-                        <img src="./Messageimg/videocall.png" alt="" />
                         </div>
                     </div>
                 </div>

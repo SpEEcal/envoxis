@@ -94,10 +94,12 @@ export const getRequests = async (req, res) => {
 
 export const getFriends = async (req, res) => {
     try {
-        const loggedInUser = req.user._id
-        const friends = await User.findById(loggedInUser).populate("friends", "_id username profilePic status")
+        const loggedInUser = req.user._id // gets user id from protectRoute middleware
+        const friends = await User.findById(loggedInUser).populate("friends", "_id username profilePic status") // finds user model and add more information into friends array
     
-        res.status(200).json(friends)
+        res.status(200).json(friends) // returns user information
+
+    // sends error to frontend
     } catch (error) {
         console.log("Error in getFriends controller", error.message)
         res.status(500).json({error:"Internal Server Error"})
@@ -140,6 +142,14 @@ export const addFriend = async (req, res) => {
             return res.status(400).json("Friend not added")
         }
 
+        // finds request and deletes it from friendrequest collection
+        const request = await friendRequest.findOneAndDelete({"receiverId": receiverId, "senderId": senderid})
+
+        // checks if there is no request
+        if (!request){
+            return res.status(400).json("Request not found")
+        }
+
         // returns status that everything worked
         res.status(200).json({message: "Added friend successfully"});
         // checks for any errors that have occured
@@ -151,18 +161,21 @@ export const addFriend = async (req, res) => {
 
 export const deleteFriend = async (req,res) => {
     try {
-        const userid = req.user._id
-        const {friendid} = req.body
-        {console.log(friendid)}
+        const userid = req.user._id // gets user id from protectRoute middleware
+        const {friendid} = req.body // gets friend id from hook "body" in fetch function
 
+        // removes each other from both friends lists
         const updatedfriendslistforuser = await User.findOneAndUpdate({ "_id": userid }, { $pull: { friends: friendid }})
         const updatedfriendslistforfriend = await User.findOneAndUpdate({ "_id": friendid }, { $pull: { friends: userid }})
 
+        // checks for any errors in removing the user from either friends list
         if (!updatedfriendslistforuser || !updatedfriendslistforfriend){
             return res.status(400).json("Friend has not been deleted")
         }
 
+        // returns status that everything worked
         res.status(200).json({message: "Added friend successfully"});
+        // checks for any errors that have occured
     } catch (error) {
         console.log("Error in deleteFriend controller", error.message)
         res.status(500).json({error:"Internal Server Error"})

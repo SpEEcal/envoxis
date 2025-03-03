@@ -2,6 +2,10 @@
   "name": "nea",
   "version": "1.0.0",
   "main": "server.js",
+
+  "//": [
+    "npm run ..... where the .. is the script name -> allows backend to run + MongoDB"
+  ],
   "scripts": {
     "server": "nodemon backend/server.js",
     "start": "node backend/server.js",
@@ -12,6 +16,9 @@
   "author": "",
   "license": "ISC",
   "description": "",
+  "//": [
+    "libraries that the backend uses"
+  ],
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.6",
@@ -27,6 +34,9 @@
     "multer": "^1.4.5-lts.1",
     "socket.io": "^4.7.5"
   },
+  "//": [
+    "libraries that the backend uses to be used in real time (to run with frontend to show application)"
+  ],
   "devDependencies": {
     "nodemon": "^3.1.4"
   }

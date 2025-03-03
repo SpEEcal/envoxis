@@ -7,19 +7,21 @@ import GroupConversation from "./GroupConversation"
 const Conversations = () => {
   const {loading, conversations} = useGetConversations()
   const {groupconversations} = useGetGroupChats()
-  const {friends} = useGetFriends()
-  const friendList = friends.friends
-  var isFriend = null
-
-  console.log(`groupcnvos: ${groupconversations}`)
+  const {friends} = useGetFriends() // gets user information from hook
+  const friendList = friends.friends // selects specifically the friends fielf from user information
+  var isFriend = null // to check whether the selected conversation is the friends conversation
 
   return (
     <div>
+      {/* loops through each user in database */}
         {conversations.map((conversation) => (
           <div>
+            {/* loops through each friend in the users friend list */}
             {friendList.map((friend) =>(
               <div>
+              {/* checks if the friends id is the same as the conversation id */}
                 {isFriend = friend._id === conversation._id}
+              {/* display conversation if so else no conversation displayed */}
                 {isFriend ? <Conversation key={conversation._id} conversation={conversation}/> : ""}
               </div>
             ))}

@@ -27,10 +27,10 @@ body{
     overflow: hidden;
 }
 
+/* Customising menu layout + design */
 .menu-filter{
     display: flex;
     align-items: center;
-    justify-content: center;
     flex-direction: column;
     width: 15%;
     background: #1a171bbe;
@@ -38,124 +38,144 @@ body{
     border-radius: 20px;
 }
 
+.title-settings{
+    color: #a4afa9;
+    font-weight: 600;
+    font-size: 35px;
+    margin-bottom: 100px;
+    margin-top: 30px;
+    text-decoration: underline;
+}
+
+.menu-option-buttons{
+    color: #98a09b;
+    background-color: #262529be;
+    font-weight: 500;
+    padding: 10px 10px;
+    border-radius: 10px;
+    width: 80%;
+    margin-bottom: 10px;
+}
+
+/* Customising middle container */
 .option-listing{
     display: flex;
     align-items: center;
     flex-direction: column;
-    width: 60%;
-    background: #342e37;
-    opacity: 0.6;
+    width: 80%;
+    background: rgba( 52, 46, 55, 0.6);
     backdrop-filter: blur(30px);
     border-radius: 20px;
 }
 
-/* To change the profile stuff */
-.profile-view{
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    width: 20%;
-    background: rgba(101, 89, 107, 0.6);
-    backdrop-filter: blur(30px);
-    border-radius: 20px;
+.nothing-container{
+    display: grid;
+    place-items: center;
 }
 
-.ChangePFP{
+.text-settings{
+    font-weight: 600;
+}
+
+@keyframes left-right {
+    to{
+        transform: translateX(10px);
+    }
+}
+
+#text-settings-icon{
+    font-weight: 600;
+    animation: left-right 3s ease-in-out alternate infinite;
+}
+
+/* Customising Updating user profile section*/
+
+.titleUP{
+    margin-top: 20px;
+    color: #a7b8af;
+    font-weight: 600;
+    text-align: center;
+    font-size: 35px;
+    text-decoration: underline;
+    margin-bottom: 50px;
+}
+
+.update-pfp-title{
+    text-align: center;
+    font-weight: 500;
+    text-decoration: overline;
+    font-size: 25px;
+    color: #99aba1;
+}
+
+#updatepfp{
     display: flex;
-    justify-self: center;
+    flex-wrap: wrap;
+    margin-left: 30px;
+}
+
+.UpdatePFP{
     width: 200px;
     height: 200px;
     border-radius: 50%;
-    margin-top: 15%;
-    margin-left: 0%;
 }
 
 .pfp-submit{
-    display: grid;
-    justify-self: center;
-    margin-top: 10%;
-    background-color: #5f5b61;
-    width:150%;
-    height: 30px;
+    color: #adc0b6;
+    width: 50%;
+    height: 10%;
+    background-color: #727f78;
     border-radius: 10px;
-    color: #c1a7bf;
-    text-align:left;
-    padding: 10px;
-    padding-top: 4px;
+    margin-top: 88px;
+    margin-left: 20px;
 }
 
-.titleUP{
-    align-self: center;
-    font-size: 35px;
-    font-weight: 1000;
-    text-decoration: underline;
-}
+/* Customisation of username + email + phone number changing */
 
-.ChangeUsername{
-    color: #ffffff;
-    text-align: center;
-    border-radius: 10%;
-    width: 120%;
-    margin-left: -10%;
-    background-color: rgba(79, 73, 82, 0.6);
-    outline: none;
-}
-
-.CUTitle{
-    text-decoration:underline;
+.update-profile-container{
     display: flex;
-    font-weight: 500;
-    color: white;
-    margin-left: 30%;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 5%;
 }
 
-.Update1 i{
-    position: absolute;
-    color: #fff;
-    right: 13vw;
-    top: 97.5vw;
+.update-profile-container form{
+    margin: 10px;
 }
 
-.Update1{
-    margin-top: 50px;
-}
-
-.ChangeEmail{
-    color: #ffffff;
+.update-profile-container h1{
+    color: #adc0b6;
+    text-decoration: overline;
+    margin-bottom: 10px;
     text-align: center;
-    border-radius: 10%;
-    width: 120%;
-    margin-left: -10%;
-    background-color: rgba(79, 73, 82, 0.6);
-    outline: none;
+    margin-top: 10%;
 }
 
-.CETitle{
-    margin-top: 20px;
-    text-decoration:underline;
-    display: flex;
-    font-weight: 500;
+.Change{
+    background-color: #727f78;
     color: white;
-    margin-left: 23%;
+    border-radius: 10px;
 }
 
-.Update2 i{
-    color: #fff;
-    position: absolute;
-    right: 13vw;
-    top: 111vw;
+.Change::placeholder{
+    color: #c2c7c5;
+    border-radius: 10px;
+    text-align: center;
 }
 
+/* Customises button for deletion of user */
 .DeleteUser{
     background-color: rgb(202, 42, 42);
-    align-self: center;
+    text-align: center;
     position: absolute;
-    bottom: 5%;
+    bottom: 10px;
+    left: 18%;
     border-radius: 10px;
     border-width: 8px;
     border-color: rgb(202, 42, 42);
     color: white;
     font-weight: 900;
+    width: 50vw;
 }
 
 /* To support mobile devices */
@@ -167,12 +187,12 @@ body{
         width: 20px;
     }
     .menu-filter{
-        display: none;
+        width: 90vw;
     }
     .option-listing{
         display: none;
     }
     .profile-view{
-        width: 90vw;
+        display: none;
     }
 }

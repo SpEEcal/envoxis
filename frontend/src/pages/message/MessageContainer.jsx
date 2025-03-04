@@ -31,7 +31,7 @@ const MessageContainer = () => {
             setSelectedAddFriends(null)
             setSelectedCreateGroupChat(null)
         }
-    },[setSelectedConversation, setSelectedAddFriends])
+    },[setSelectedConversation, setSelectedAddFriends, setSelectedCreateGroupChat])
 
     const UserDescButton = () => {
         $('style').append("<style type='text/css'>@media screen and (max-width: 1316px) {.chat-container {width: 0%;} .contact-container {width: 0%;} .user-desc{ width: 90vw;} .message-container {width: 90vw; gap: 0px;} }</style>");

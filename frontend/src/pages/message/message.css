@@ -86,7 +86,7 @@
     position: absolute;
     top: 50%;
     transform: translateY(-45%);
-    right: 30px;
+    right: 40px;
     font-size: 20px;
     color: #000;
     background-color: transparent;
@@ -1099,14 +1099,14 @@ input[type="file"] {
 /* 1136 */
 @media (max-width:1136px){
     .message-container{
-        width: 400px;
+        width: 90vw;
         gap: 0px;
     }
     .sidebar-container{
-        width: 20%;
+        width: 20px;
     }
     .contact-container{
-        width: 80%;
+        width: 90vw;
     }
     .chat-container{
         width: 0%;

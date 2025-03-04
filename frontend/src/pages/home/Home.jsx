@@ -4,8 +4,11 @@ import Sidebar from '../sidebar/Sidebar'
 import Statuses from './Statuses'
 import moment from 'moment';
 import 'moment/locale/en-gb';
+import $ from "jquery"
 
 const Home = (e) => {
+  $('style').append("<style type='text/css'>@media screen and (max-width: 1316px) {.sidebar-container {width: 100px;}}</style>");
+
     moment.locale(); 
     const formattedDay= moment().format("dddd Do MMMM")
     const formattedTime = moment().format('LT')

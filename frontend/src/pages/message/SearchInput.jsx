@@ -13,7 +13,8 @@ const SearchInput = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        $('style').append("<style type='text/css'>@media screen and (max-width: 1316px) {.chat-container {width: 80%;} .contact-container {width: 0%;} .user-desc{ width: 0%;} .message-container {width: 100vw; gap: 0px;} }</style>");
+        $('style').append("<style type='text/css'>@media screen and (max-width: 1316px) {.chat-container {width: 90vw;} .contact-container {width: 0%;} .user-desc{ width: 0%;} .message-container {width: 90vw; gap: 0px;} .contact-submit { right: 40%; } }</style>");
+
         if(!search) return
         if(search.length < 3){
             return toast.error('Search term must be at least 3 characters long')

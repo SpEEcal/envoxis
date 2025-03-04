@@ -3,6 +3,7 @@ import useLogout from "../../hooks/useLogout"
 import { useState } from "react";
 import useGetChangeColor from "../../hooks/useGetChangeColor";
 import './sidebar.css'
+import '../message/message.css';
 
 const Sidebar = () => {
     const {loading, logout} = useLogout()

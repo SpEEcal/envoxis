@@ -34,11 +34,11 @@ const MessageContainer = () => {
     },[setSelectedConversation, setSelectedAddFriends])
 
     const UserDescButton = () => {
-        $('style').append("<style type='text/css'>@media screen and (max-width: 1316px) {.chat-container {width: 0%;} .contact-container {width: 0%;} .user-desc{ width: 80%;} .message-container {width: 100vw; gap: 0px;} }</style>");
+        $('style').append("<style type='text/css'>@media screen and (max-width: 1316px) {.chat-container {width: 0%;} .contact-container {width: 0%;} .user-desc{ width: 90vw;} .message-container {width: 90vw; gap: 0px;} }</style>");
     }
 
     const BackToContactList = () => {
-        $('style').append("<style type='text/css'>@media screen and (max-width: 1316px) {.chat-container {width: 0%;} .contact-container {width: 80%;} .user-desc{ width: 0%;} .message-container {width: 100vw; gap: 0px;} }</style>");
+        $('style').append("<style type='text/css'>@media screen and (max-width: 1316px) {.chat-container {width: 0%;} .contact-container {width: 90vw;} .user-desc{ width: 0%;} .message-container {width: 90vw; gap: 0px;} }</style>");
     }
 
     if (selectedConversation != null && selectedConversation.typeofchat == "group"){

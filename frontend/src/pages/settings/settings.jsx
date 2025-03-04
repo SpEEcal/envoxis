@@ -6,8 +6,11 @@ import Sidebar from '../sidebar/Sidebar';
 import './settings.css';
 import useUpdateEmail from '../../hooks/useUpdateEmail';
 import useUpdatePFP from '../../hooks/useUpdatePFP';
+import $ from "jquery"
 
 const Settings = () => {
+    // for mobile users -  prevents sidebar from moving
+    $('style').append("<style type='text/css'>@media screen and (max-width: 1316px) {.sidebar-container {width: 100px;}}</style>");
     // imports the signed in users information
     const { authUser, setAuthUser } = useAuthContext()
 
@@ -82,11 +85,10 @@ const Settings = () => {
                         <form id='updatepfp' className='Update3'>
                             <label htmlFor="pfp-upload"><img src={authUser.profilePic} className='ChangePFP'/></label>
                             <input type='file' id='pfp-upload' placeholder={authUser.profilePic} onChange={onInputChange}/>
-                            <button type="submit" form='updatepfp' className="pfp-submit" onClick={handleSumbitPFP}>Submit Image<i className="bx bx-send" id='submit-image-icon' /></button>
+                            <button type="submit" form='updatepfp' className="pfp-submit" onClick={handleSumbitPFP}>Submit Image</button>
                             </form>
                         <form className="Update1" onSubmit={handleSubmitUsername}>
                             <h1 className="CUTitle">Username</h1>
-                            <i className="bx bx-pencil" />
                             <input type='text' className="ChangeUsername" placeholder={authUser.username} 
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
@@ -94,7 +96,6 @@ const Settings = () => {
                         </form>
                         <form className="Update2" onSubmit={handleSubmitEmail}>
                             <h1 className="CETitle">Email Address</h1>
-                            <i className="bx bx-pencil" />
                             <input type='text' className="ChangeEmail" placeholder={authUser.email} 
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}

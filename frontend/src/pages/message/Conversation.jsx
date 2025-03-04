@@ -1,7 +1,6 @@
 import { useSocketContext } from '../../context/SocketContext'
 import './message.css';
 import useConversation from '../../zustand/useConversation'
-import { useEffect } from 'react';
 import $ from "jquery"
 
 const Conversation = ({conversation}) => {
@@ -12,7 +11,7 @@ const Conversation = ({conversation}) => {
 
   const SetUpConvo = (e) => {
     setSelectedConversation(conversation)
-    $('style').append("<style type='text/css'>@media screen and (max-width: 1316px) {.chat-container {width: 80%;} .contact-container {width: 0%;} .user-desc{ width: 0%;} .message-container {width: width: 100vw; gap: 0px;} #convo-input{ width: 70%; } .convo-submit { padding: 8px 10px; right: 15px; top: 6px; } .custom-file-upload { right: 65px; } }</style>");
+    $('style').append("<style type='text/css'>@media screen and (max-width: 1316px) {.chat-container {width: 90vw;} .contact-container {width: 0%;} .user-desc{ width: 0%;} .message-container {width: 90vw; gap: 0px;} #convo-input{ width: 70%; } .convo-submit { padding: 8px 10px; right: 15px; top: 6px; } .custom-file-upload { right: 65px; } }</style>");
   }
 
   return (

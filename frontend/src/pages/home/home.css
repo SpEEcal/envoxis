@@ -212,17 +212,17 @@
 
 @media (max-width:1136px){
     .home-container{
-        width: 400px;
+        width: 90vw;
         gap: 0px;
     }
     .middle-container{
         display: none;
     }
     .statuses{
-        width: 80%;
+        width: 90vw;
     }
     .sidebar-container{
-        width: 20%;
+        width: 100px;
     }
     .last-container{
         display: none;

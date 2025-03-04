@@ -71,6 +71,7 @@ body{
 .nothing-container{
     display: grid;
     place-items: center;
+    margin-top: 350px;
 }
 
 .text-settings{

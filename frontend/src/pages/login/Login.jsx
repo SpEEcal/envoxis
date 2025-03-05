@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import './Login.css';
 import useSignup from '../../hooks/useSignup';
 import useLogin from '../../hooks/useLogin';
+import $ from "jquery"
 
 const Login = () => {
     //sign in

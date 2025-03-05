@@ -165,7 +165,7 @@ export const uploadFile = async (req,res) => {
         }
 
         // sets filetype
-        if(req.file.mimetype == 'image/png' || req.file.mimetype == 'image/jpeg'){
+        if(req.file.mimetype == 'image/png' || req.file.mimetype == 'image/jpeg' || req.file.mimetype == 'image/gif'){
             filetype = "image"
         }
         else{

@@ -7,15 +7,13 @@ import 'moment/locale/en-gb';
 import $ from "jquery"
 
 const Home = (e) => {
-  $('style').append("<style type='text/css'>@media screen and (max-width: 1316px) {.sidebar-container {width: 100px;}}</style>");
+  $('style').append("<style type='text/css'>@media screen and (max-width: 1316px) {.sidebar-container {width: 100px;} .form-image-main{width: 600px;}}</style>");
 
     moment.locale(); 
     const formattedDay= moment().format("dddd Do MMMM")
-    const formattedTime = moment().format('LT')
-
+    const formattedTime = moment().format('HH:mm')
 
   return (
-
     <div className='body2'>
         <meta charSet="UTF-8" />
         <meta name="viewpoint" content="width=device-width, initial-scale=1.0" />
@@ -39,21 +37,24 @@ const Home = (e) => {
           </div>
 
           <div className="middle-container">
-            <div className="unread-messages">
-
-            </div>
             <div className="logo-design">
-
+              <img src="./img/Lines.png" className="home-image-main" />
+                <img src="./img/squiggles.png" className="home-image squiggles" />
+                <img src="./img/beachball.png" className="home-image beachball" />
+                <img src="./img/sandcastle.png" className="home-image sandcastle" />
+                <img src="./img/Logo.png" className="home-image Logo" />
+                <img src="./img/bubbles.png" className="home-image bubbles" />
+                <img src="./img/sparkles.png" className="home-image sparkles" />
+                <h1 className="text-for-homepage">Welcome To Envoxis</h1>
             </div>
           </div>
 
           <div className="last-container">
             <div className="events">
-
+              <div className='Fday'>{formattedDay}</div>
             </div>
             <div className="time">
-                <time className='Fday'>{formattedDay}</time>
-                <time className='Ftime'>{formattedTime}</time>
+                <div className='Ftime'>{formattedTime}</div>
             </div>
           </div>
 

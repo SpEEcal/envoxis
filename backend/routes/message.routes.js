@@ -17,13 +17,13 @@ const storage = multer.diskStorage({
 // function from multer library called to upload files
 const upload = multer({ storage: storage })
 
-const router = express.Router();
+const router = express.Router(); // allows for functions to be run when user is re-directed
 
+//runs the function and middleware to complete a task invoving the database
 router.get("/M/:id", protectRoute, getMessages);
 router.get("/GM/:participants", protectRoute, getGroupMessages);
 router.post("/send/:id", protectRoute,sendMessage);
 router.post("/sendG/:participants", protectRoute,sendGroupMessage);
-//runs the function and middleware to store the file in a folder and to grab user information
 router.post("/uploadfile/:id", [upload.single("file"), protectRoute], uploadFile);
 router.post("/decrypt", protectRoute, decryptdata);
 

@@ -4,12 +4,11 @@ import Conversation from "../models/conversation.model.js";
 
 export const getUsersForSidebar = async (req, res) => {
     try {
+        const loggedInUserId = req.user._id; // data from middleware ProtectRoute
+        const filteredUsers = await User.find({ _id: {$ne: loggedInUserId}}).select("-password") // finds all users and stores in array with all information apart from password
 
-        const loggedInUserId = req.user._id;
-        const filteredUsers = await User.find({ _id: {$ne: loggedInUserId}}).select("-password")
-
-
-        res.status(200).json(filteredUsers);
+        res.status(200).json(filteredUsers); // user array sent to frontend
+    // errors to be returned to frontend
     } catch (error) {
         console.log("Error in getUsersForSidebar: ", error.message)
         res.status(500).json({error:"Internal server error"});
@@ -18,12 +17,11 @@ export const getUsersForSidebar = async (req, res) => {
 
 export const getGroupChatsForSidebar = async (req, res) => {
     try {
+        const loggedInUserId = req.user._id; // data from middleware ProtectRoute
+        const filteredUsers = await Conversation.find({ _id: {$ne: loggedInUserId}, typeofchat: "group"}).select("-password") // finds all users and stores in array with all information apart from password
 
-        const loggedInUserId = req.user._id;
-        const filteredUsers = await Conversation.find({ _id: {$ne: loggedInUserId}, typeofchat: "group"}).select("-password")
-
-        console.log(filteredUsers)
-        res.status(200).json(filteredUsers);
+        res.status(200).json(filteredUsers); // user array sent to frontend
+    // errors to be returned to frontend
     } catch (error) {
         console.log("Error in getGroupChatsForSidebar: ", error.message)
         res.status(500).json({error:"Internal server error"});
@@ -66,9 +64,10 @@ export const sendRequest = async (req, res) => {
             receiverId
         })
 
-        await newRequest.save();
+        await newRequest.save(); // saves request 
 
-        res.status(201).json(newRequest)
+        res.status(201).json(newRequest) // returns sent request
+    // errors to be returned to frontend
     } catch (error) {
         console.log("Error in sendRequest controller", error.message)
         res.status(500).json({error:"Internal Server Error"})
@@ -76,20 +75,32 @@ export const sendRequest = async (req, res) => {
 }
 
 export const senderinfo = async (req, res) => {
-    const senderid = req.body
+    try {
+        const senderid = req.body // data from frontend body
 
-    const user = await User.findById(senderid)
-    if(!user){
-        return res.status(400).json("User not found")
+        const user = await User.findById(senderid) // tries to find the user needed
+        if(!user){ // checks if user exists
+            return res.status(400).json("User not found")
+        }
+
+        res.json(200).json(user) // returns user details to frontend
+    // errors to be returned to frontend
+    } catch (error) {
+        console.log("Error in senderinfo controller", error.message)
+        res.status(500).json({error:"Internal Server Error"})
     }
-
-    res.json(200).json(user)
 }
 
 export const getRequests = async (req, res) => {
-    const requests = await friendRequest.find({receiverId: req.user._id}).populate("senderId", "_id username profilePic")
+    try {
+        const requests = await friendRequest.find({receiverId: req.user._id}).populate("senderId", "_id username profilePic") // finds all request sent to a user
 
-    res.status(200).json(requests)
+        res.status(200).json(requests) // returns arary to be displayed for user
+    // errors to be returned to frontend
+    } catch (error) {
+        console.log("Error in getRequests controller", error.message)
+        res.status(500).json({error:"Internal Server Error"})
+    }
 }
 
 export const getFriends = async (req, res) => {
@@ -184,18 +195,19 @@ export const deleteFriend = async (req,res) => {
 
 export const createGroupChat = async (req, res) => {
     try {
-        const {listofuserids} = req.body
+        const {listofuserids} = req.body // data from frontend body
 
-        const newGroupchat = await Conversation.create({
+        const newGroupchat = await Conversation.create({ // creates the group chat
             participants: listofuserids,
             typeofchat: "group",
         })
 
-        if (!newGroupchat){
+        if (!newGroupchat){ // checks if groupchat has been created
             return res.status(400).json("Group Chat not made")
         }
 
-        res.status(200).json(newGroupchat);
+        res.status(200).json(newGroupchat); // returns groupchat details to frontend
+    // errors to be returned to frontend
     } catch (error) {
         console.log("Error in createGroupChat controller", error.message)
         res.status(500).json({error:"Internal Server Error"})

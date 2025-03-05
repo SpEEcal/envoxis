@@ -4,27 +4,29 @@ import generateTokenAndSetCookie from '../utils/generateToken.js';
 
 export const signup = async (req,res) => {
     try {
-        const {username, email, phonenumber, password, confirmPassword}= req.body;
+        const {username, email, phonenumber, password, confirmPassword}= req.body; // data from frontend body
 
-        if(password !== confirmPassword){
+        if(password !== confirmPassword){ // checks if passwords match
             return res.status(400).json({error:"Passwords do not match"})
         }
 
-        const user = await User.findOne({username});
+        const user = await User.findOne({username}); // checks if username exists
 
         if(user){
-            return res.status(400).json({error:"Username already exists"})
+            return res.status(400).json({error:"Username already exists"}) // outputs error if username already taken
         }
 
         // HASH PASSWORD
         const salt = await bcrypt.genSalt(16);
         const hashedPassword = await bcrypt.hash(password, salt);
 
-        // https://avatar-placeholder.iran.liara.run/avatar/200/200/any
+        // sets default profile picture
         const ProfilePic = `../Messageimg/unknown.jpg`
 
+        // sets default status
         const status = `../Messageimg/active1.png`
-
+        
+        // creates new user object
         const newUser = new User({
             username,
             email,
@@ -39,6 +41,7 @@ export const signup = async (req,res) => {
             generateTokenAndSetCookie(newUser._id, res)
             await newUser.save()
 
+        // returns updated user information to be used for frontend
             res.status(201).json({
                 _id: newUser._id,
                 username: newUser.username,
@@ -48,9 +51,9 @@ export const signup = async (req,res) => {
                 status: newUser.status,
             })
         } else {
-            res.status(400).json({error: "Invalid user data"})
+            res.status(400).json({error: "Invalid user data"}) // error returned ot frontend
         }
-    } catch (error) {
+    } catch (error) { // errors to be returned to frontend
         console.log("Error in signup controller", error.message)
         res.status(500).json({error:"Internal Server Error"})
     }
@@ -58,16 +61,17 @@ export const signup = async (req,res) => {
 
 export const login = async (req,res) => {
     try {
-        const {username, password} = req.body;
-        const user = await User.findOne({username});
-        const isPasswordCorrect = await bcrypt.compare(password, user?.password || "");
+        const {username, password} = req.body; // data from frontend body
+        const user = await User.findOne({username}); // finds user in database
+        const isPasswordCorrect = await bcrypt.compare(password, user?.password || ""); // compares hash of inputted password vs database hash
 
-        if(!user || !isPasswordCorrect){
+        if(!user || !isPasswordCorrect){ // checks if username or password is wrong
             return res.status(400).json({error: "Invalid username or password"})
         }
 
-        generateTokenAndSetCookie(user._id, res);
+        generateTokenAndSetCookie(user._id, res); // creates a token / cookie
 
+        // returns updated user information to be used for frontend
         res.status(200).json({
             _id: user._id,
             username: user.username,
@@ -76,7 +80,7 @@ export const login = async (req,res) => {
             profilePic: user.profilePic,
             status: user.status
         })
-
+    // errors to be returned to frontend
     } catch (error) {
         console.log("Error in login controller", error.message)
         res.status(500).json({error:"Internal Server Error"})
@@ -85,9 +89,10 @@ export const login = async (req,res) => {
 
 export const logout = (req,res) => {
     try {
-        res.cookie("jwt","", {maxAge:0})
+        res.cookie("jwt","", {maxAge:0}) // sets token age to 0
+        // returns updated user information to be used for frontend
         res.status(200).json({message: "Logged out successfully"});
-    } catch (error) {
+    } catch (error) {    // errors to be returned to frontend
         console.log("Error in logout controller", error.message)
         res.status(500).json({error:"Internal Server Error"})
     }
@@ -115,22 +120,24 @@ export const deleteuser = async(req, res) => {
 }
 
 export const updateusername = async(req, res) => {
-    try {
-        const Userid = req.user._id
-        const { username } = req.body
+    try { 
+        const Userid = req.user._id // userid from protectRoute middleware
+        const { username } = req.body // data from frontend body
 
-        const AlreadyUser = await User.findOne({username})
+        const AlreadyUser = await User.findOne({username}) // checks if username exists
         if (AlreadyUser){
-            return res.status(400).json({error: "Username already exists"})
+            return res.status(400).json({error: "Username already exists"}) // error if username exists
         }
 
-        await User.findByIdAndUpdate(Userid, {username: username})
-        const user = await User.findOne(Userid)
+        await User.findByIdAndUpdate(Userid, {username: username}) // updates username
+        const user = await User.findOne(Userid) // gets updated user data
         
+        // checks if user exists in database
         if (!user){
             return res.status(400).json("User not found")
         }
 
+        // returns updated user information to be used for frontend
         res.status(200).json({
             _id: user._id,
             username: user.username,
@@ -139,7 +146,7 @@ export const updateusername = async(req, res) => {
             profilePic: user.profilePic,
             status: user.status
         })
-
+    // errors to be returned to frontend
     } catch (error) {
         console.log("Error in updateusername controller", error.message)
         res.status(500).json({error:"Internal Server Error"})
@@ -148,21 +155,22 @@ export const updateusername = async(req, res) => {
 
 export const updateemail = async(req, res) => {
     try {
-        const Userid = req.user._id
-        const { email } = req.body
+        const Userid = req.user._id // userid from protectRoute middleware
+        const { email } = req.body // data from frontend body
 
-        const AlreadyUser = await User.findOne({email})
+        const AlreadyUser = await User.findOne({email}) // checks if someone is already using that email
         if (AlreadyUser){
-            return res.status(400).json({error: "Email address has already been used"})
+            return res.status(400).json({error: "Email address has already been used"}) // error returned if email is currently in use
         }
 
-        await User.findByIdAndUpdate(Userid, {email: email})
-        const user = await User.findById(Userid)
+        await User.findByIdAndUpdate(Userid, {email: email}) // updates user email
+        const user = await User.findById(Userid) // gets updated user data
 
-        if (!user){
+        if (!user){ // checks if user exists in database
             return res.status(400).json("User not found")
         }
 
+        // returns updated user information to be used for frontend
         res.status(200).json({
             _id: user._id,
             username: user.username,
@@ -171,7 +179,7 @@ export const updateemail = async(req, res) => {
             profilePic: user.profilePic,
             status: user.status
         })
-    
+    // errors to be returned to frontend
     } catch (error) {
         console.log("Error in updateemail controller", error.message)
         res.status(500).json({error:"Internal Server Error"})
@@ -209,16 +217,16 @@ export const changestatus = async(req, res) => {
 
 export const changepfp = async(req, res) => {
     try{
-        console.log(req.file)
-        const Userid = req.user._id
+        const Userid = req.user._id // userid from protectRoute middleware
 
-        await User.findByIdAndUpdate(Userid, {profilePic: `../pfpuploads/${req.file.filename}`})
-        const user = await User.findById(Userid)
+        await User.findByIdAndUpdate(Userid, {profilePic: `../pfpuploads/${req.file.filename}`}) // updates user profile picture using their id
+        const user = await User.findById(Userid) // finds the user in the database again
 
         if (!user){
-            return res.status(400).json("User not found")
+            return res.status(400).json("User not found") // checks if user exists
         }
 
+        // returns updated user information to be used for frontend
         res.status(200).json({
             _id: user._id,
             username: user.username,
@@ -227,6 +235,7 @@ export const changepfp = async(req, res) => {
             profilePic: user.profilePic,
             status: user.status
         })
+    // errors to be returned to frontend
     } catch (error){
         console.log("Error in changepfp controller", error.message)
         res.status(500).json({error:"Internal Server Error"})

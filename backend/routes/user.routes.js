@@ -2,9 +2,9 @@ import express from "express";
 import protectRoute from "../middleware/protectRoute.js";
 import { addFriend, createGroupChat, deleteFriend, deleteRequest, getFriends, getGroupChatsForSidebar, getRequests, getUsersForSidebar, senderinfo, sendRequest } from "../controllers/user.controller.js";
 
-const router = express.Router();
+const router = express.Router(); // allows for functions to be run when user is re-directed
 
-// routes for getting things in the User database
+// routes for getting things from or to the User database
 router.get("/", protectRoute, getUsersForSidebar)
 router.get("/getfriends", protectRoute, getFriends)
 router.get("/getrequests", protectRoute, getRequests)
@@ -15,4 +15,5 @@ router.post("/addfriend", protectRoute, addFriend)
 router.post("/deletefriend", protectRoute, deleteFriend)
 router.post("/creategroupchat", protectRoute, createGroupChat)
 router.get("/getgroupchatsforsidebar", protectRoute, getGroupChatsForSidebar)
+
 export default router;

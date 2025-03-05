@@ -5,9 +5,9 @@ import crypto from "crypto";
 
 export const sendMessage = async (req, res) => {
     try {
-        let { message } = req.body;
-        const { id: receiverId } = req.params;
-        const senderId = req.user._id;
+        let { message } = req.body; // data from frontend body
+        const { id: receiverId } = req.params; // data from api url
+        const senderId = req.user._id; // data from ProtectRoute middleware
         // set encryption alogrithm
         const algorithm = 'aes-256-cbc'
         // private key
@@ -73,7 +73,7 @@ export const sendMessage = async (req, res) => {
         console.log(messagetobesent)
         res.status(201).json(messagetobesent);
 
-    } catch (error) {
+    } catch (error) { // errors to be returned to frontend
         console.log("Error in sendMessage controller: ", error.message)
         res.status(500).json({error:"Internal server error"});
     }
@@ -99,6 +99,7 @@ export const getMessages = async (req, res) => {
 
         // returns array of messages
         res.status(200).json(messages)
+    // errors to be returned to frontend
     } catch (error) {
         console.log("Error in getMessage controller: ", error.message)
         res.status(500).json({error:"Internal server error"});
@@ -190,6 +191,7 @@ export const uploadFile = async (req,res) => {
         const base64data = Buffer.from(iv, "binary").toString("base64")
         iv = base64data
 
+        // creates file to be stored in database where the encrypted message is used
         const newMessage = new Message({
             iv,
             message,
@@ -225,19 +227,21 @@ export const uploadFile = async (req,res) => {
 
 export const getGroupMessages = async (req, res) => {
     try {
-        const users = req.params;
+        const users = req.params; // data from api url
 
+        // finds a converastion between the users
         const conversation = await Conversation.findOne({
             participants: {$all: [users[0], users[1], users[2], users[3], users[4], users[5], users[6], users[7], users[8], users[9]]},
             typeofchat: "group"
         }).populate("messages"); // NOT REF BUT ACTUAL MESSAGES
 
-        if(!conversation) return res.status(200).json([])
-
+        if(!conversation) return res.status(200).json([]) // checks if there are no messages sent between them
+            
+        // gets the messages array
         const messages = conversation.messages
 
-        res.status(200).json(messages)
-    } catch (error) {
+        res.status(200).json(messages) // returns the messages array to the frontend to be displayed
+    } catch (error) { // errors to be returned to frontend
         console.log("Error in getGroupMessage controller: ", error.message)
         res.status(500).json({error:"Internal server error"});
     }
@@ -245,10 +249,9 @@ export const getGroupMessages = async (req, res) => {
 
 export const sendGroupMessage = async (req, res) => {
     try {
-        let { message } = req.body;
-        const receiversIds = req.params;
-        console.log(`receiverids: ${receiversIds[4]}`)
-        const senderId = req.user._id;
+        let { message } = req.body; // data from frontend
+        const receiversIds = req.params; // data from api url
+        const senderId = req.user._id; // data from middleware ProtectRoute
         // set encryption alogrithm
         const algorithm = 'aes-256-cbc'
         // private key
@@ -256,12 +259,12 @@ export const sendGroupMessage = async (req, res) => {
         // random 16 bit initialization vector
         let iv = crypto.randomBytes(16)
 
+        // finds a conversation between the users
         let conversation = await Conversation.findOne({
             participants: { $all: [receiversIds[0], receiversIds[1], receiversIds[2], receiversIds[3], receiversIds[4], receiversIds[5], receiversIds[6], receiversIds[7], receiversIds[8], receiversIds[9]] },
         })
 
-        console.log(conversation)
-
+        // creates a message through the model (UNENCRYPTED)
         const messagetobesent = Message({
             message,
             senderId,
@@ -278,6 +281,7 @@ export const sendGroupMessage = async (req, res) => {
         const base64data = Buffer.from(iv, "binary").toString("base64")
         iv = base64data
 
+        // creates a message through the model to be stored in database (ENCRYPTED)
         const newMessage = new Message({
             iv,
             message,
@@ -285,22 +289,21 @@ export const sendGroupMessage = async (req, res) => {
             receiversIds,
     
         })
-        console.log(`newMessage: ${newMessage}`)
-        if(newMessage) {
+
+        if(newMessage) { // checks for a new message sent
             conversation.messages.push(newMessage._id);
         }
         //SOCKET IO FUNCTIONALITY
-
         const receiverSocketId = getReceiverSocketId(receiversIds)
         if(receiverSocketId){
-            io.to(receiverSocketId).emit("newMessage", newMessage)
+            io.to(receiverSocketId).emit("newMessage", messagetobesent) // sends message to be displayed in real time
         }
 
         //will run in parallel
-        await Promise.all([conversation.save(), newMessage.save()]);
+        await Promise.all([conversation.save(), newMessage.save()]); // saves the messages and conversation status
 
-        res.status(201).json(messagetobesent);
-
+        res.status(201).json(messagetobesent); // sends message to frontend
+    // errors to be returned to frontend
     } catch (error) {
         console.log("Error in sendGroupMessage controller: ", error.message)
         res.status(500).json({error:"Internal server error"});

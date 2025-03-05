@@ -8,10 +8,12 @@ import { useAuthContext } from './context/AuthContext'
 import Settings from './pages/settings/settings'
 
 function App() {
-  const {authUser} = useAuthContext()
+  const {authUser} = useAuthContext() // gets user information to check if authorised
   return (
     <div>
+      {/* allows users to access different pages of the website through the url */}
       <Routes>
+        {/* sets conditions if a user is not authorised to access the website */}
         <Route path='/home' element={authUser ? <Home /> : <Navigate to={"/login"} />} />
         <Route path='/message' element={authUser ? <Message /> : <Navigate to="/home" />} />
         <Route path='/settings' element={authUser ? <Settings /> : <Navigate to="/home" />} />

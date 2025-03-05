@@ -13,7 +13,7 @@ const useListenMessages = () => {
         socket?.on("newMessage", (newMessage) => {
             newMessage.shouldShake = true
             const sound = null
-            if (authUser != "../Messageimg/dnd.png"){
+            if (authUser.status != "../Messageimg/dnd.png"){
                 sound = new Audio(notificationSound)
                 sound.play()
             }

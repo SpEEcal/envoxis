@@ -12,7 +12,6 @@ const Messages = () => {
   moment.locale("en-gb")
   const {messages, loading} = useGetMessages()
   const lastMessageRef = useRef()
-  const {authUser} = useAuthContext()
   let isImage = null
   let isText = null
   let isFile = null
@@ -24,9 +23,7 @@ const Messages = () => {
     },0)
   },[messages])
 
-  if (authUser.status != "../Messageimg/dnd.png"){
-    useListenMessages()
-  }
+  useListenMessages()
 
   const Current_Time = (message) => {
     const current_date = moment().format("DD:MM:YYYY")

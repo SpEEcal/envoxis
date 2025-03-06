@@ -1,15 +1,15 @@
 import useGetConversations from "../../hooks/useGetConversations"
 import useGetFriends from "../../hooks/useGetFriends"
-import useGetGroupChats from "../../hooks/useGetGroupChats"
 import Conversation from "./Conversation"
+import useGetGroupChats from "../../hooks/useGetGroupChats"
 import GroupConversation from "./GroupConversation"
 
 const Conversations = () => {
-  const {loading, conversations} = useGetConversations()
-  const {groupconversations} = useGetGroupChats()
+  const {loading, conversations} = useGetConversations() // gets all conversations in array from MongoDB
   const {friends} = useGetFriends() // gets user information from hook
   const friendList = friends.friends // selects specifically the friends fielf from user information
   var isFriend = null // to check whether the selected conversation is the friends conversation
+  const {groupconversations} = useGetGroupChats()
 
   return (
     <div>
@@ -32,7 +32,7 @@ const Conversations = () => {
             <GroupConversation key={conversation._id} conversation={conversation}/>
           </div>
         ))}
-        {loading ? <span className="loading loading-spinner mx-auto"></span> : null}
+        {loading ? <span className="loading loading-spinner mx-auto"></span> : null} {/* checks whether the conversations are still being laoded up */}
     </div>
   )
 }

@@ -18,10 +18,9 @@ import GroupMessageInput from "./GroupMessageInput"
 import $ from "jquery"
 
 const MessageContainer = () => {
-    const {selectedConversation, setSelectedConversation} = useConversation()
-    const {selectedAddFriends, setSelectedAddFriends} = useAddFriends()
-    const {selectedCreateGroupChat, setSelectedCreateGroupChat} = useCreateGroupChat()
-    console.log(selectedConversation)
+    const {selectedConversation, setSelectedConversation} = useConversation() // gets conversation from hook
+    const {selectedAddFriends, setSelectedAddFriends} = useAddFriends() // loads adding friends container
+    const {selectedCreateGroupChat, setSelectedCreateGroupChat} = useCreateGroupChat() // gets group conversation from hook
 
     useEffect(() => {
 
@@ -33,63 +32,69 @@ const MessageContainer = () => {
         }
     },[setSelectedConversation, setSelectedAddFriends, setSelectedCreateGroupChat])
 
+   // for mobile users so that they can access the user's description
     const UserDescButton = () => {
         $('style').append("<style type='text/css'>@media screen and (max-width: 1316px) {.chat-container {width: 0%;} .contact-container {width: 0%;} .user-desc{ width: 90vw;} .message-container {width: 90vw; gap: 0px;} }</style>");
     }
-
+   // for mobile users so that they can access the contact list again
     const BackToContactList = () => {
         $('style').append("<style type='text/css'>@media screen and (max-width: 1316px) {.chat-container {width: 0%;} .contact-container {width: 90vw;} .user-desc{ width: 0%;} .message-container {width: 90vw; gap: 0px;} }</style>");
     }
 
+    // checks if there is a conversation and it is a group chat
     if (selectedConversation != null && selectedConversation.typeofchat == "group"){
         return (
             <>
                 <div className="chat-top">
-                    <button type="button" className="chat-back"><i className="bx bx-left-arrow-alt" /></button>
+                    <button type="button" className="chat-back"><i className="bx bx-left-arrow-alt" /></button> {/* allow mobile users to exit the chat back to the contact list */}
                     <div className="chat-user">
-                        <img src={selectedConversation.groupchatpfp} className="chat-user-pfp" alt="" />
+                        <img src={selectedConversation.groupchatpfp} className="chat-user-pfp" alt="" /> {/* displays groupchat profile picture */}
                         <div className="detail-three">
-                            <div className="chat-username">{selectedConversation.groupchatname}</div>
+                            <div className="chat-username">{selectedConversation.groupchatname}</div> {/* displays groupchat name */}
                         </div>
                     </div>
                 </div>
 
-                <GroupMessages />
-                <GroupMessageInput />
+                <GroupMessages /> {/* loads group messages */}
+                <GroupMessageInput /> {/* loads an input bar to send messages */}
             </>
         )
     }
+    // checks if there is a conversation and it is a 1 to 1 chat
     else if (selectedConversation != null){
         return (
             <>
-                <button type="button" className="chat-back" onClick={(e) => BackToContactList()}><i className="bx bx-left-arrow-alt" /></button>
+                <button type="button" className="chat-back" onClick={(e) => BackToContactList()}><i className="bx bx-left-arrow-alt" /></button> {/* allow mobile users to exit the chat back to the contact list */}
                 <div className="chat-top" onClick={(e) => UserDescButton()}>
                     <div className="chat-user">
-                        <img src={selectedConversation.profilePic} className="chat-user-pfp" alt="" />
+                        <img src={selectedConversation.profilePic} className="chat-user-pfp" alt="" /> {/* displays the user being chatted to profile picture */}
                         <div className="detail-three">
-                            <div className="chat-username">{selectedConversation.username}</div>
+                            <div className="chat-username">{selectedConversation.username}</div> {/* displays the user being chatted to username */}
                         </div>
                     </div>
                 </div>
 
-                <Messages />
-                <MessageInput />
+                <Messages /> {/* loads 1 to 1 messages */}
+                <MessageInput /> {/* loads an input bar to send messages */}
             </>
         )
     }
+    // checks if user wants to add friends
     else if (selectedAddFriends != null){
         return(
-            <AddFriends />
+            <AddFriends /> // loads function to display the adding friends container
         )
     }
+    // checks if user wants to create group chat
     else if (selectedCreateGroupChat != null){
         return(
-            <CreateGroupChat />
+            <CreateGroupChat /> // loads function to display the creating groupchat container
         )
     }
+    // checks if user has just entered the messaging page
     else{
         return(
-            <NoChatSelected />
+            <NoChatSelected /> // lets user know that no chat has been selected
         )
     }
 }
@@ -101,7 +106,7 @@ const NoChatSelected = () => {
     const {authUser} = useAuthContext()
 
     return(
-        <div className="s-container">
+        <div className="s-container"> {/* displays text to say to user that there is no chat to use to text someone with */}
             <div className="Starter">
                 <p className="sentenceOne">Welcome {authUser.username} !</p>
             </div>

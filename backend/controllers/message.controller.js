@@ -125,7 +125,6 @@ export const decryptdata = async (req, res) => {
             // adds on unicode message
             decrypted += decipher.final("utf8")
             message.message = decrypted // makes sure that messsage can be read by user when seen
-            console.log(message.message)
         })
     
         res.status(200).json(data) // returns data
@@ -227,11 +226,11 @@ export const uploadFile = async (req,res) => {
 
 export const getGroupMessages = async (req, res) => {
     try {
-        const users = req.params; // data from api url
-
-        // finds a converastion between the users
+        const {participants} = req.body; // data from api url
+        const users = participants
+        // finds a conversation between the users
         const conversation = await Conversation.findOne({
-            participants: {$all: [users[0], users[1], users[2], users[3], users[4], users[5], users[6], users[7], users[8], users[9]]},
+            groupchatparticipants: {$all: [users[0], users[1], users[2], users[3], users[4], users[5], users[6], users[7], users[8], users[9]]},
             typeofchat: "group"
         }).populate("messages"); // NOT REF BUT ACTUAL MESSAGES
 
@@ -249,8 +248,8 @@ export const getGroupMessages = async (req, res) => {
 
 export const sendGroupMessage = async (req, res) => {
     try {
-        let { message } = req.body; // data from frontend
-        const receiversIds = req.params; // data from api url
+        let { message ,participants } = req.body; // data from frontend
+        const receiversIds = participants; // data from api url
         const senderId = req.user._id; // data from middleware ProtectRoute
         // set encryption alogrithm
         const algorithm = 'aes-256-cbc'
@@ -261,14 +260,22 @@ export const sendGroupMessage = async (req, res) => {
 
         // finds a conversation between the users
         let conversation = await Conversation.findOne({
-            participants: { $all: [receiversIds[0], receiversIds[1], receiversIds[2], receiversIds[3], receiversIds[4], receiversIds[5], receiversIds[6], receiversIds[7], receiversIds[8], receiversIds[9]] },
+            groupchatparticipants: { $all: [receiversIds[0], receiversIds[1], receiversIds[2], receiversIds[3], receiversIds[4], receiversIds[5], receiversIds[6], receiversIds[7], receiversIds[8], receiversIds[9]] },
+            typeofchat: "group"
         })
+
+        if(!conversation){
+            conversation = await Conversation.create({
+                groupchatparticipants: [receiversIds[0], receiversIds[1], receiversIds[2], receiversIds[3], receiversIds[4], receiversIds[5], receiversIds[6], receiversIds[7], receiversIds[8], receiversIds[9]],
+                typeofchat: "group"
+            })
+        }
 
         // creates a message through the model (UNENCRYPTED)
         const messagetobesent = Message({
             message,
             senderId,
-            receiversIds,
+            receiversIds: [receiversIds[0], receiversIds[1], receiversIds[2], receiversIds[3], receiversIds[4], receiversIds[5], receiversIds[6], receiversIds[7], receiversIds[8], receiversIds[9]],
         })
 
         //encrypt message using AES, Private key and initialisation vector

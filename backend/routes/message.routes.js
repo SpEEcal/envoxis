@@ -21,9 +21,9 @@ const router = express.Router(); // allows for functions to be run when user is 
 
 //runs the function and middleware to complete a task invoving the database
 router.get("/M/:id", protectRoute, getMessages);
-router.get("/GM/:participants", protectRoute, getGroupMessages);
+router.post("/GM", protectRoute, getGroupMessages);
 router.post("/send/:id", protectRoute,sendMessage);
-router.post("/sendG/:participants", protectRoute,sendGroupMessage);
+router.post("/sendG", protectRoute,sendGroupMessage);
 router.post("/uploadfile/:id", [upload.single("file"), protectRoute], uploadFile);
 router.post("/decrypt", protectRoute, decryptdata);
 

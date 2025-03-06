@@ -7,6 +7,12 @@ const conversationSchema = new mongoose.Schema({
             ref: 'User', // gets data about each user from their User model
         }
     ],
+    groupchatparticipants:[
+        {
+            type: String, // saves user id
+            ref: 'User', // gets data about each user from their User model
+        }
+    ],
     messages:[
         {
             type: mongoose.Schema.Types.ObjectId, // saves user id

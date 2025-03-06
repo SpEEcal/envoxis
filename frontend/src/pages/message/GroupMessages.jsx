@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react"
-import useListenMessages from "../../hooks/useListenMessages"
-import SentMessage from "./SentMessage"
+import useListenGroupMessages from "../../hooks/useListenGroupMessages"
+import SentGroupMessage from "./SentGroupMessage"
 import SentImage from "./SentImage"
 import SentFile from "./SentFile"
 import moment from 'moment';
@@ -10,6 +10,7 @@ import useGetGroupMessages from "../../hooks/useGetGroupMessages"
 const GroupMessages = () => {
   moment.locale("en-gb")
   const {groupmessages, loading} = useGetGroupMessages()
+  console.log(groupmessages)
   const lastMessageRef = useRef()
   let isImage = null
   let isText = null
@@ -22,7 +23,7 @@ const GroupMessages = () => {
     },0)
   },[groupmessages])
 
-  useListenMessages()
+  useListenGroupMessages()
 
   const Current_Time = (message) => {
     const current_date = moment().format("DD:MM:YYYY")
@@ -100,7 +101,7 @@ const GroupMessages = () => {
         <div key={message._id} ref={lastMessageRef}>
           {Current_Time(message)}
           {isText = isTextF(message)}
-          {isText ? <SentMessage key={message._id} message={message} />: ""}
+          {isText ? <SentGroupMessage key={message._id} message={message} />: ""}
           {isImage = message.filetype === "image"}
           {isFile = message.filetype === "document"}
           {isImage ? (<SentImage key={message._id} message={message} />): ""}

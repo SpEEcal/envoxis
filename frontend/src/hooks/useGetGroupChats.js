@@ -16,7 +16,6 @@ const useGetGroupChats = () => {
                 if(data.error){
                     throw new Error(data.error)
                 }
-                console.log(data)
                 setGroupConversation(data)
             } catch (error) {
                 toast.error(error.message)

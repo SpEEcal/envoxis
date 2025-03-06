@@ -1,6 +1,7 @@
 import User from "../models/user.model.js";
 import friendRequest from "../models/friendrequest.model.js";
 import Conversation from "../models/conversation.model.js";
+import mongoose from "mongoose";
 
 export const getUsersForSidebar = async (req, res) => {
     try {
@@ -76,14 +77,14 @@ export const sendRequest = async (req, res) => {
 
 export const senderinfo = async (req, res) => {
     try {
-        const senderid = req.body // data from frontend body
+        const {senderid} = req.body;// data from frontend body
 
-        const user = await User.findById(senderid) // tries to find the user needed
+        const user = await User.find({ _id: senderid}).select("-password") // tries to find the user needed
         if(!user){ // checks if user exists
             return res.status(400).json("User not found")
         }
 
-        res.json(200).json(user) // returns user details to frontend
+        res.status(200).json(user) // returns user details to frontend
     // errors to be returned to frontend
     } catch (error) {
         console.log("Error in senderinfo controller", error.message)
@@ -198,7 +199,7 @@ export const createGroupChat = async (req, res) => {
         const {listofuserids} = req.body // data from frontend body
 
         const newGroupchat = await Conversation.create({ // creates the group chat
-            participants: listofuserids,
+            groupchatparticipants: listofuserids,
             typeofchat: "group",
         })
 

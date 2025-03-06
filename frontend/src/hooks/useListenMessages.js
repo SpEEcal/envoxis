@@ -5,23 +5,24 @@ import notificationSound from "../assets/sounds/notification.mp3"
 import { useAuthContext } from '../context/AuthContext'
 
 const useListenMessages = () => {
-    const {socket} = useSocketContext()
-    const {authUser} = useAuthContext()
-    const {messages, setMessages} = useConversation()
+    const {socket} = useSocketContext() // receives the newMessage ping
+    const {authUser} = useAuthContext() // gets all of the users information
+    const {messages, setMessages} = useConversation() // gets messages array
 
     useEffect(() => {
-        socket?.on("newMessage", (newMessage) => {
-            newMessage.shouldShake = true
-            var sound = null
-            if (authUser.status != "../Messageimg/dnd.png"){
+        socket?.on("newMessage", (newMessage) => { // checks if a new message has been sent
+            console.log(newMessage)
+            newMessage.shouldShake = true // shakes the message
+            var sound = null // allows sound to be accessed outside of if statement
+            if (authUser.status != "../Messageimg/dnd.png"){  // checks if the user status is do not disturb
                 sound = new Audio(notificationSound)
-                sound.play()
+                sound.play() // plays notification sound
             }
-            setMessages([...messages,newMessage])
+            setMessages([...messages,newMessage]) // updates messages array
         })
 
-        return () => socket.off("newMessage")
-    }, [,socket, setMessages, messages])
+        return () => socket.off("newMessage") // new message has been addressed
+    }, [,socket, setMessages, messages]) // all parameters needed
 }
 
 export default useListenMessages

@@ -2,6 +2,7 @@ import Conversation from "../models/conversation.model.js";
 import Message from "../models/message.model.js";
 import { getReceiverSocketId, io } from "../socket/socket.js";
 import crypto from "crypto";
+import {ObjectId} from "mongodb"
 
 export const sendMessage = async (req, res) => {
     try {

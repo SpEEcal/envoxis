@@ -296,11 +296,18 @@ export const sendGroupMessage = async (req, res) => {
             receiversIds: [receiversIds[0], receiversIds[1], receiversIds[2], receiversIds[3], receiversIds[4], receiversIds[5], receiversIds[6], receiversIds[7], receiversIds[8], receiversIds[9]],
         })
 
+        const receivers = []
+        receiversIds.map((user) => {
+            if (user != null){
+                receivers.push(ObjectId.createFromHexString(user))
+            }
+        })
+
         if(newMessage) { // checks for a new message sent
             conversation.messages.push(newMessage._id);
         }
         //SOCKET IO FUNCTIONALITY
-        const receiverSocketId = getReceiverSocketId(receiversIds)
+        const receiverSocketId = getReceiverSocketId(receivers)
         if(receiverSocketId){
             io.to(receiverSocketId).emit("newMessage", messagetobesent) // sends message to be displayed in real time
         }

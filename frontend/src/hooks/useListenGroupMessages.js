@@ -11,7 +11,6 @@ const useListenGroupMessages = () => {
 
     useEffect(() => {
         socket?.on("newMessage", (newMessage) => { // checks if a new message has been sent
-            console.log("newMessage")
             newMessage.shouldShake = true // shakes the message
             var sound = null // allows sound to be accessed outside of if statement
             if (authUser.status != "../Messageimg/dnd.png"){  // checks if the user status is do not disturb

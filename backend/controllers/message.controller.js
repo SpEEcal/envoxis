@@ -293,8 +293,7 @@ export const sendGroupMessage = async (req, res) => {
             iv,
             message,
             senderId,
-            receiversIds,
-    
+            receiversIds: [receiversIds[0], receiversIds[1], receiversIds[2], receiversIds[3], receiversIds[4], receiversIds[5], receiversIds[6], receiversIds[7], receiversIds[8], receiversIds[9]],
         })
 
         if(newMessage) { // checks for a new message sent

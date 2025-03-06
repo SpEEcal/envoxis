@@ -231,23 +231,23 @@ export const getGroupMessages = async (req, res) => {
         const users = participants
         const user = req.user._id
 
+        // finds a conversation between the users
+        const conversation = await Conversation.findOne({
+            groupchatparticipants: {$all: [users[0], users[1], users[2], users[3], users[4], users[5], users[6], users[7], users[8], users[9]]},
+            typeofchat: "group"
+        }).populate("messages"); // NOT REF BUT ACTUAL MESSAGES
+
+        if(!conversation) return res.status(200).json([]) // checks if there are no messages sent between them
+            
+        // gets the messages array
+        const messages = conversation.messages
         users.map((participant) => {
             if(user == ObjectId.createFromHexString(participant)){
-                // finds a conversation between the users
-                const conversation = await Conversation.findOne({
-                    groupchatparticipants: {$all: [users[0], users[1], users[2], users[3], users[4], users[5], users[6], users[7], users[8], users[9]]},
-                    typeofchat: "group"
-                }).populate("messages"); // NOT REF BUT ACTUAL MESSAGES
-
-                if(!conversation) return res.status(200).json([]) // checks if there are no messages sent between them
-                    
-                // gets the messages array
-                const messages = conversation.messages
-
                 res.status(200).json(messages) // returns the messages array to the frontend to be displayed
             }
         })
-    } catch (error) { // errors to be returned to frontend
+    }
+    catch (error) { // errors to be returned to frontend
         console.log("Error in getGroupMessage controller: ", error.message)
         res.status(500).json({error:"Internal server error"});
     }

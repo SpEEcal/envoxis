@@ -8,10 +8,16 @@ const GroupConversation = ({conversation}) => {
   const {onlineUsers} = useSocketContext()
   const isOnline = onlineUsers.includes(conversation._id)
 
+  const SetUpConvo = (e) => {
+    setSelectedConversation(conversation)
+    // for mobile users so that they can access the contact container
+    $('style').append("<style type='text/css'>@media screen and (max-width: 1316px) {.chat-container {width: 90vw;} .contact-container {width: 0%;} .user-desc{ width: 0%;} .message-container {width: 90vw; gap: 0px;} #convo-input{ width: 70%; } .convo-submit { padding: 8px 10px; right: 15px; top: 6px; } .custom-file-upload { right: 65px; } }</style>");
+  }
+
   return (
     <div>
       <form id="selectedchat">
-        <div form='selectedchat' className={`contact ${isSelected ? "bg-light-purple" : ""}`} onClick={(e) => setSelectedConversation(conversation)}>
+        <div form='selectedchat' className={`contact ${isSelected ? "bg-light-purple" : ""}`} onClick={(e) => SetUpConvo()}>
             <a href="#">
             <img className="contact-status" src={`${isOnline ? conversation.status : "../Messageimg/invis.png"}`} alt="" />
             <img className="contact-pfp" src={conversation.groupchatpfp} alt="" />

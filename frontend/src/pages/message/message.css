@@ -1096,6 +1096,11 @@ input[type="file"] {
     font-size: 50px;
 }
 
+/*hiding group conversation things*/
+.hideFromView{
+    display: none;
+}
+
 /* 1136 */
 @media (max-width:1136px){
     .message-container{

@@ -3,6 +3,7 @@ import useGetFriends from "../../hooks/useGetFriends"
 import Conversation from "./Conversation"
 import useGetGroupChats from "../../hooks/useGetGroupChats"
 import GroupConversation from "./GroupConversation"
+import { useAuthContext } from "../../context/AuthContext"
 
 const Conversations = () => {
   const {loading, conversations} = useGetConversations() // gets all conversations in array from MongoDB
@@ -10,6 +11,9 @@ const Conversations = () => {
   const friendList = friends.friends // selects specifically the friends fielf from user information
   var isFriend = null // to check whether the selected conversation is the friends conversation
   const {groupconversations} = useGetGroupChats()
+  const { authUser } = useAuthContext()
+  var user = null
+  var userid = authUser._id
 
   return (
     <div>
@@ -29,7 +33,14 @@ const Conversations = () => {
         ))}
         {groupconversations.map((conversation) => (
           <div>
-            <GroupConversation key={conversation._id} conversation={conversation}/>
+            <div className="hideFromView">
+              {user = conversation.groupchatparticipants}
+            </div>
+            {user.map((usersinGC) => (
+              <div>
+                {usersinGC != null && userid === usersinGC.toString() ? <GroupConversation key={conversation._id} conversation={conversation}/> : ""}
+              </div>
+            ))}
           </div>
         ))}
         {loading ? <span className="loading loading-spinner mx-auto"></span> : null} {/* checks whether the conversations are still being laoded up */}

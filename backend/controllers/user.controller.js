@@ -1,7 +1,7 @@
 import User from "../models/user.model.js";
 import friendRequest from "../models/friendrequest.model.js";
 import Conversation from "../models/conversation.model.js";
-import mongoose from "mongoose";
+import {ObjectId} from "mongodb"
 
 export const getUsersForSidebar = async (req, res) => {
     try {
@@ -211,6 +211,20 @@ export const createGroupChat = async (req, res) => {
     // errors to be returned to frontend
     } catch (error) {
         console.log("Error in createGroupChat controller", error.message)
+        res.status(500).json({error:"Internal Server Error"})
+    }
+}
+
+export const objectID = async (req, res) => {
+    try {
+        const {userString} = req.body;// data from frontend body
+
+        const user = ObjectId.createFromHexString(userString)
+
+        res.status(200).json(user) // returns user details to frontend
+    // errors to be returned to frontend
+    } catch (error) {
+        console.log("Error in senderinfo controller", error.message)
         res.status(500).json({error:"Internal Server Error"})
     }
 }

@@ -347,14 +347,14 @@ export const uploadGroupFile = async (req,res) => {
 
         // gets the conversation between the two users
         let conversation = await Conversation.findOne({
-            participants: { $all: [receiversIds[0], receiversIds[1], receiversIds[2], receiversIds[3], receiversIds[4], receiversIds[5], receiversIds[6], receiversIds[7], receiversIds[8], receiversIds[9]] },
+            groupchatparticipants: { $all: [receiversIds[0], receiversIds[1], receiversIds[2], receiversIds[3], receiversIds[4], receiversIds[5], receiversIds[6], receiversIds[7], receiversIds[8], receiversIds[9]] },
             typeofchat: "group"
         })
 
         // creates a conversation for the users
         if(!conversation){
             conversation = await Conversation.create({
-                participants: [receiversIds[0], receiversIds[1], receiversIds[2], receiversIds[3], receiversIds[4], receiversIds[5], receiversIds[6], receiversIds[7], receiversIds[8], receiversIds[9]],
+                groupchatparticipants: [receiversIds[0], receiversIds[1], receiversIds[2], receiversIds[3], receiversIds[4], receiversIds[5], receiversIds[6], receiversIds[7], receiversIds[8], receiversIds[9]],
                 typeofchat: "group"
             })
         }

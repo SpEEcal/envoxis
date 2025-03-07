@@ -27,6 +27,16 @@ export const signup = async (req,res) => {
             return res.status(400).json({error:"Phone number already used"})
         }
 
+        // checks if email is valid
+        if(!validator.isEmail(email)){
+            return res.status(400).json({error:"Invalid Email"})
+        }
+        
+        // checks if phone number is valid
+        if(!validator.isMobilePhone(phonenumber)){
+            return res.status(400).json({error:"Invalid Phone number"})
+        }
+
         // checks if the password is in the valid format
         if (!validator.isStrongPassword(password, { 
             minLength: 8, minLowercase: 1, 

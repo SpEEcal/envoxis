@@ -1,13 +1,13 @@
 // library or external function to be used in program
 import { useState } from "react"
-import useUploadFile from "../../hooks/useUploadFile"
 import useSendGroupMessage from "../../hooks/useSendGroupMessage"
+import useUploadGroupFile from "../../hooks/useUploadGroupFile"
 
 const GroupMessageInput = () => {
     const [message, setMessage] = useState("")
     const {sendGroupMessage} = useSendGroupMessage()
     // function from hook to upload file
-    const {uploadfile} = useUploadFile()
+    const {uploadgroupfile} = useUploadGroupFile()
     const [file, setFile] = useState("")
 
     const handleSubmit = async (e) => {
@@ -17,7 +17,7 @@ const GroupMessageInput = () => {
         if (file) {
           const formData = new FormData() // sets array
           formData.append("file", file) // adds file to array
-          await uploadfile(formData) // used as parameter in hook function
+          await uploadgroupfile(formData) // used as parameter in hook function
           setFile("") // sets file back to an empty string
         }
       // checks if a message exists

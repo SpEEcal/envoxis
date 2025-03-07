@@ -22,6 +22,10 @@ const Message = () => {
     $('style').append("<style type='text/css'>@media screen and (max-width: 1316px) { .idle-status { left: 50%;} .dnd-status { left: 50%;} .dnd-status span {margin-left: 3px; margin-top: 10px;}}</style>");
   }
 
+  const ToCreateGroupChat = () => {
+    $('style').append("<style type='text/css'>@media screen and (max-width: 1316px) {.chat-container {width: 90vw;} .contact-container {width: 0%;} .user-desc{ width: 0%;} .message-container {width: 90vw; gap: 0px;}</style>");
+}
+
   return (
     <div>
         <meta charSet="UTF-8" /> {/* makes page use Unicode character set */}
@@ -39,7 +43,9 @@ const Message = () => {
               <div className="button-to-add-friends" onClick={(e) => ToAddFriends()}>
                 <AddFriends /> {/* allows users to add friends */}
               </div>
-              <CreateGroupChat /> {/* allows user to create a group chat */}
+              <div className="button-to-create-gc" onClick={(e) => ToCreateGroupChat()}>
+                <CreateGroupChat /> {/* allows user to create a group chat */}
+              </div>
               <div className="contact-messages">
                 <ul className="contact-list">
                   <li>

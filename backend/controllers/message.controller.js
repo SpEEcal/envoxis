@@ -303,6 +303,7 @@ export const sendGroupMessage = async (req, res) => {
                 receivers.push(ObjectId.createFromHexString(user))
             }
         })
+
         if(newMessage) { // checks for a new message sent
             conversation.messages.push(newMessage._id);
         }
@@ -323,6 +324,109 @@ export const sendGroupMessage = async (req, res) => {
     // errors to be returned to frontend
     } catch (error) {
         console.log("Error in sendGroupMessage controller: ", error.message)
+        res.status(500).json({error:"Internal server error"});
+    }
+};
+
+
+export const uploadGroupFile = async (req,res) => {
+    try {
+        const { id: receiversIds } = req.params // gets other users id from id in api path
+        console.log(receiversIds)
+        const senderId = req.user._id // gets current user id form protectRoute middleware
+        let filetype = "" // sets filetype to empty string
+        let message = `../fileuploads/${req.file.filename}` // sets file path
+        const filename = req.file.originalname // sets filename
+
+        // set encryption alogrithm
+        const algorithm = 'aes-256-cbc'
+        // private key
+        const key = "anastasiascatwascalledmaxbutdead"
+        // random 16 bit initialization vector
+        let iv = crypto.randomBytes(16)
+
+        // gets the conversation between the two users
+        let conversation = await Conversation.findOne({
+            participants: { $all: [receiversIds[0], receiversIds[1], receiversIds[2], receiversIds[3], receiversIds[4], receiversIds[5], receiversIds[6], receiversIds[7], receiversIds[8], receiversIds[9]] },
+            typeofchat: "group"
+        })
+
+        // creates a conversation for the users
+        if(!conversation){
+            conversation = await Conversation.create({
+                participants: [receiversIds[0], receiversIds[1], receiversIds[2], receiversIds[3], receiversIds[4], receiversIds[5], receiversIds[6], receiversIds[7], receiversIds[8], receiversIds[9]],
+                typeofchat: "group"
+            })
+        }
+
+        // sets filetype
+        if(req.file.mimetype == 'image/png' || req.file.mimetype == 'image/jpeg' || req.file.mimetype == 'image/gif'){
+            filetype = "image"
+        }
+        else{
+            filetype = "document"
+        }
+
+        // creates the message using model
+        const filetobesent = new Message({
+            message,
+            filetype,
+            filename,
+            senderId,
+            receiversIds: [receiversIds[0], receiversIds[1], receiversIds[2], receiversIds[3], receiversIds[4], receiversIds[5], receiversIds[6], receiversIds[7], receiversIds[8], receiversIds[9]],
+        })
+
+        //encrypt message using AES, Private key and initialisation vector
+        const cipher = crypto.createCipheriv(algorithm, key, iv)
+        let encrytedData = cipher.update(message, "utf-8", "hex")
+        encrytedData += cipher.final("hex")
+        message = encrytedData
+
+        // convert the initialisation vector to base64 string
+        const base64data = Buffer.from(iv, "binary").toString("base64")
+        iv = base64data
+
+        // creates file to be stored in database where the encrypted message is used
+        const newMessage = new Message({
+            iv,
+            message,
+            senderId,
+            receiversIds: [receiversIds[0], receiversIds[1], receiversIds[2], receiversIds[3], receiversIds[4], receiversIds[5], receiversIds[6], receiversIds[7], receiversIds[8], receiversIds[9]],
+            filetype,
+            filename,
+        })
+
+        const receivers = []
+        receiversIds.map((user) => {
+            if (user != null){
+                receivers.push(ObjectId.createFromHexString(user))
+            }
+        })
+
+        // saves new message in coversation database
+        if(newMessage) {
+            conversation.messages.push(newMessage._id);
+        }
+        //SOCKET IO FUNCTIONALITY
+        // emits a new message 
+        receivers.map((receiver) => {
+            if (senderId != receiver){
+                const receiverSocketId = getReceiverSocketId(receiver)
+                if(receiverSocketId){
+                    io.to(receiverSocketId).emit("newGroupMessage", filetobesent) // sends message to be displayed in real time
+                }
+            }
+        })
+
+        // //will run in parallel for saving the data
+        await Promise.all([conversation.save(), newMessage.save()]);
+
+        // returns message sent
+        res.status(201).json(filetobesent);
+
+    // displays errors if found
+    } catch (error) {
+        console.log("Error in uploadFile controller: ", error.message)
         res.status(500).json({error:"Internal server error"});
     }
 };

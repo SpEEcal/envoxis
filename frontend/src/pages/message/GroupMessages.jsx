@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react"
 import useListenGroupMessages from "../../hooks/useListenGroupMessages"
 import SentGroupMessage from "./SentGroupMessage"
-import SentImage from "./SentImage"
-import SentFile from "./SentFile"
+import SentGroupImage from "./SentImage"
+import SentGroupFile from "./SentFile"
 import moment from 'moment';
 import './message.css';
 import useGetGroupMessages from "../../hooks/useGetGroupMessages"
@@ -104,8 +104,8 @@ const GroupMessages = () => {
           {isText ? <SentGroupMessage key={message._id} message={message} />: ""}
           {isImage = message.filetype === "image"}
           {isFile = message.filetype === "document"}
-          {isImage ? (<SentImage key={message._id} message={message} />): ""}
-          {isFile ? (<SentFile key={message._id} message={message} />): ""}
+          {isImage ? (<SentGroupImage key={message._id} message={message} />): ""}
+          {isFile ? (<SentGroupFile key={message._id} message={message} />): ""}
         </div>
       ))}
 

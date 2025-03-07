@@ -1,6 +1,7 @@
 import User from '../models/user.model.js';
 import bcrypt from "bcryptjs";
 import generateTokenAndSetCookie from '../utils/generateToken.js';
+import validator from 'validator'
 
 export const signup = async (req,res) => {
     try {
@@ -15,6 +16,24 @@ export const signup = async (req,res) => {
         if(user){
             return res.status(400).json({error:"Username already exists"}) // outputs error if username already taken
         }
+
+        // checks if the email or phone number have been already used
+        const emailused = await User.findOne({email})
+        if(emailused){
+            return res.status(400).json({error:"Email already used"})
+        }
+        const phonenumberused = await User.findOne({phonenumber})
+        if(phonenumberused){
+            return res.status(400).json({error:"Phone number already used"})
+        }
+
+        // checks if the password is in the valid format
+        if (!validator.isStrongPassword(password, { 
+            minLength: 8, minLowercase: 1, 
+            minUppercase: 2, minNumbers: 1, minSymbols: 2 
+        })) { 
+            return res.status(400).json({error:"Invalid password"})
+        } 
 
         // HASH PASSWORD
         const salt = await bcrypt.genSalt(16);

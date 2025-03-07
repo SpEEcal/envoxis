@@ -308,9 +308,11 @@ export const sendGroupMessage = async (req, res) => {
         }
         //SOCKET IO FUNCTIONALITY
         receivers.map((receiver) => {
-            const receiverSocketId = getReceiverSocketId(receiver)
-            if(receiverSocketId){
-                io.to(receiverSocketId).emit("newGroupMessage", messagetobesent) // sends message to be displayed in real time
+            if (senderId != receiver){
+                const receiverSocketId = getReceiverSocketId(receiver)
+                if(receiverSocketId){
+                    io.to(receiverSocketId).emit("newGroupMessage", messagetobesent) // sends message to be displayed in real time
+                }
             }
         })
 

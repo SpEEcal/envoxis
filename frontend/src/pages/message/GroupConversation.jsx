@@ -1,6 +1,7 @@
 import { useSocketContext } from '../../context/SocketContext'
 import './message.css';
 import useConversation from '../../zustand/useConversation'
+import $ from "jquery"
 
 const GroupConversation = ({conversation}) => {
   const {selectedConversation, setSelectedConversation} = useConversation()

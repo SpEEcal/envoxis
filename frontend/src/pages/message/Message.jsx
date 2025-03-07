@@ -23,7 +23,7 @@ const Message = () => {
   }
 
   const ToCreateGroupChat = () => {
-    $('style').append("<style type='text/css'>@media screen and (max-width: 1316px) {.chat-container {width: 90vw;} .contact-container {width: 0%;} .user-desc{ width: 0%;} .message-container {width: 90vw; gap: 0px;}</style>");
+    $('style').append("<style type='text/css'>@media screen and (max-width: 1316px) {.chat-container {width: 90vw;} .contact-container {width: 0%;} .user-desc{ width: 0%;} .message-container {width: 90vw; gap: 0px;} .GC-creation-title{font-size: 30px;} .friends-container {gap: 10px;} .friend-container{width:290px;} .selected-container{width:290px;} .selected-friend-container{width: 200px;} </style>");
 }
 
   return (

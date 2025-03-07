@@ -229,8 +229,6 @@ export const getGroupMessages = async (req, res) => {
     try {
         const {participants} = req.body; // data from api url
         const users = participants
-        const user = req.user._id
-
         // finds a conversation between the users
         const conversation = await Conversation.findOne({
             groupchatparticipants: {$all: [users[0], users[1], users[2], users[3], users[4], users[5], users[6], users[7], users[8], users[9]]},
@@ -241,13 +239,9 @@ export const getGroupMessages = async (req, res) => {
             
         // gets the messages array
         const messages = conversation.messages
-        users.map((participant) => {
-            if(user == ObjectId.createFromHexString(participant)){
-                res.status(200).json(messages) // returns the messages array to the frontend to be displayed
-            }
-        })
-    }
-    catch (error) { // errors to be returned to frontend
+
+        res.status(200).json(messages) // returns the messages array to the frontend to be displayed
+    } catch (error) { // errors to be returned to frontend
         console.log("Error in getGroupMessage controller: ", error.message)
         res.status(500).json({error:"Internal server error"});
     }
@@ -309,16 +303,16 @@ export const sendGroupMessage = async (req, res) => {
                 receivers.push(ObjectId.createFromHexString(user))
             }
         })
-        console.log(receivers)
-
         if(newMessage) { // checks for a new message sent
             conversation.messages.push(newMessage._id);
         }
         //SOCKET IO FUNCTIONALITY
-        const receiverSocketId = getReceiverSocketId(receivers)
-        if(receiverSocketId){
-            io.to(receiverSocketId).emit("newMessage", messagetobesent) // sends message to be displayed in real time
-        }
+        receivers.map((receiver) => {
+            const receiverSocketId = getReceiverSocketId(receiver)
+            if(receiverSocketId){
+                io.to(receiverSocketId).emit("newGroupMessage", messagetobesent) // sends message to be displayed in real time
+            }
+        })
 
         //will run in parallel
         await Promise.all([conversation.save(), newMessage.save()]); // saves the messages and conversation status

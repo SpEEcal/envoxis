@@ -7,7 +7,7 @@ const app = express()
 const server = http.createServer(app) // initiates website
 const io = new Server(server, { // creates a local host to see the website running LOCALLY
     cors:{
-        origin:["http://localhost:3000"], // link to website
+        origin:["https://envoxis.onrender.com"], // link to website
         methods: ["GET","POST"] // methods that are allowed to be used
     }
 })

@@ -25,7 +25,7 @@ router.post("/GM", protectRoute, getGroupMessages);
 router.post("/send/:id", protectRoute,sendMessage);
 router.post("/sendG", protectRoute,sendGroupMessage);
 router.post("/uploadfile/:id", [upload.single("file"), protectRoute], uploadFile);
-router.post("/uploadGroupfile/:id", [upload.single("file"), protectRoute], uploadFile);
+router.post("/uploadGroupfile/:string", [upload.single("file"), protectRoute], uploadFile);
 router.post("/decrypt", protectRoute, decryptdata);
 
 export default router;

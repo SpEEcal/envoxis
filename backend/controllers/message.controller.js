@@ -331,7 +331,7 @@ export const sendGroupMessage = async (req, res) => {
 
 export const uploadGroupFile = async (req,res) => {
     try {
-        const { id: receiversIds } = req.params // gets other users id from id in api path
+        const { receiversIds } = req.params // gets other users id from id in api path
         console.log(receiversIds)
         const senderId = req.user._id // gets current user id form protectRoute middleware
         let filetype = "" // sets filetype to empty string
